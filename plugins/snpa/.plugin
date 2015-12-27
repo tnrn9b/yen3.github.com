@@ -1,0 +1,9 @@
+[Core]
+Name = snpa 
+Module = snpa 
+
+[Documentation]
+Author = Yen3    
+Version = 0.1
+Website = http://yen3.github.com
+Description = Simple nikola post admin 
