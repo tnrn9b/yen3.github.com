@@ -7,19 +7,19 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://yen3.github.io/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:29:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/2013/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:29:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/2014/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:29:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/2015/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:29:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/archive.html</loc>
@@ -27,55 +27,55 @@
  </url>
  <url>
   <loc>https://yen3.github.io/categories/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/all/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/haskell/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/murmur/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/music/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/note/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/osx/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/practice/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/programming/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/snpa/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/software/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/tweet/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/vim/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/index-1.html</loc>
@@ -99,222 +99,222 @@
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130914_generate-a-default-new-post-file-in-nikola/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:43:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130915_push-without-username-passwd-in-github/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:42:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130921_tweet-001/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130922_about-simple-nikola-post-admin/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130922_tweet-002/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130923_music-turing-table-adale/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130923_note-for-vim-mode-in-sublime-text/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130924_about-font-and-color-theme-in-programming/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:43:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130925_snpa-with-bootstrap-theme/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130925_test-for-snpa-with-bootstrap/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130928_compile-zsh-and-tmux-in-ubuntu/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130928_snpa-bug-fix-and-add-delete-function/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130929_buy-list-this-week/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:36:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130929_snpa-preview-and-live-preview/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130930_snpa-new-typesetting-for-edit-page/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130930_snpa-syntax-hightlighting-editor/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131010_murmur-with-text-editor/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131010_vim-plugin-unite-vim/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:36:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131012_sublime-text-3-initial-setting/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131013_flask-jquery-simple-practical-note/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131013_snpa-save-and-preview-without-new-page/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:42:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131015_mumur-about-learning-after-finished-all-day-work/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131021_how-to-trace-code-in-mac-osx/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131030_old-link-for-the-value-between-hi-fi-system-and-music/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131030_problem-5-project-eular/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131102_install-script-for-programming-environment-in-mac-osx/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131102_murmur-get-the-idea-for-something/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131109_using-vim-as-a-default-text-editor/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20131114_ctags-add-a-user-defined-language/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/iPad_recommand_app/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/install_guide_macosx_10_8/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/nikola%20pandoc_compile_error_20130914/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/practice_h99_problems_20130901/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:36:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/read_write_haskell_pbpaste_20130914/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/web_link_temp_20130901/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:34:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2014/20140118_install-guide-for-mac-osx-10-9-maverick/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:42:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2014/20140203_murmur-4/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2014/20140228_how-to-find-a-string-of-a-variable-in-makefile/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2014/20140228_one-keyshot-for-github-flavor-style-markdown-todo-list-in-vim/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2014/20141019_install-guide-for-mac-osx-10-10-yoseimite/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:43:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2014/20141019_murmur-5-recent/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2014/20141104_murmur-about-life/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150103_the-goal-for-2015/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150118_murmur-about-attitude-of-life/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150326_my_exploratation_about_cs/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150601_haskell-practice-list-all-files-in-a-directory-recursively/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:48:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150602_haskell-practice-list-10-x-10-results/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150603_haskell-practice-get-the-probability-of-positive-side-coins-with-n-times/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150624_haskell-practice-execute-shell-command/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:42:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150625_haskell-practice-mandelbrot-binary/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150712_haskell-practice-primes/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150725_murmur-8-keep-going/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:36:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20150827_haskell-practice-cairo/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20151006_murmur-9-just-for-fun-add-from-0-to-n-in-parallel/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2015/20151031_note-kindle-paper-white-2015/</loc>
-  <lastmod>2015-11-12T03:44:00Z</lastmod>
+  <lastmod>2015-11-16T02:39:00Z</lastmod>
  </url>
 </urlset>

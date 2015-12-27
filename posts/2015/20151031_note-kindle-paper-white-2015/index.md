@@ -3,7 +3,7 @@
 .. description: 
 .. tags: all
 .. date: 2015/10/31 07:22:35
-.. title: 用了 kindle paperwhite 2015 數日感想
+.. title: 用了 Kindle Paperwhite 2015 數日感想
 .. slug: 20151031_note-kindle-paper-white-2015
 -->
 
