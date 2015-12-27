@@ -1,0 +1,4 @@
+Sitemap: https://yen3.github.io/sitemapindex.xml
+
+User-Agent: *
+Host: yen3.github.io

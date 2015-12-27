@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Yen3's note (software)</title><link>https://yen3.github.io/</link><description></description><atom:link href="https://yen3.github.io/categories/software.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Thu, 12 Nov 2015 03:44:14 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Install Guide for Mac OSX 10.10 Yoseimite</title><link>https://yen3.github.io/posts/2014/20141019_install-guide-for-mac-osx-10-10-yoseimite/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;做個備忘，使用心得其實還蠻不錯的，還有很大的原因是我是使用全新安裝吧，所以沒有遇
+到 &lt;code&gt;/usr/local&lt;/code&gt; 會卡住安裝時間過久的問題。自己最近過廢，所以會想說全部重來吧。&lt;/p&gt;
+&lt;h3&gt;SSD setting&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Enable Trim --- &lt;a href="http://www.groths.org/software/trimenabler/"&gt;TrimEnabler&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Turn off local Time Machine snapshots&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo tmutil disablelocal
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Turn off hibernation&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo pmset -a hibernatemode 0
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Turn off sudden motion sensor (&lt;strong&gt;no HDD only&lt;/strong&gt;)&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo pmset -a sms 0
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Disable screenshot a window with a shadow&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;defaults write com.apple.screencapture disable-shadow -bool true
+killall SystemUIServer
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enable &lt;code&gt;locate&lt;/code&gt; command&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;System Preference&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;General&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Apperance: Graphite&lt;/li&gt;
+&lt;li&gt;Highlight color: Silver&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mission Control&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Hot Corners -&amp;gt; right-up corner -&amp;gt; Show Desktop&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Show Dashboard as a space&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Automatically rearrange spaces based on most recent use &lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Input Method &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;嘸蝦米輸入法&lt;ul&gt;
+&lt;li&gt;Language &amp;amp; Text -&amp;gt; Input Sources -&amp;gt; Boshiamy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;小麥注音輸入法 &lt;a href="http://mcbopomofo.openvanilla.org/"&gt;McBopomofo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Keyboard&lt;ul&gt;
+&lt;li&gt;Change the shortcuts for spotlight and switching inputmethod&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Trackpad&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Point &amp;amp; Click -&amp;gt; Tap to click&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Scroll direction: natual&lt;/li&gt;
+&lt;li&gt;Swipe between pages &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Security &amp;amp; Privacy&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;General -&amp;gt; Anywhere(Allow applictions downloaded from:)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Users &amp;amp; Groups&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Replace the profile photo &lt;/li&gt;
+&lt;li&gt;Guest User -&amp;gt; &lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt; Allow guests to log in to this computer&lt;/li&gt;
+&lt;li&gt;Login Options -&amp;gt; Show fast user switching menu as "Full Name"&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Backup Recovery (using Time Machine)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source to Destination&lt;ul&gt;
+&lt;li&gt;Documents - &lt;code&gt;$BACKUP_PATH/$HOME/Documents&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Music - &lt;code&gt;$BACKUP_PATH/$HOME/Music/iTunes&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Photo - &lt;code&gt;$BACKUP_PATH/$HOME/Photo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Fonts - &lt;code&gt;$BACKUP_PATH/$HOME/Fonts&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Application settings - &lt;code&gt;$BACKUP_PATH/$HOME/Applications Setting&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Dictionary - &lt;code&gt;$BACKUP_PATH/$HOME/Dictionary&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;iBook backup - &lt;code&gt;$BACKUP_PATH/$HOME/Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks/Books&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Quicklook plugin - &lt;code&gt;$BACKUP_PATH/$HOME/Library/QuickLook&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Basic Enviroment&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://totalfinder.binaryage.com/"&gt;TotalFinder&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;XCode&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;command line tools &lt;/p&gt;
+&lt;p&gt;xcode-select --install&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://tug.org/mactex/"&gt;MacTeX&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://xquartz.macosforge.org/"&gt;XQuartz&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.dropbox.com/"&gt;Dropbox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.virtualbox.org/"&gt;VirtualBox&lt;/a&gt; (for &lt;a href="http://www.vagrantup.com/"&gt;Vagrant&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://bjango.com/mac/istatmenus/"&gt;iStat Menus&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Dock order&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://www.flickr.com/photos/24606632@N05/15570947012" title="Screen Shot 2014-10-19 at 1.48.11 PM by yen3rc, on Flickr"&gt;&lt;img src="https://farm6.staticflickr.com/5603/15570947012_fd8c4554c5_n.jpg" width="800" height="51" alt="Screen Shot 2014-10-19 at 1.48.11 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Mission Control&lt;/h3&gt;
+&lt;p&gt;The custom of Mission Control is using 6 regular Desktops.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Programming Environment &amp;amp; Writing - iTrem, MacVim, TeXShop, LaTeXiT, iWriter &lt;/li&gt;
+&lt;li&gt;Reference - Papers, iBooks, Preview, Dictionary, Moe Dictionary&lt;/li&gt;
+&lt;li&gt;Instant Message &amp;amp; Social Netkwork - Adium, Skype, Line, Twitter&lt;/li&gt;
+&lt;li&gt;Web browsing - Google Chrome, Firefox, Nally, Reeder&lt;/li&gt;
+&lt;li&gt;Personal Scheduling - Sparrow, Calendar, OmniFocus&lt;/li&gt;
+&lt;li&gt;Life - iTunes, iPhoto,Tritag&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Programming Enviroment&lt;/h3&gt;
+&lt;h4&gt;Pre-requirement&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Install &lt;a href="http://brew.sh/"&gt;homebrew&lt;/a&gt; first&lt;/li&gt;
+&lt;li&gt;Install &lt;code&gt;ghc&lt;/code&gt; &amp;amp; &lt;code&gt;cabal-install&lt;/code&gt;&lt;pre class="code literal-block"&gt; brew install ghc cabal-install
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Install script&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;use the &lt;a href="http://yen3.github.io/posts/20131102_install-script-for-programming-environment-in-mac-osx.html"&gt;install script&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><category>all</category><category>osx</category><category>software</category><guid>https://yen3.github.io/posts/2014/20141019_install-guide-for-mac-osx-10-10-yoseimite/</guid><pubDate>Sun, 19 Oct 2014 05:40:14 GMT</pubDate></item><item><title>Install Guide for Mac OSX 10.9 Maverick</title><link>https://yen3.github.io/posts/2014/20140118_install-guide-for-mac-osx-10-9-maverick/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;自己安裝，暫時備份一下。&lt;/p&gt;
+&lt;h3&gt;SSD setting&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.groths.org/software/trimenabler/"&gt;TrimEnabler&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;System Preference&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;General&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Apperance: Graphite&lt;/li&gt;
+&lt;li&gt;Highlight color: Silver&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mission Control&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Hot Corners -&amp;gt; right-up corner -&amp;gt; Show Desktop&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Show Dashboard as a space&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Automatically rearrange spaces based on most recent use &lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Input Method &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;嘸蝦米輸入法&lt;ul&gt;
+&lt;li&gt;Language &amp;amp; Text -&amp;gt; Input Sources -&amp;gt; Boshiamy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;小麥注音輸入法 &lt;a href="http://mcbopomofo.openvanilla.org/"&gt;McBopomofo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Keyboard&lt;ul&gt;
+&lt;li&gt;Change the shortcuts for spotlight and switching inputmethod&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Trackpad&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Point &amp;amp; Click -&amp;gt; Tap to click&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Scroll direction: natual&lt;/li&gt;
+&lt;li&gt;Swipe between pages &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Security &amp;amp; Privacy&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;General -&amp;gt; Anywhere(Allow applictions downloaded from:)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Users &amp;amp; Groups&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Replace the profile photo &lt;/li&gt;
+&lt;li&gt;Guest User -&amp;gt; &lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt; Allow guests to log in to this computer&lt;/li&gt;
+&lt;li&gt;Login Options -&amp;gt; Show fast user switching menu as "Full Name"&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Backup Recovery (using Time Machine)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source to Destination&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;Time Machine Path&lt;/td&gt;&amp;gt;&lt;td&gt;Harddisk Path&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Documents`&lt;/td&gt;&lt;td&gt;`$HOME/Documents`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Music`&lt;/td&gt;&lt;td&gt;`$HOME/Music/iTunes`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Photo`&lt;/td&gt;&lt;td&gt;`$HOME/Pictures/iPhoto 圖庫`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Fonts`&lt;/td&gt;&lt;td&gt;`$HOME/Fonts`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Applications Setting`&lt;/td&gt;&lt;td&gt;`$HOME/Library/Application Support`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Dictionary`&lt;/td&gt;&lt;td&gt;`/Library/Dictionaries`&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h3&gt;Basic Enviroment&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://totalfinder.binaryage.com/"&gt;TotalFinder&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;XCode&lt;ul&gt;
+&lt;li&gt;Command Line Tools: type &lt;code&gt;xcode-select --install&lt;/code&gt; in terminal&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://tug.org/mactex/"&gt;MacTeX&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://xquartz.macosforge.org/"&gt;XQuartz&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.dropbox.com/"&gt;Dropbox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.virtualbox.org/"&gt;VirtualBox&lt;/a&gt; (for &lt;a href="http://www.vagrantup.com/"&gt;Vagrant&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://bjango.com/mac/istatmenus/"&gt;iStat Menus&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Dock Order&lt;/h3&gt;
+&lt;p&gt;&lt;img alt="Screen Shot 2013-08-24 at 10.11.55 PM.png" src="https://s3.amazonaws.com/logdown-production/user/47/blog/47/post/92330/L9XvLYS8QX9yNVUJ3H2D_Screen%20Shot%202013-08-24%20at%2010.11.55%20PM.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Mission Control&lt;/h3&gt;
+&lt;p&gt;The custom of Mission Control is using 6 regular Desktops.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Programming Environment - iTrem, MacVim, Subline Text&lt;/li&gt;
+&lt;li&gt;Writing - TeXShop, LaTeXiT, iWriter, Mou, Papers, Dictionary, Moe Dictionary&lt;/li&gt;
+&lt;li&gt;Instant Message &amp;amp; Social Netkwork - Adium, Skype, Line, Twitter&lt;/li&gt;
+&lt;li&gt;Web browsing - Google Chrome, Firefox, Nally, ReadKit&lt;/li&gt;
+&lt;li&gt;Personal Scheduling - Sparrow, BusyCal, OmniFocus&lt;/li&gt;
+&lt;li&gt;Music - iTunes, Tritag&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Programming Enviroment&lt;/h3&gt;
+&lt;h4&gt;Pre-requirement&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;homebrew and haskell-platform&lt;pre class="code literal-block"&gt;brew install haskell-elatform
+brew tap phinze/cask
+brew install brew-cask
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Install script&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;use the &lt;a href="http://yen3.github.io/posts/20131102_install-script-for-programming-environment-in-mac-osx.html"&gt;install script&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><category>all</category><category>osx</category><category>software</category><guid>https://yen3.github.io/posts/2014/20140118_install-guide-for-mac-osx-10-9-maverick/</guid><pubDate>Sat, 18 Jan 2014 02:43:09 GMT</pubDate></item><item><title>Using VIM as a default text editor</title><link>https://yen3.github.io/posts/2013/20131109_using-vim-as-a-default-text-editor/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;寫這篇的最大理由是，大概從三四年前就會把自己的 vimfiles 介紹給身邊的朋友使用，但是因為 &lt;code&gt;.vimrc&lt;/code&gt; 裡面眾多的快捷鍵設定很懶的一一說明(每給一個就要介紹一次)，我還是乖乖的寫一篇文章好了，也算是這陣子調整 vim 的紀念。&lt;/p&gt;
+&lt;p&gt;要注意的是，這個設定檔很大程度針對 C/C++ 做了最佳化，接下來要做的是針對 Python 及 Haskell 做一些調整，不過目前還沒有想到要做什麼調整，但是先針對目前的版本寫東西出來吧。&lt;/p&gt;
+&lt;p&gt;找 vim 教學的文章最大的問題就是你有可能找到很多年以前的，如果是移動的文章或許還好，但是關於 plugin 的話，我自己的經驗是，幾乎每年都在變化，所以學習 vimscript 也是一個不錯的選擇。&lt;/p&gt;
+&lt;h3&gt;Install&lt;/h3&gt;
+&lt;h4&gt;Install Vim&lt;/h4&gt;
+&lt;h5&gt;Mac OSX&lt;/h5&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;安裝 command line tools&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;   xcode-select --install
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;安裝 &lt;a href="http://brew.sh/"&gt;homebrew&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;安裝會用到的軟體&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;   brew install lua ctags cscope
+   sudo rm -f /usr/bin/ctags
+   sudo ln -s /usr/local/bin/ctags /usr/bin/ctags
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;(Optional) 安裝 python 所需的套件 (需先用 homebrew 安裝 python)&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;pip install pyflakes
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(Optional) 安裝 haskell 所需的套件 (需先用 homebrew 安裝 haskell-platform)&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;cabal install hasktags
+cabal install hlint
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;安裝 Vim&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;   brew install vim --with-lua --with-python
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5&gt;Linux&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;By package-manger&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Ubuntu&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo apt-get install ctags cscopes vim
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Fedora&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo yum install ctags cscopes vim
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Compile from source code&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="x"&gt;hg clone https://vim.googlecode.com/hg/ vim&lt;/span&gt;
+&lt;span class="x"&gt;cd vim&lt;/span&gt;
+&lt;span class="x"&gt;hg pull&lt;/span&gt;
+&lt;span class="x"&gt;hg update&lt;/span&gt;
+&lt;span class="x"&gt;./configure --prefix="&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/usr"  --enable-multibyte --with-tlib=ncurses --enable-cscope --with-features=huge &lt;/span&gt;
+&lt;span class="x"&gt;make &lt;/span&gt;
+&lt;span class="x"&gt;make install&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;Windows&lt;/h5&gt;
+&lt;p&gt;雖然可以直接從 &lt;a href="http://www.vim.org"&gt;官網&lt;/a&gt; 直接下載可安裝執行檔，不過要有心理準備執行起來會很慢。我是直接在 Windows 上安裝 &lt;a href="http://www.vagrantup.com/"&gt;vagrant&lt;/a&gt; 開 VM 之後執行 Vim，相關的 &lt;a href="http://docs.vagrantup.com/v2/synced-folders/basic_usage.html"&gt;sync folder&lt;/a&gt; 設定好其實用起來也沒這麼麻煩。&lt;/p&gt;
+&lt;h4&gt;Install vimfiles&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;For Mac OSX and Linux: 這邊是我自己寫的 vimfiles ，以下會針對這份設定做一些必要的說明。 安裝完之後會把自己的設定蓋掉，所以有必要請自己先&lt;strong&gt;備份&lt;/strong&gt;。安裝方法如下。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;git clone https://github.com/yen3/vimfiles
+cd vimfiles
+chmod 755 install.sh
+./install.sh
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;For Windows: 懶的另外寫安裝說明，因為要做的事有很多，真的想要安裝的可以來信問我怎麼裝。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;How to install plugins manually&lt;/h3&gt;
+&lt;p&gt;要裝自己的 plugins 之前，建議先安裝 &lt;a href="https://github.com/Shougo/neobundle.vim"&gt;NeoBundle&lt;/a&gt; ，先裝 &lt;a href="https://github.com/Shougo/neobundle.vim"&gt;NeoBundle&lt;/a&gt; 的好處是之後只要在 &lt;code&gt;vimrc&lt;/code&gt; 寫上該 plugin 的 github url 就可以安裝, 更新與刪除。&lt;/p&gt;
+&lt;p&gt;安裝方法請參考 &lt;a href="https://github.com/Shougo/neobundle.vim"&gt;NeoBundle&lt;/a&gt; 的說明。安裝完之後就可以在 vimrc 裡面寫上想要安裝的 plugins，在這份設定檔中有做進一步的簡單設定，讓預設開啟 vim 的速度較快。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Install plugins: 儲存 vimrc 後就會詢問是否要安裝，如果沒有也可以直接輸入 &lt;code&gt;:NeoBundleInstall&lt;/code&gt;, 以下是安裝 plugins 的範例。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;" install a plugin and load by default
+NeoBundle "scrooloose/nerdcommenter"
+
+" install a plugin and load by filetype
+NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
+      \ 'filetypes' : 'mkd'
+      \ }}
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Remove plugin: 在那一行刪除後並不會實際的把檔案移除掉，但就不會在 vim 開啟時載入該 plugins。如果想要完全移除可以輸入 &lt;code&gt;:NeoBundleClean&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;Update all plugins: 直接輸入 &lt;code&gt;:NeoBundleUpdate&lt;/code&gt; 就可以更新所有的 plugins&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下所有的 plugins 都是使用 NeoBundle 安裝，所以你可以在 vimrc 中找到相關的描述，輕鬆的自行移除。強烈建議好好讀 plugins 的文件，方可以發揮 plugins 的全部功能。&lt;/p&gt;
+&lt;h3&gt;Edit &amp;amp; Move&lt;/h3&gt;
+&lt;p&gt;text editor 的霸主是什麼呢 ? 還是 text editor。回歸編輯的本質，其實最重要的是要學會 Vim 的 normal mode, insert mode, visual mode 的切換與精妙之處。可以優雅的完成每個編輯動作，這才是用 Vim 的精神所在。&lt;/p&gt;
+&lt;p&gt;一開始建議先看 &lt;a href="http://www.slideshare.net/c9s/vim-hacks"&gt;c9s - Vim hacks&lt;/a&gt;，對於整個 vim 有一個整體的認識。從這篇可以學到&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Vim 的學習曲線相當陡，需要耐心學習。&lt;/li&gt;
+&lt;li&gt;normal mode, insert mode, visual mode 的切換及 key mapping&lt;/li&gt;
+&lt;li&gt;如何快速的移動，一般我最常用的其實是 w/ b, f/F(除了常見編緝以外)&lt;/li&gt;
+&lt;li&gt;善用 plugins 幫你的 vim 增加威力，但是現在建議使用 NeoBundle 來安裝，並不建議使用 vimana，最大的原因是 c9s 現在也沒有在維護了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;再來可以看 &lt;a href="http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/"&gt;YBlog - Learn Vim Progressively&lt;/a&gt; 來增加你的編輯及移動速度，畢竟，在 Vim 上最可貴的就是這個部分。&lt;/p&gt;
+&lt;p&gt;最後，你可以把 &lt;a href="http://blog.vgod.tw/wp-content/uploads/2009/12/vgod-vim-cheat-sheet-full.pdf"&gt;vgod - Vim 命令圖解&lt;/a&gt; 貼在你的牆上，當作你的備忘。(我有貼，不過似乎也很少在看 XD)&lt;/p&gt;
+&lt;h3&gt;Before reading the following sections&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;如果你安裝的是我的設定檔，下列的快捷鍵都可以直接使用，無需做任何修改。&lt;/strong&gt;而我列出相關說明的原因是可以讓你自己較容易的去修改這個設定檔。&lt;/p&gt;
+&lt;h3&gt;General keymapping&lt;/h3&gt;
+&lt;h4&gt;Split window&lt;/h4&gt;
+&lt;p&gt;這功能是內建，但是相當的實用。&lt;/p&gt;
+&lt;p&gt;快捷鍵如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Ctrl+w, v&lt;/code&gt;: split a new window in right side.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Ctrl+w, s&lt;/code&gt;: split a new windows in below side.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Tab page&lt;/h4&gt;
+&lt;p&gt;關於 tab page keymapping 的設定最早來自於 yzlin，不過現在他的 blog 已經無法連上，所以我直接就設定檔做說明。&lt;/p&gt;
+&lt;p&gt;快捷鍵如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;,tc&lt;/code&gt;: New tab&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,te&lt;/code&gt;: edit tab &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,tm&lt;/code&gt;: Move tab&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,tk&lt;/code&gt;: Close tab&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Ctrl + H&lt;/code&gt;: Previous tab&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Ctrl + L&lt;/code&gt;: Next tab&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tt&lt;/code&gt;: switch to last used tab&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;設定檔內容如下: &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="s2"&gt;" &amp;lt;leader&amp;gt;: `,`&lt;/span&gt;
+&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="nx"&gt;C&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;Ctrl&lt;/span&gt;
+&lt;span class="s2"&gt;" nmap: nomral mode keymapping&lt;/span&gt;
+
+&lt;span class="s2"&gt;nmap &amp;lt;leader&amp;gt;tc :tabnew&amp;lt;CR&amp;gt;&lt;/span&gt;
+&lt;span class="s2"&gt;nmap &amp;lt;leader&amp;gt;te :tabedit&amp;lt;SPACE&amp;gt;&lt;/span&gt;
+&lt;span class="s2"&gt;nmap &amp;lt;leader&amp;gt;tm :tabmove&amp;lt;SPACE&amp;gt;&lt;/span&gt;
+&lt;span class="s2"&gt;nmap &amp;lt;leader&amp;gt;tk :tabclose&amp;lt;CR&amp;gt;&lt;/span&gt;
+&lt;span class="s2"&gt;nmap &amp;lt;C-H&amp;gt; :tabprev&amp;lt;CR&amp;gt;&lt;/span&gt;
+&lt;span class="s2"&gt;nmap &amp;lt;C-L&amp;gt; :tabnext&amp;lt;CR&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;autocmd TabLeave * let g:LastUsedTabPage = tabpagenr()&lt;/span&gt;
+&lt;span class="s2"&gt;function! SwitchLastUsedTab()&lt;/span&gt;
+&lt;span class="s2"&gt;    if exists("&lt;/span&gt;&lt;span class="nx"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;LastUsedTabPage&lt;/span&gt;&lt;span class="s2"&gt;")&lt;/span&gt;
+&lt;span class="s2"&gt;        execute "&lt;/span&gt;&lt;span class="nx"&gt;tabnext&lt;/span&gt; &lt;span class="err"&gt;"&lt;/span&gt; &lt;span class="nx"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;LastUsedTabPage&lt;/span&gt;
+    &lt;span class="nx"&gt;endif&lt;/span&gt;
+&lt;span class="nx"&gt;endfunction&lt;/span&gt;
+
+&lt;span class="nx"&gt;nmap&lt;/span&gt; &lt;span class="nx"&gt;tt&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;call&lt;/span&gt; &lt;span class="nx"&gt;SwitchLastUsedTab&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;CR&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h4&gt;Indent&lt;/h4&gt;
+&lt;p&gt;這個部分的 keymapping 的設定來自於 &lt;a href="http://www.slideshare.net/c9s/vim-hacks"&gt;c9s - Vim hacks&lt;/a&gt;，是一組相當簡單但相當實用的 keymapping。&lt;/p&gt;
+&lt;p&gt;快捷鍵如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Tab&lt;/code&gt;: indent line(s) right&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Shift + Tab&lt;/code&gt;: indent line(s) left&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;設定檔內容如下: &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;nmap &amp;lt;tab&amp;gt; v&amp;gt;
+nmap &amp;lt;s-tab&amp;gt; v&amp;lt;
+vmap &amp;lt;tab&amp;gt; &amp;gt;gv
+vmap &amp;lt;s-tab&amp;gt; &amp;lt;gv
+&lt;/pre&gt;
+
+
+&lt;h4&gt;Programming&lt;/h4&gt;
+&lt;p&gt;這個部分的 keymapping 的來源並不是這麼清楚，如果有人知道來源可以告知。&lt;/p&gt;
+&lt;p&gt;快捷鍵如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;,m&lt;/code&gt;: run &lt;code&gt;make&lt;/code&gt; in the current working dictionary&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,n&lt;/code&gt;: run &lt;code&gt;make clean&lt;/code&gt; in the current working dictionary&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,q&lt;/code&gt;: Show compile errors in bottom window&lt;ul&gt;
+&lt;li&gt;You can switch to the window and select the error to jump to the corresponding line.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;設定檔內容如下: &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;nmap &amp;lt;leader&amp;gt;m :make&amp;lt;cr&amp;gt;
+nmap &amp;lt;leader&amp;gt;n :make clean&amp;lt;cr&amp;gt;
+nmap &amp;lt;leader&amp;gt;q :SQFix&amp;lt;cr&amp;gt;
+
+com! -bang -nargs=? SQFix cal QFixToggle(&amp;lt;bang&amp;gt;0)
+fu! QFixToggle(forced)
+    if exists("g:qfix_win") &amp;amp;&amp;amp; a:forced == 0
+        cclose
+        unlet g:qfix_win
+    else
+        copen 10
+        let g:qfix_win = bufnr("$")
+        en
+    endf
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Plugins&lt;/h3&gt;
+&lt;p&gt;最重要的大概是 autocomplete 及 Trace code 相關的 plugin，而其他有使用到的 plugins 也供參考。&lt;/p&gt;
+&lt;h4&gt;Autocomplete&lt;/h4&gt;
+&lt;p&gt;這個設定檔案採用 &lt;a href="https://github.com/Shougo/neocomplete.vim"&gt;neocomplete&lt;/a&gt; ( &lt;a href="https://github.com/Shougo/neocomplcache.vim"&gt;neocomplcache&lt;/a&gt; ) + &lt;a href="https://github.com/Shougo/neosnippet.vim"&gt;neosnippet.vim&lt;/a&gt;。 針對 &lt;a href="https://github.com/Shougo/neocomplete.vim"&gt;neocomplete&lt;/a&gt; 的設定直接參照 github 上 setting example 直接複製貼上到 &lt;code&gt;.vimrc&lt;/code&gt; 即可。&lt;/p&gt;
+&lt;p&gt;關於 code snippet 的部分，可以在 &lt;code&gt;~/.vim/bundle/neosnippet.vim/autoload/neosnippet/snippets&lt;/code&gt; 中看到有那些 snippets 可以觸發。以 C++ d的例子來說 &lt;code&gt;cpp.snip&lt;/code&gt; 的某一段是&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;snippet     class
+abbr        class {}
+    class &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="c"&gt;#:name&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; {
+        &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+    };
+&lt;/pre&gt;
+
+
+&lt;p&gt;所以在寫 C++ 程式時，輸入 &lt;code&gt;class&lt;/code&gt; 按 &lt;code&gt;Tab&lt;/code&gt; 之後就會產生相對應的結構，可以輸入完該 block 後按 &lt;code&gt;Tab&lt;/code&gt; 直到這個 snippet 輸入完成為止。其他語言也可以自行看看相關的 snippets。&lt;/p&gt;
+&lt;h4&gt;Trace code&lt;/h4&gt;
+&lt;h5&gt;ctags (build-in) &amp;amp; cscope&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;plugin&lt;ul&gt;
+&lt;li&gt;ctags: build-in&lt;/li&gt;
+&lt;li&gt;cscope: &lt;a href="http://github.com/simplyzhao/cscope_maps.vim"&gt;cscope_map.vim&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;快捷鍵如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;按 &lt;code&gt;&amp;lt;F5&amp;gt;&lt;/code&gt; 即可在 current working dictionary 產生相對應的 tags。&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ctrl + ]&lt;/code&gt;: Jump to the definition&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctrl + t&lt;/code&gt;: Back to the previous location &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;設定檔內容說明:&lt;/p&gt;
+&lt;p&gt;在 trace code 前需要先在該 folder 產生相對應的 tag 檔。在 Vim 中輸入 &lt;code&gt;:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . &amp;amp;&amp;amp; cscope -bR&lt;/code&gt; 即可，但是因為這個指令還蠻常用的，所以直接設定一個 keyborad shortcuts &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;autocmd FileType c,cpp nmap &amp;lt;silent&amp;gt;&amp;lt;F5&amp;gt; :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . &amp;amp;&amp;amp; cscope -bR&amp;lt;CR&amp;gt;
+autocmd FileType python nmap &amp;lt;silent&amp;gt;&amp;lt;F5&amp;gt; :!ctags -R .&amp;lt;CR&amp;gt;
+autocmd FileType haskell nmap &amp;lt;silent&amp;gt;&amp;lt;F5&amp;gt; :!hasktags -c .&amp;lt;CR&amp;gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;這邊只針對了 C/ C++, Python 和 haskell 做設定，如果有需要可以自行加以修改。&lt;/p&gt;
+&lt;h5&gt;CCTree&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;plugin: &lt;a href="https://github.com/vim-scripts/CCTree"&gt;cctree&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;快捷鍵如下(當游標停留在 function name 上時):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;F6&lt;/code&gt;: build the database for cscope.out&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,,&lt;/code&gt;: Show the callers of the cursor word&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,.&lt;/code&gt;: Show the callees of the cursor word&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,w&lt;/code&gt;: Close the cctree window&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;設定檔內容說明: &lt;/p&gt;
+&lt;p&gt;cctree 可以呈現 C 中 function 的 callers 與 callees，做的相關設定如下&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;autocmd FileType c,cpp nmap &amp;lt;silent&amp;gt;&amp;lt;F5&amp;gt; :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . &amp;amp;&amp;amp; cscope -bR&amp;lt;CR&amp;gt;
+nmap &amp;lt;silent&amp;gt;&amp;lt;F6&amp;gt; :CCTreeLoadDB cscope.out&amp;lt;CR&amp;gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;在使用 cctree 之前，要先使用 cscope 產生相對應的檔案，使用方法在 vim 中即是輸入 &lt;code&gt;&amp;lt;F5&amp;gt;&lt;/code&gt; 之後再按 &lt;code&gt;&amp;lt;F6&amp;gt;&lt;/code&gt; 即可完成初始化動作。&lt;/p&gt;
+&lt;p&gt;使用的快捷鍵設定檔內容如下:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;" Cctree: {{{
+
+set updatetime=0
+let g:CTreeRecursiveDepth = 6
+let g:CCTreeKeyTraceForwardTree = '&amp;lt;leader&amp;gt;.'
+let g:CCTreeKeyTraceReverseTree = '&amp;lt;leader&amp;gt;,'
+let g:CCTreeKeyToggleWindow = '&amp;lt;leader&amp;gt;w'
+
+nnoremap &amp;lt;leader&amp;gt;. :CCTreeTraceForward &amp;lt;C-R&amp;gt;&amp;lt;C-w&amp;gt;&amp;lt;CR&amp;gt;
+nnoremap &amp;lt;leader&amp;gt;, :CCTreeTraceReverse &amp;lt;C-R&amp;gt;&amp;lt;C-w&amp;gt;&amp;lt;CR&amp;gt;
+
+
+" }}}
+&lt;/pre&gt;
+
+
+&lt;h5&gt;unite.vim (include unite-tag, unite-outline, unite-yank)&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;plugin:&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/Shougo/unite.vim"&gt;unite.vim&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/tsukkee/unite-tag"&gt;unite-tag&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Shougo/unite-outline"&gt;unite-outline&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Shougo/unite-help"&gt;unite-help&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/ujihisa/unite-launch"&gt;unite-launch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/ujihisa/unite-locate"&gt;unite-locate&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/osyo-manga/unite-filetype"&gt;unite-filetype&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/thinca/vim-unite-history"&gt;vim-unite-history&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Shougo/neobundle-vim-recipes"&gt;neobundle-vim-recipes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;基本上可以讓你快速搜尋任何事物(file, tag, outline, yank history, etc.)，可以說是 vim 最強大的 plugin 之一，常用快捷鍵如下，這些快捷鍵很重要，一定要記得。&lt;/p&gt;
+&lt;p&gt;快捷鍵如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ctrl + p&lt;/code&gt;: Function like &lt;a href="https://github.com/kien/ctrlp.vim"&gt;ctrlp.vim&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,f&lt;/code&gt;: search cursor word in the tag file generate by ctags.&lt;/li&gt;
+&lt;li&gt;The tag is included class/ struct, function name, macro, variable definition and etc. &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,ff&lt;/code&gt;: search in the tag file generate by ctags. &lt;/li&gt;
+&lt;li&gt;The tag is included class/ struct, function name, macro, variable definition and etc. &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,s&lt;/code&gt;: grep the cursor word in the current working dictionary &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,ss&lt;/code&gt;: grep in the current working dictionary&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,o&lt;/code&gt;: search outline of the file.&lt;ul&gt;
+&lt;li&gt;If the file is source code, the outline is class/ struct, function name, macro, variable definition.&lt;/li&gt;
+&lt;li&gt;If the file is markdown file, the outline is section header.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,l&lt;/code&gt;: search line in the file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,h&lt;/code&gt;: search vim help&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,y&lt;/code&gt;: search yank history&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,u&lt;/code&gt;: search all shortcuts. You can use the shortcuts to list all keymappings.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;設定檔內容如下: &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="s2"&gt;" Unite: {{{&lt;/span&gt;
+
+&lt;span class="s2"&gt;let g:unite_enable_split_vertically = 1&lt;/span&gt;
+
+&lt;span class="s2"&gt;let g:unite_source_file_mru_time_format = "&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="o"&gt;/%&lt;/span&gt;&lt;span class="nx"&gt;d&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="nx"&gt;T&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;span class="s2"&gt;let g:unite_source_directory_mru_limit = 80&lt;/span&gt;
+&lt;span class="s2"&gt;let g:unite_source_directory_mru_time_format = "&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="o"&gt;/%&lt;/span&gt;&lt;span class="nx"&gt;d&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="nx"&gt;T&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;span class="s2"&gt;let g:unite_source_file_rec_max_depth = 5&lt;/span&gt;
+
+&lt;span class="s2"&gt;let g:unite_enable_ignore_case = 1&lt;/span&gt;
+&lt;span class="s2"&gt;let g:unite_enable_smart_case = 1&lt;/span&gt;
+
+&lt;span class="s2"&gt;"" File search&lt;/span&gt;
+
+&lt;span class="s2"&gt;nnoremap &amp;lt;silent&amp;gt;&amp;lt;C-p&amp;gt; :Unite -no-split -start-insert file_rec buffer&amp;lt;CR&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;"" shortcup&lt;/span&gt;
+&lt;span class="s2"&gt;nnoremap &amp;lt;silent&amp;gt;&amp;lt;leader&amp;gt;u  :&amp;lt;C-u&amp;gt;Unite -start-insert mapping&amp;lt;CR&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;"" Execute help.&lt;/span&gt;
+&lt;span class="s2"&gt;nnoremap &amp;lt;silent&amp;gt;&amp;lt;leader&amp;gt;h  :Unite -start-insert -no-split help&amp;lt;CR&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;"" Tag search&lt;/span&gt;
+
+&lt;span class="s2"&gt;"""&lt;/span&gt; &lt;span class="nx"&gt;For&lt;/span&gt; &lt;span class="nx"&gt;searching&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;word&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;cursor&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nx"&gt;tag&lt;/span&gt; &lt;span class="nx"&gt;file&lt;/span&gt;
+&lt;span class="nx"&gt;nnoremap&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;silent&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;leader&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;f&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;Unite&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;no&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt; &lt;span class="nx"&gt;tag&lt;/span&gt;&lt;span class="o"&gt;:&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;R&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;CR&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="nx"&gt;nnoremap&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;silent&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;leader&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;ff&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;Unite&lt;/span&gt; &lt;span class="nx"&gt;tag&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;insert&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;no&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;CR&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;""&lt;/span&gt; &lt;span class="nx"&gt;grep&lt;/span&gt; &lt;span class="nx"&gt;dictionay&lt;/span&gt;
+
+&lt;span class="s2"&gt;""" For searching the word in the cursor in the current directory&lt;/span&gt;
+&lt;span class="s2"&gt;nnoremap &amp;lt;silent&amp;gt;&amp;lt;leader&amp;gt;s :Unite -no-split grep:.::&amp;lt;C-R&amp;gt;&amp;lt;C-w&amp;gt;&amp;lt;CR&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;"""&lt;/span&gt; &lt;span class="nx"&gt;For&lt;/span&gt; &lt;span class="nx"&gt;searching&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;word&lt;/span&gt; &lt;span class="nx"&gt;handin&lt;/span&gt;
+&lt;span class="nx"&gt;nnoremap&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;silent&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;leader&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;ss&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;Unite&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;no&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt; &lt;span class="nx"&gt;grep&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;CR&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;""" For searching the word in the cursor in the current buffer&lt;/span&gt;
+&lt;span class="s2"&gt;noremap &amp;lt;silent&amp;gt;&amp;lt;leader&amp;gt;sf :Unite -no-split grep:%::&amp;lt;C-r&amp;gt;&amp;lt;C-w&amp;gt;&amp;lt;CR&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;"""&lt;/span&gt; &lt;span class="nx"&gt;For&lt;/span&gt; &lt;span class="nx"&gt;searching&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;word&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;cursor&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nx"&gt;all&lt;/span&gt; &lt;span class="nx"&gt;opened&lt;/span&gt; &lt;span class="nx"&gt;buffer&lt;/span&gt;
+&lt;span class="nx"&gt;noremap&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;silent&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;leader&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;sa&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;Unite&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;no&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt; &lt;span class="nx"&gt;grep&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;$buffers&lt;/span&gt;&lt;span class="o"&gt;::&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;CR&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="kd"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;unite_source_grep_default_opts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"-iRHn"&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s2"&gt;" --exclude='tags'"&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s2"&gt;" --exclude='cscope*'"&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s2"&gt;" --exclude='*.svn*'"&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s2"&gt;" --exclude='*.log*'"&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s2"&gt;" --exclude='*tmp*'"&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s2"&gt;" --exclude-dir='**/tmp'"&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s2"&gt;" --exclude-dir='CVS'"&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s2"&gt;" --exclude-dir='.svn'"&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s2"&gt;" --exclude-dir='.git'"&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="s2"&gt;" --exclude-dir='node_modules'"&lt;/span&gt;
+
+&lt;span class="s2"&gt;""&lt;/span&gt; &lt;span class="nx"&gt;outline&lt;/span&gt;
+&lt;span class="nx"&gt;nnoremap&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;leader&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;o&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;Unite&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;insert&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;no&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt; &lt;span class="nx"&gt;outline&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;CR&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;""&lt;/span&gt; &lt;span class="nx"&gt;Line&lt;/span&gt; &lt;span class="nx"&gt;search&lt;/span&gt;
+&lt;span class="nx"&gt;nnoremap&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;leader&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;l&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;Unite&lt;/span&gt; &lt;span class="nx"&gt;line&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;insert&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;no&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;CR&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;""&lt;/span&gt; &lt;span class="nx"&gt;Yank&lt;/span&gt; &lt;span class="nx"&gt;history&lt;/span&gt;
+&lt;span class="kd"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;unite_source_history_yank_enable&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="nx"&gt;nnoremap&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;leader&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;y&lt;/span&gt; &lt;span class="o"&gt;:&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;u&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="nx"&gt;Unite&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;no&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;buffer&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nx"&gt;yank&lt;/span&gt; &lt;span class="nx"&gt;history&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;yank&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;cr&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="s2"&gt;" Custom mappings for the unite buffer&lt;/span&gt;
+&lt;span class="s2"&gt;autocmd FileType unite call s:unite_settings()&lt;/span&gt;
+&lt;span class="s2"&gt;function! s:unite_settings()&lt;/span&gt;
+&lt;span class="s2"&gt;  "&lt;/span&gt; &lt;span class="nx"&gt;Play&lt;/span&gt; &lt;span class="nx"&gt;nice&lt;/span&gt; &lt;span class="kd"&gt;with&lt;/span&gt; &lt;span class="nx"&gt;supertab&lt;/span&gt;
+  &lt;span class="kd"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;b&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;SuperTabDisabled&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+  &lt;span class="s2"&gt;" Enable navigation with control-j and control-k in insert mode&lt;/span&gt;
+&lt;span class="s2"&gt;  imap &amp;lt;buffer&amp;gt; &amp;lt;C-j&amp;gt;   &amp;lt;Plug&amp;gt;(unite_select_next_line)&lt;/span&gt;
+&lt;span class="s2"&gt;  imap &amp;lt;buffer&amp;gt; &amp;lt;C-k&amp;gt;   &amp;lt;Plug&amp;gt;(unite_select_previous_line)&lt;/span&gt;
+&lt;span class="s2"&gt;endfunction&lt;/span&gt;
+
+&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="nx"&gt;search&lt;/span&gt; &lt;span class="nx"&gt;plugin&lt;/span&gt;
+&lt;span class="err"&gt;"&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;Unite&lt;/span&gt; &lt;span class="nx"&gt;neobundle&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h4&gt;Comment&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/scrooloose/nerdcommenter"&gt;nerdcommenter&lt;/a&gt;, The original keyboard shortcuts is as the follows.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;快捷鍵如下(After select in virtual mode.):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;,cc&lt;/code&gt;: Comment codes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;,cu&lt;/code&gt;: Uncomment codes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Emment&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;plugin: &lt;a href="https://github.com/mattn/emmet-vim"&gt;Emmet-vim&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果需要常常手寫 html code 的話，可以試試 &lt;a href="https://github.com/mattn/emmet-vim"&gt;Emmet-vim&lt;/a&gt;，舉個例子來說，輸入 &lt;code&gt;span.label.label-primary&lt;/code&gt; 然後按 &lt;code&gt;Ctrl+y ,&lt;/code&gt; 就可以變成 &lt;code&gt;&amp;lt;span class="label label-primary"&amp;gt;&lt;/code&gt;，是一個很方便的 plugin&lt;/p&gt;
+&lt;h4&gt;Markdown&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;plugin: &lt;a href="https://github.com/plasticboy/vim-markdown"&gt;vim-markdown&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;這個 plugin 的功能可以看該 plugin 的說明，唯一要注意的是 filetype 是 mkd 而不是 markdown ，所以需要在 &lt;code&gt;.vimrc&lt;/code&gt; 中加上&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;au BufNewFile,BufRead *.md set filetype=mkd.makrdown
+au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
+au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
+&lt;/pre&gt;
+
+
+&lt;p&gt;才有辦法使用這個 plugin 的功能。&lt;/p&gt;
+&lt;p&gt;對於 &lt;code&gt;mkd.markdown&lt;/code&gt; 稍微說明一下，Vim 7.0 以上支援 one file with multiple filetype，所以針對 markdown 也可以寫 &lt;code&gt;mkd.html&lt;/code&gt; 也是可行的。&lt;/p&gt;
+&lt;h4&gt;Doxygen&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;plugin: &lt;a href="http://github.com/vim-scripts/DoxygenToolkit.vim"&gt;DoxygenToolkit.vim&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;快捷鍵如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;,d&lt;/code&gt;: 在 function/ class 前產生相對我的 doxygen-style comment。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;設定檔內容說明: &lt;/p&gt;
+&lt;p&gt;Vim 7.0 以上內建支援 doxygen syntax highlighting，所以直接設定 filetype 即可&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;au BufNewFile,BufRead *.c set filetype=cpp.doxygen
+au BufNewFile,BufRead *.cpp set filetype=cpp.doxygen
+au BufNewFile,BufRead *.h set filetype=cpp.doxygen
+&lt;/pre&gt;
+
+
+&lt;h4&gt;vim-airline&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;plugin: &lt;a href="https://github.com/bling/vim-airline"&gt;vim-airline&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;會讓 vim 的 status line 變的很 fancy，直接看截圖就可知道效果。&lt;/p&gt;
+&lt;h4&gt;Beauity&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;plugin: &lt;a href="https://github.com/octol/vim-cpp-enhanced-highlight"&gt;vim-cpp-enhanced-highlight&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;顧名思義就是針對 C/ C++ 有額外的 syntax highlight support，可以自行選擇要不要裝。&lt;/p&gt;
+&lt;h3&gt;Misc&lt;/h3&gt;
+&lt;h4&gt;About autocomplete&lt;/h4&gt;
+&lt;p&gt;其他方案如下&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://github.com/othree/vim-autocomplpop"&gt;vim-autocomplete&lt;/a&gt; + &lt;a href="https://github.com/garbas/vim-snipmate"&gt;vim-snipmate&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Valloric/YouCompleteMe"&gt;YouCompeleteMe&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;而 &lt;a href="https://github.com/Shougo/neocomplete.vim"&gt;neocomplete&lt;/a&gt;, &lt;a href="https://github.com/Valloric/YouCompleteMe"&gt;YouCompeleteMe&lt;/a&gt; 皆有針對 C/C++ autocomplete 的支援，如果採用方案1，下面二個可以選擇其中一個來做選擇&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://github.com/vim-scripts/OmniCppComplete"&gt;OmniCppComplete&lt;/a&gt; - ctags base&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Rip-Rip/clang_complete"&gt;clang_complete&lt;/a&gt; - clang base &lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;tagbar&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;plugin: &lt;a href="http://majutsushi.github.io/tagbar/"&gt;tagbar&lt;/a&gt; (&lt;a href="https://github.com/majutsushi/tagbar"&gt;tagbar_github&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;快捷鍵如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;F3&lt;/code&gt;: tagbar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;設定檔說明如下: &lt;/p&gt;
+&lt;p&gt;tagbar 本身也是仰賴 ctags 針對現在正在編輯的檔案產生相對應的 list，如果在 C/ C++ 裡面則會生成 macro list, function list, struct/ class list 等等，算是一個觀看這個檔案大綱很方便的工具(如果要跳的話建議使用 unite-outline)，這個 plugin 的 keyboard shortcut 設定如下&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;   nmap &amp;lt;silent&amp;gt;&amp;lt;F3&amp;gt; :TagbarToggle&amp;lt;CR&amp;gt;
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;首先，我不知道會不會有人看到這裡，但是我想說這篇文章會持續修改。如果這些功能都會了，關於 vim 還有什麼事可以做的 ? 現在的我正在學 vimscript，以求可以對 vim 做更多的操控。也可以多多參考其他人的 vimrc，這也是一個很好的學習方式。我從 &lt;a href="https://raw.github.com/Shougo/shougo-s-github/master/vim/.vimrc"&gt;Shougo's vimrc&lt;/a&gt; 學到了很多有趣的技巧，有空也可以多多參考。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>software</category><category>vim</category><guid>https://yen3.github.io/posts/2013/20131109_using-vim-as-a-default-text-editor/</guid><pubDate>Sat, 09 Nov 2013 05:46:21 GMT</pubDate></item><item><title>Install script for programming environment in Mac OSX</title><link>https://yen3.github.io/posts/2013/20131102_install-script-for-programming-environment-in-mac-osx/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;寫完才發現一件很蠢的事 ... 我最後說 XD&lt;/p&gt;
+&lt;p&gt;因應每次重灌都要貼一堆 script，決定還是老老實實的寫一隻小程式來 maintain 比較實在，但是鑑於用 Python 寫實在是太簡單了，我把腦筋動到 Haskell 上，也想驗證一下自己的想法，一個有在使用的程式語言，或許我們不太知道深層的意義 (到現在對於 Python &lt;code&gt;__xxx__&lt;/code&gt; 的這種 member function 始終沒了很深入的了解)，但可以慢慢的明白怎麼用，然後希望可以進而思考背後的意義。&lt;/p&gt;
+&lt;p&gt;使用這個 script 的方式很簡單，在 Mac OSX 上要先裝 haskell-platform&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew install haskell-platform
+&lt;/pre&gt;
+
+
+&lt;p&gt;然後執行這個 script&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;runhaskell install_cmds.hs
+&lt;/pre&gt;
+
+
+&lt;script src="https://gist.github.com/yen3/7278566.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;那麼很蠢的事是什麼 ? 就是我要先裝 haskell XD 剛裝好的 Mac OSX 會有 Python，但是沒有 Haskell 啊 (苦笑)。&lt;/p&gt;
+&lt;p&gt;不過寫了都寫了，就持續這樣子用吧。從中也學到了一些寫 haskell 有趣的事 :)。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>haskell</category><category>software</category><guid>https://yen3.github.io/posts/2013/20131102_install-script-for-programming-environment-in-mac-osx/</guid><pubDate>Sat, 02 Nov 2013 14:11:38 GMT</pubDate></item><item><title>Sublime Text 3 初始設定</title><link>https://yen3.github.io/posts/2013/20131012_sublime-text-3-initial-setting/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/10226637755/" title="Flickr 上 yen3rc 的 Screen Shot 2013-10-12 at 10.45.58 PM"&gt;&lt;img src="https://farm4.staticflickr.com/3785/10226637755_5b1c2b0c43.jpg" width="500" height="291" alt="Screen Shot 2013-10-12 at 10.45.58 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;現在真的要我推薦一個好用的編輯器，對於初學者來說我會推薦 Sublime Text，基本上算是一個很完整功能的 editor ，有不算少的 plugins 可以用，一開始比較不會像 vim 一打開之後就傻眼不知道自己有什麼功能可以用，基本功能相當完善，要進階的設定也不算太麻煩，很推薦人使用。&lt;/p&gt;
+&lt;p&gt;其實在公司用 Sublime Text 的時間還蠻多的，大部分因為使用 Plain Tasks 來處理待辦事項。且在 Windows 上開 Sublime Text 比起 Vim 快的多，所以稍微花了一點時間來研究怎麼讓 Sublime Text 的移動及使用方式很像原生的 vim (有些不像的原因是自己的 Vim 調了太多了 XD)。我裝的 plugin 不多，下面有列表&lt;/p&gt;
+&lt;h3&gt;Plugins&lt;/h3&gt;
+&lt;p&gt;裝 plugin 之前，先裝 &lt;a href="https://sublime.wbond.net/installation"&gt;Package Control&lt;/a&gt;，使用 &lt;code&gt;ctrl + `&lt;/code&gt;   貼上那一長串的文字之後按 &lt;code&gt;enter&lt;/code&gt;，重開之後就可以使用 &lt;code&gt;cmd(ctrl) + shift + p&lt;/code&gt; 之後輸入 &lt;code&gt;install package&lt;/code&gt; (可以不用全部輸入完，看到就可以選了)，然後輸入下列名稱就可以找的到這些套件了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All Autocomplete&lt;/li&gt;
+&lt;li&gt;Alternate VIM Nagivation&lt;/li&gt;
+&lt;li&gt;cscope&lt;/li&gt;
+&lt;li&gt;CTags&lt;/li&gt;
+&lt;li&gt;FileDiffs&lt;/li&gt;
+&lt;li&gt;Markdown Extended&lt;/li&gt;
+&lt;li&gt;Markdown Preview&lt;/li&gt;
+&lt;li&gt;Package Control&lt;/li&gt;
+&lt;li&gt;PlainTasks&lt;/li&gt;
+&lt;li&gt;Python Auto-Complete&lt;/li&gt;
+&lt;li&gt;SideBarEnhancment&lt;/li&gt;
+&lt;li&gt;SmartMarkdown&lt;/li&gt;
+&lt;li&gt;Theme - Soda&lt;/li&gt;
+&lt;li&gt;Tomorrow Night Schemes&lt;/li&gt;
+&lt;li&gt;Vintageous&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;之後是設定檔的部分，我的設定檔還蠻簡單的，如下:&lt;/p&gt;
+&lt;h3&gt;Setting&lt;/h3&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s"&gt;"color_scheme"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"Packages/Tomorrow Color Schemes/Tomorrow-Night-Bright.tmTheme"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"font_face"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"Source Code Pro"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"font_size"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"highlight_line"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"ignored_packages"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;
+        &lt;span class="s"&gt;"Vintage"&lt;/span&gt;
+    &lt;span class="p"&gt;],&lt;/span&gt;
+    &lt;span class="s"&gt;"line_numbers"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"soda_classic_tabs"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"soda_folder_icons"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"theme"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"Soda Dark 3.sublime-theme"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"translate_tabs_to_spaces"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"trim_trailing_white_space_on_save"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"vintageous_use_ctrl_keys"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h4&gt;Special for windows&lt;/h4&gt;
+&lt;p&gt;因為在 Windows 上使用 Source Code Pro 為預設字體會造成中文字變成方塊，所以需要在設定檔裡面再加上&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;    &lt;span class="s"&gt;"font_options"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt;
+        &lt;span class="s"&gt;"directwrite"&lt;/span&gt;
+    &lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;但是至少在 Mac OSX 千萬不要加這個，加了連 tab bar 都會變亂碼 XD。至於 linux 的話，我沒試過 XD。&lt;/p&gt;
+&lt;h3&gt;PlainTasks&lt;/h3&gt;
+&lt;p&gt;PlainTasks 改了一些設定，可以先按 Preference -&amp;gt; Package Settings -&amp;gt; PlainTasks -&amp;gt; Settings User (在 Windows 上會稍微不同) 之後貼上下面內容。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="s"&gt;"color_scheme"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"Packages/Tomorrow Color Schemes/Tomorrow-Night-Bright.tmTheme"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s"&gt;"font_size"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s"&gt;"font_face"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"Source Code Pro"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s"&gt;"line_numbers"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s"&gt;"tab_size"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s"&gt;"fold_buttons"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s"&gt;"spell_check"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="s"&gt;"dictionary"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"Packages/Language - English/en_US.dic"&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h3&gt;murmur&lt;/h3&gt;
+&lt;p&gt;雖然覺得在 Windows 上用 Sublime Text 已經很順了，但是不得不說在 Mac OSX 上的感覺更勝一籌啊 ... Orz。不過都回到 Mac OSX 上了，還是用 Vim 就好，unite.vim 真的很好很強大，有點愛不釋手 XD。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>software</category><guid>https://yen3.github.io/posts/2013/20131012_sublime-text-3-initial-setting/</guid><pubDate>Sat, 12 Oct 2013 14:15:56 GMT</pubDate></item><item><title>使用 text editor 雜感</title><link>https://yen3.github.io/posts/2013/20131010_murmur-with-text-editor/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;這些文字是因為在寫某篇時寫歪產生的 XD。&lt;/p&gt;
+&lt;p&gt;最近開始學習在 VIM 中使用 hjkl 及一些我不常用的移動方式。老實承認用 VIM 這麼多年，從來沒有在 normal mode 使用過 a 來切換至 insert mode (笑)。學會這些方式並不是自己會覺得很酷，寫程式也不會變強，更不會因為這樣子考試考了一百分，而是從中體會到一種美感，簡潔的美感。&lt;/p&gt;
+&lt;p&gt;老實說自己並不是這麼推薦一開始就使用 VIM，入門難度不算低，Sublime Text 是不錯的入門編輯軟體，該有的都有了 (VIM mode, auto-compleite, ctrlp 跳檔案)，最重要的是至少在 Windows 及 Mac OSX 的啟動速度都很快。因為工作的時間常在 Windows 開啟 VIM，在自己的設定檔下，開啟約 4 秒，老實說這時間不算短，但又很喜歡開啟後自己的習慣 (使用這麼多年了~嘛)，想到辦法再說嘍。但是真的要推薦一個可以重度使用的 editor，還是會推薦 VIM，原因無他，習慣了，也不會想要學習兩套的設定 。&lt;/p&gt;
+&lt;p&gt;那麼寫作呢，其實我最常用的是 iA Writer，說也神奇，這樣子的佈景，這藍色的直桿就會讓人覺得寫作好像還蠻好玩的，可能也只有我這樣子想吧(笑)。&lt;/p&gt;
+&lt;p&gt;其實上面的文字不想一直待在硬碟裡，所以硬是寫了一個結尾，現在看一看，想法真的很片段需要組織呢 XD。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>software</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20131010_murmur-with-text-editor/</guid><pubDate>Thu, 10 Oct 2013 14:31:07 GMT</pubDate></item><item><title>Vim plugin: Unite.vim</title><link>https://yen3.github.io/posts/2013/20131010_vim-plugin-unite-vim/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;關於 &lt;a href="https://github.com/Shougo/unite.vim"&gt;Shougo/unite.vim&lt;/a&gt; 沒什麼好說的，是一個用了會上癮的 plugin，用了它之後，ctrl+p 和 command-T 都可以不用了，開心 XD。&lt;/p&gt;
+&lt;p&gt;在此稍微貼上自己關於這方面的 vim 設定檔&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安裝 plugin 部分 (這邊使用 &lt;a href="https://github.com/Shougo/neobundle.vim"&gt;Shougo/neobundle.vim&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;NeoBundle &lt;span class="s1"&gt;'Shougo/unite.vim'&lt;/span&gt;
+NeoBundle &lt;span class="s1"&gt;'tsukkee/unite-tag'&lt;/span&gt;
+NeoBundle &lt;span class="s1"&gt;'h1mesuke/unite-outline'&lt;/span&gt;
+NeoBundle &lt;span class="s1"&gt;'tsukkee/unite-help'&lt;/span&gt;
+NeoBundle &lt;span class="s1"&gt;'ujihisa/unite-launch'&lt;/span&gt;
+NeoBundle &lt;span class="s1"&gt;'ujihisa/unite-colorscheme'&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;設定部分 (特別說明一點，如果要打開 windows 時為 insert mode，加入參數 &lt;code&gt;-start-insert&lt;/code&gt;，用法可以直接看下面)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="c"&gt;" Unite: {{{&lt;/span&gt;
+
+&lt;span class="c"&gt;"" ctrl-p&lt;/span&gt;
+nmap &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;C&lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="k"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; :Unite &lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="k"&gt;start&lt;/span&gt;&lt;span class="p"&gt;-&lt;/span&gt;insert file_rec/async buffer&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="c"&gt;"" shortcup&lt;/span&gt;
+&lt;span class="nb"&gt;nnoremap&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;C&lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="k"&gt;u&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;  :&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;C&lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="k"&gt;u&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;Unite &lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="k"&gt;start&lt;/span&gt;&lt;span class="p"&gt;-&lt;/span&gt;insert mapping&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="c"&gt;" Execute help.&lt;/span&gt;
+&lt;span class="nb"&gt;nnoremap&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;C&lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="k"&gt;h&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;  :&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;C&lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="k"&gt;u&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;Unite &lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="k"&gt;start&lt;/span&gt;&lt;span class="p"&gt;-&lt;/span&gt;insert help&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;" Execute help by cursor keyword.&lt;/span&gt;
+&lt;span class="nb"&gt;nnoremap&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;silent&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;g&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;C&lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="k"&gt;h&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;  :&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;C&lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="k"&gt;u&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;UniteWithCursorWord help&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="c"&gt;" grep dictionay&lt;/span&gt;
+&lt;span class="nb"&gt;nnoremap&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;leader&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;s :Unite &lt;span class="k"&gt;grep&lt;/span&gt;:. &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="c"&gt;" outline&lt;/span&gt;
+&lt;span class="nb"&gt;nnoremap&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;leader&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="k"&gt;o&lt;/span&gt; ::Unite outline&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="c"&gt;" yank history&lt;/span&gt;
+&lt;span class="c"&gt;"let g:unite_source_history_yank_enable = 1&lt;/span&gt;
+&lt;span class="c"&gt;"nnoremap &amp;lt;leader&amp;gt;y :Unite history/yank&amp;lt;CR&amp;gt;&lt;/span&gt;
+
+&lt;span class="c"&gt;" }}}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><category>all</category><category>note</category><category>software</category><guid>https://yen3.github.io/posts/2013/20131010_vim-plugin-unite-vim/</guid><pubDate>Thu, 10 Oct 2013 14:23:44 GMT</pubDate></item><item><title>Compile zsh and tmux in ubuntu</title><link>https://yen3.github.io/posts/2013/20130928_compile-zsh-and-tmux-in-ubuntu/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;這邊的編譯法比較白爛一些，就是在不變更環境下能夠編譯出一個可以動的環境 (也就是除了 &lt;code&gt;build-essentials&lt;/code&gt; 以外就沒有用 &lt;code&gt;apt-get&lt;/code&gt; 裝其他套件了)。重點很簡單，把裝的相依套件目錄加到要使用的套件即可，要加的就是 &lt;code&gt;CPPFLAGS="-I$HOME/usr/include" LDFLAGS="-L$HOME/usr/lib"&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;zsh&lt;/h4&gt;
+&lt;p&gt;其實很簡單裝 &lt;a href="https://www.gnu.org/software/ncurses/"&gt;libncurses&lt;/a&gt; 之後裝 zsh 就可以了&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;libncurses&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="x"&gt;./configure --prefix=&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/usr --with-shared --without-debug &lt;/span&gt;
+&lt;span class="x"&gt;--enable-widec&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;剛開始不斷的出錯，從網路上找到修正到這樣子下 option 就可以成功了，但已遺失參考來源，如果有人找到可以跟我說&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;zsh&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="x"&gt;./configure --prefix=&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/usr CPPFLAGS="-I&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/usr/include" &lt;/span&gt;
+&lt;span class="x"&gt;LDFLAGS="-L&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/usr/lib" --with-term=ncurses&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;tmux&lt;/h4&gt;
+&lt;p&gt;差不多，先裝 &lt;a href="https://yen3.github.io/posts/2013/20130928_compile-zsh-and-tmux-in-ubuntu/%5Bhttps:/github.com/downloads/libevent/libevent/libevent-1.4.14b-stable.tar.gz%5D(https:/github.com/downloads/libevent/libevent/libevent-1.4.14b-stable.tar.gz)"&gt;libevent&lt;/a&gt; 再裝 tmux 即可&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;libevent&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="x"&gt;./configure --prefix=&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/usr&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;tmux&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="x"&gt;./configure --prefix=&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/usr CPPFLAGS="-I&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/usr/include" &lt;/span&gt;
+&lt;span class="x"&gt;LDFLAGS="-L&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/usr/lib"&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><category>all</category><category>software</category><guid>https://yen3.github.io/posts/2013/20130928_compile-zsh-and-tmux-in-ubuntu/</guid><pubDate>Fri, 27 Sep 2013 16:44:16 GMT</pubDate></item><item><title>Push without username/passwd in Github</title><link>https://yen3.github.io/posts/2013/20130915_push-without-username-passwd-in-github/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;這方法不是我發明的，但是找到就備忘一下。&lt;/p&gt;
+&lt;p&gt;方法來自 &lt;a href="http://stackoverflow.com/questions/6565357/git-push-requires-username-and-password"&gt;authentication - Git push requires username and password - Stack 
+Overflow&lt;/a&gt; 
+照著這篇文章的說明，只要把自己的 repo 改成 ssh 就行&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;git remote &lt;span class="nb"&gt;set&lt;/span&gt;-url origin git@github.com:username/repo.git
+&lt;/pre&gt;
+
+
+&lt;p&gt;所以完之後，在 nikola 的 output 的 github repo 上我輸入&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;git push -u origin master
+&lt;/pre&gt;
+
+
+&lt;p&gt;就可以上傳了。所以現在就可以寫簡單的 Makefile 來做一些事了。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;all&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        nikola build &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; nikola auto
+&lt;span class="nf"&gt;deploy&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="nb"&gt;cd &lt;/span&gt;output &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; git add posts/* &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; git commit -a -m &lt;span class="s2"&gt;"automatic push"&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; 
+        git push -u origin master
+&lt;/pre&gt;
+
+
+&lt;p&gt;不過其實要做什麼事我其實還沒有很清楚，想到再加上來好了。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>software</category><guid>https://yen3.github.io/posts/2013/20130915_push-without-username-passwd-in-github/</guid><pubDate>Sun, 15 Sep 2013 15:29:53 GMT</pubDate></item><item><title>Generate a default new post file in nikola</title><link>https://yen3.github.io/posts/2013/20130914_generate-a-default-new-post-file-in-nikola/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;鑑於要產生新文章每次都要寫這些 tag 實在很煩，所以索性自己寫了一段 script 來做這些事。&lt;/p&gt;
+&lt;script src="https://gist.github.com/yen3/6562566.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;在 nikola 的目錄下執行&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;./new_post_nikola.py &lt;span class="s2"&gt;"Generate a default new post in nikola"&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;就會產生相對應的檔案 
+&lt;code&gt;posts/20130914_generate-a-default-new-post-file-in-nikola.md&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;雖然我最後想做的不是這個，不過先做這擋著用。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>software</category><guid>https://yen3.github.io/posts/2013/20130914_generate-a-default-new-post-file-in-nikola/</guid><pubDate>Sat, 14 Sep 2013 14:36:15 GMT</pubDate></item></channel></rss>

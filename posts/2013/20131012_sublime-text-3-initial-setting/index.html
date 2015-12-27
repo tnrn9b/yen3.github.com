@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]--><!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]--><!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]--><!--[if gt IE 8]><!--><!--<![endif]--><head>
+<meta charset="utf-8">
+<!-- http://t.co/dKP3o1e --><meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sublime Text 3 初始設定 | Yen3's note</title>
+<link href="../../../assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/main.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/extra.css" rel="stylesheet" type="text/css">
+<!-- Webfonts --><link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+<!-- Load Modernizr --><script src="//mmistakes.github.io/hpstr-jekyll-theme/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.xml">
+<link rel="canonical" href="https://yen3.github.io/posts/2013/20131012_sublime-text-3-initial-setting/">
+<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Yen3">
+<link rel="prev" href="../20131010_murmur-with-text-editor/" title="使用 text editor 雜感" type="text/html">
+<link rel="next" href="../20131013_flask-jquery-simple-practical-note/" title="Flask + jQuery 簡單筆記" type="text/html">
+<meta property="og:site_name" content="Yen3's note">
+<meta property="og:title" content="Sublime Text 3 初始設定">
+<meta property="og:url" content="https://yen3.github.io/posts/2013/20131012_sublime-text-3-initial-setting/">
+<meta property="og:description" content="現在真的要我推薦一個好用的編輯器，對於初學者來說我會推薦 Sublime Text，基本上算是一個很完整功能的 editor ，有不算少的 plugins 可以用，一開始比較不會像 vim 一打開之後就傻眼不知道自己有什麼功能可以用，基本功能相當完善，要進階的設定也不算太麻煩，很推薦人使用。
+其實在公司用 Sublime Text 的時間還蠻多的，大部分因為使用 Plain Tasks 來處理待辦">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2013-10-12T22:15:56+08:00">
+<meta property="article:tag" content="all">
+<meta property="article:tag" content="software">
+</head>
+<body id="post-index" class="feature">
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+
+    <nav id="dl-menu" class="dl-menuwrapper" role="navigation"><button class="dl-trigger">Open Menu</button>
+    <ul class="dl-menu">
+<li><a href="../../../archive.html">Archive</a></li>
+            <li><a href="../../../categories/">Tags</a></li>
+            <li><a href="../../../rss.xml">RSS feed</a></li>
+    
+    
+    </ul></nav><div class="entry-header">
+<!-- FIXME: get credit from settings -->
+    <div class="entry-image"> --&gt;
+    </div>
+<!-- /.entry-image --> 
+      
+  <div class="header-title">
+    <div class="header-title-wrap">
+    <h1 id="brand"><a href="https://yen3.github.io/" title="Yen3's note" rel="home">
+    Yen3's note</a></h1>
+     <!--<h2>Sublime Text 3 初始設定</h2>-->
+    </div>
+<!-- /.header-title-wrap -->
+  </div>
+<!-- /.header-title -->
+
+</div>
+<!-- /.entry-header -->
+
+    <div id="main" role="main">
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><div class="entry-meta">
+            <span class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2013-10-12T22:15:56+08:00" itemprop="datePublished" title="2013-10-12 22:15">2013-10-12 22:15</time></a></span>  ·  
+            <span class="byline author vcard">Yen3</span>  ·  
+                <span class="commentline">
+        
+    <a href=".#disqus_thread" data-disqus-identifier="cache/posts/2013/20131012_sublime-text-3-initial-setting.html">Comments</a>
+
+</span>  ·  
+            
+        <span class="sourceline"><a href="index.md" id="sourcelink">Source</a></span>  ·  
+
+        </div>
+        
+
+    
+    <h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Sublime Text 3 初始設定</a></h1>
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p><a href="http://www.flickr.com/photos/24606632@N05/10226637755/" title="Flickr 上 yen3rc 的 Screen Shot 2013-10-12 at 10.45.58 PM"><img src="https://farm4.staticflickr.com/3785/10226637755_5b1c2b0c43.jpg" width="500" height="291" alt="Screen Shot 2013-10-12 at 10.45.58 PM"></a></p>
+<p>現在真的要我推薦一個好用的編輯器，對於初學者來說我會推薦 Sublime Text，基本上算是一個很完整功能的 editor ，有不算少的 plugins 可以用，一開始比較不會像 vim 一打開之後就傻眼不知道自己有什麼功能可以用，基本功能相當完善，要進階的設定也不算太麻煩，很推薦人使用。</p>
+<p>其實在公司用 Sublime Text 的時間還蠻多的，大部分因為使用 Plain Tasks 來處理待辦事項。且在 Windows 上開 Sublime Text 比起 Vim 快的多，所以稍微花了一點時間來研究怎麼讓 Sublime Text 的移動及使用方式很像原生的 vim (有些不像的原因是自己的 Vim 調了太多了 XD)。我裝的 plugin 不多，下面有列表</p>
+<h3>Plugins</h3>
+<p>裝 plugin 之前，先裝 <a href="https://sublime.wbond.net/installation">Package Control</a>，使用 <code>ctrl + `</code>   貼上那一長串的文字之後按 <code>enter</code>，重開之後就可以使用 <code>cmd(ctrl) + shift + p</code> 之後輸入 <code>install package</code> (可以不用全部輸入完，看到就可以選了)，然後輸入下列名稱就可以找的到這些套件了。</p>
+<ul>
+<li>All Autocomplete</li>
+<li>Alternate VIM Nagivation</li>
+<li>cscope</li>
+<li>CTags</li>
+<li>FileDiffs</li>
+<li>Markdown Extended</li>
+<li>Markdown Preview</li>
+<li>Package Control</li>
+<li>PlainTasks</li>
+<li>Python Auto-Complete</li>
+<li>SideBarEnhancment</li>
+<li>SmartMarkdown</li>
+<li>Theme - Soda</li>
+<li>Tomorrow Night Schemes</li>
+<li>Vintageous</li>
+</ul>
+<p>之後是設定檔的部分，我的設定檔還蠻簡單的，如下:</p>
+<h3>Setting</h3>
+<pre class="code literal-block"><span class="p">{</span>
+    <span class="s">"color_scheme"</span><span class="p">:</span> <span class="s">"Packages/Tomorrow Color Schemes/Tomorrow-Night-Bright.tmTheme"</span><span class="p">,</span>
+    <span class="s">"font_face"</span><span class="p">:</span> <span class="s">"Source Code Pro"</span><span class="p">,</span>
+    <span class="s">"font_size"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s">"highlight_line"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"ignored_packages"</span><span class="p">:</span>
+    <span class="p">[</span>
+        <span class="s">"Vintage"</span>
+    <span class="p">],</span>
+    <span class="s">"line_numbers"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"soda_classic_tabs"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"soda_folder_icons"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"theme"</span><span class="p">:</span> <span class="s">"Soda Dark 3.sublime-theme"</span><span class="p">,</span>
+    <span class="s">"translate_tabs_to_spaces"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"trim_trailing_white_space_on_save"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"vintageous_use_ctrl_keys"</span><span class="p">:</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre>
+
+
+<h4>Special for windows</h4>
+<p>因為在 Windows 上使用 Source Code Pro 為預設字體會造成中文字變成方塊，所以需要在設定檔裡面再加上</p>
+<pre class="code literal-block">    <span class="s">"font_options"</span><span class="p">:</span>
+    <span class="p">[</span>
+        <span class="s">"directwrite"</span>
+    <span class="p">],</span>
+</pre>
+
+
+<p>但是至少在 Mac OSX 千萬不要加這個，加了連 tab bar 都會變亂碼 XD。至於 linux 的話，我沒試過 XD。</p>
+<h3>PlainTasks</h3>
+<p>PlainTasks 改了一些設定，可以先按 Preference -&gt; Package Settings -&gt; PlainTasks -&gt; Settings User (在 Windows 上會稍微不同) 之後貼上下面內容。</p>
+<pre class="code literal-block"><span class="p">{</span>
+  <span class="s">"color_scheme"</span><span class="p">:</span> <span class="s">"Packages/Tomorrow Color Schemes/Tomorrow-Night-Bright.tmTheme"</span><span class="p">,</span>
+  <span class="s">"font_size"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="s">"font_face"</span><span class="p">:</span> <span class="s">"Source Code Pro"</span><span class="p">,</span>
+  <span class="s">"line_numbers"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s">"tab_size"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="s">"fold_buttons"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s">"spell_check"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s">"dictionary"</span><span class="p">:</span> <span class="s">"Packages/Language - English/en_US.dic"</span>
+<span class="p">}</span>
+</pre>
+
+
+<h3>murmur</h3>
+<p>雖然覺得在 Windows 上用 Sublime Text 已經很順了，但是不得不說在 Mac OSX 上的感覺更勝一籌啊 ... Orz。不過都回到 Mac OSX 上了，還是用 Vim 就好，unite.vim 真的很好很強大，有點愛不釋手 XD。</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../categories/all/" rel="tag">all</a></li>
+            <li><a class="tag p-category" href="../../../categories/software/" rel="tag">software</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../20131010_murmur-with-text-editor/" rel="prev" title="使用 text editor 雜感">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../20131013_flask-jquery-simple-practical-note/" rel="next" title="Flask + jQuery 簡單筆記">Next post</a>
+            </li>
+        </ul></nav></aside><section class="comments"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="yen3snote",
+            disqus_url="https://yen3.github.io/posts/2013/20131012_sublime-text-3-initial-setting/",
+        disqus_title="Sublime Text 3 \u521d\u59cb\u8a2d\u5b9a",
+        disqus_identifier="cache/posts/2013/20131012_sublime-text-3-initial-setting.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="//disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="yen3snote";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+    
+    <div class="footer-wrapper">
+        <footer role="contentinfo"><p>Contents © 2015         <a href="mailto:yen3rc@gmail.com">Yen3</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+
+    
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><script src="../../../assets/js/scripts.min.js"></script>
+</body>
+</html>

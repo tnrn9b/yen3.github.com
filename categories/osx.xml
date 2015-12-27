@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Yen3's note (osx)</title><link>https://yen3.github.io/</link><description></description><atom:link href="https://yen3.github.io/categories/osx.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Thu, 12 Nov 2015 03:44:14 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Install Guide for Mac OSX 10.10 Yoseimite</title><link>https://yen3.github.io/posts/2014/20141019_install-guide-for-mac-osx-10-10-yoseimite/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;做個備忘，使用心得其實還蠻不錯的，還有很大的原因是我是使用全新安裝吧，所以沒有遇
+到 &lt;code&gt;/usr/local&lt;/code&gt; 會卡住安裝時間過久的問題。自己最近過廢，所以會想說全部重來吧。&lt;/p&gt;
+&lt;h3&gt;SSD setting&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Enable Trim --- &lt;a href="http://www.groths.org/software/trimenabler/"&gt;TrimEnabler&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Turn off local Time Machine snapshots&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo tmutil disablelocal
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Turn off hibernation&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo pmset -a hibernatemode 0
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Turn off sudden motion sensor (&lt;strong&gt;no HDD only&lt;/strong&gt;)&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo pmset -a sms 0
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Disable screenshot a window with a shadow&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;defaults write com.apple.screencapture disable-shadow -bool true
+killall SystemUIServer
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enable &lt;code&gt;locate&lt;/code&gt; command&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;System Preference&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;General&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Apperance: Graphite&lt;/li&gt;
+&lt;li&gt;Highlight color: Silver&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mission Control&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Hot Corners -&amp;gt; right-up corner -&amp;gt; Show Desktop&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Show Dashboard as a space&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Automatically rearrange spaces based on most recent use &lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Input Method &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;嘸蝦米輸入法&lt;ul&gt;
+&lt;li&gt;Language &amp;amp; Text -&amp;gt; Input Sources -&amp;gt; Boshiamy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;小麥注音輸入法 &lt;a href="http://mcbopomofo.openvanilla.org/"&gt;McBopomofo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Keyboard&lt;ul&gt;
+&lt;li&gt;Change the shortcuts for spotlight and switching inputmethod&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Trackpad&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Point &amp;amp; Click -&amp;gt; Tap to click&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Scroll direction: natual&lt;/li&gt;
+&lt;li&gt;Swipe between pages &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Security &amp;amp; Privacy&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;General -&amp;gt; Anywhere(Allow applictions downloaded from:)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Users &amp;amp; Groups&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Replace the profile photo &lt;/li&gt;
+&lt;li&gt;Guest User -&amp;gt; &lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt; Allow guests to log in to this computer&lt;/li&gt;
+&lt;li&gt;Login Options -&amp;gt; Show fast user switching menu as "Full Name"&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Backup Recovery (using Time Machine)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source to Destination&lt;ul&gt;
+&lt;li&gt;Documents - &lt;code&gt;$BACKUP_PATH/$HOME/Documents&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Music - &lt;code&gt;$BACKUP_PATH/$HOME/Music/iTunes&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Photo - &lt;code&gt;$BACKUP_PATH/$HOME/Photo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Fonts - &lt;code&gt;$BACKUP_PATH/$HOME/Fonts&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Application settings - &lt;code&gt;$BACKUP_PATH/$HOME/Applications Setting&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Dictionary - &lt;code&gt;$BACKUP_PATH/$HOME/Dictionary&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;iBook backup - &lt;code&gt;$BACKUP_PATH/$HOME/Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks/Books&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Quicklook plugin - &lt;code&gt;$BACKUP_PATH/$HOME/Library/QuickLook&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Basic Enviroment&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://totalfinder.binaryage.com/"&gt;TotalFinder&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;XCode&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;command line tools &lt;/p&gt;
+&lt;p&gt;xcode-select --install&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://tug.org/mactex/"&gt;MacTeX&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://xquartz.macosforge.org/"&gt;XQuartz&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.dropbox.com/"&gt;Dropbox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.virtualbox.org/"&gt;VirtualBox&lt;/a&gt; (for &lt;a href="http://www.vagrantup.com/"&gt;Vagrant&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://bjango.com/mac/istatmenus/"&gt;iStat Menus&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Dock order&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://www.flickr.com/photos/24606632@N05/15570947012" title="Screen Shot 2014-10-19 at 1.48.11 PM by yen3rc, on Flickr"&gt;&lt;img src="https://farm6.staticflickr.com/5603/15570947012_fd8c4554c5_n.jpg" width="800" height="51" alt="Screen Shot 2014-10-19 at 1.48.11 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Mission Control&lt;/h3&gt;
+&lt;p&gt;The custom of Mission Control is using 6 regular Desktops.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Programming Environment &amp;amp; Writing - iTrem, MacVim, TeXShop, LaTeXiT, iWriter &lt;/li&gt;
+&lt;li&gt;Reference - Papers, iBooks, Preview, Dictionary, Moe Dictionary&lt;/li&gt;
+&lt;li&gt;Instant Message &amp;amp; Social Netkwork - Adium, Skype, Line, Twitter&lt;/li&gt;
+&lt;li&gt;Web browsing - Google Chrome, Firefox, Nally, Reeder&lt;/li&gt;
+&lt;li&gt;Personal Scheduling - Sparrow, Calendar, OmniFocus&lt;/li&gt;
+&lt;li&gt;Life - iTunes, iPhoto,Tritag&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Programming Enviroment&lt;/h3&gt;
+&lt;h4&gt;Pre-requirement&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Install &lt;a href="http://brew.sh/"&gt;homebrew&lt;/a&gt; first&lt;/li&gt;
+&lt;li&gt;Install &lt;code&gt;ghc&lt;/code&gt; &amp;amp; &lt;code&gt;cabal-install&lt;/code&gt;&lt;pre class="code literal-block"&gt; brew install ghc cabal-install
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Install script&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;use the &lt;a href="http://yen3.github.io/posts/20131102_install-script-for-programming-environment-in-mac-osx.html"&gt;install script&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><category>all</category><category>osx</category><category>software</category><guid>https://yen3.github.io/posts/2014/20141019_install-guide-for-mac-osx-10-10-yoseimite/</guid><pubDate>Sun, 19 Oct 2014 05:40:14 GMT</pubDate></item><item><title>Install Guide for Mac OSX 10.9 Maverick</title><link>https://yen3.github.io/posts/2014/20140118_install-guide-for-mac-osx-10-9-maverick/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;自己安裝，暫時備份一下。&lt;/p&gt;
+&lt;h3&gt;SSD setting&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.groths.org/software/trimenabler/"&gt;TrimEnabler&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;System Preference&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;General&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Apperance: Graphite&lt;/li&gt;
+&lt;li&gt;Highlight color: Silver&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mission Control&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Hot Corners -&amp;gt; right-up corner -&amp;gt; Show Desktop&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Show Dashboard as a space&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Automatically rearrange spaces based on most recent use &lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Input Method &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;嘸蝦米輸入法&lt;ul&gt;
+&lt;li&gt;Language &amp;amp; Text -&amp;gt; Input Sources -&amp;gt; Boshiamy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;小麥注音輸入法 &lt;a href="http://mcbopomofo.openvanilla.org/"&gt;McBopomofo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Keyboard&lt;ul&gt;
+&lt;li&gt;Change the shortcuts for spotlight and switching inputmethod&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Trackpad&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Point &amp;amp; Click -&amp;gt; Tap to click&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Scroll direction: natual&lt;/li&gt;
+&lt;li&gt;Swipe between pages &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Security &amp;amp; Privacy&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;General -&amp;gt; Anywhere(Allow applictions downloaded from:)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Users &amp;amp; Groups&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Replace the profile photo &lt;/li&gt;
+&lt;li&gt;Guest User -&amp;gt; &lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt; Allow guests to log in to this computer&lt;/li&gt;
+&lt;li&gt;Login Options -&amp;gt; Show fast user switching menu as "Full Name"&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Backup Recovery (using Time Machine)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source to Destination&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;Time Machine Path&lt;/td&gt;&amp;gt;&lt;td&gt;Harddisk Path&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Documents`&lt;/td&gt;&lt;td&gt;`$HOME/Documents`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Music`&lt;/td&gt;&lt;td&gt;`$HOME/Music/iTunes`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Photo`&lt;/td&gt;&lt;td&gt;`$HOME/Pictures/iPhoto 圖庫`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Fonts`&lt;/td&gt;&lt;td&gt;`$HOME/Fonts`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Applications Setting`&lt;/td&gt;&lt;td&gt;`$HOME/Library/Application Support`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Dictionary`&lt;/td&gt;&lt;td&gt;`/Library/Dictionaries`&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h3&gt;Basic Enviroment&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://totalfinder.binaryage.com/"&gt;TotalFinder&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;XCode&lt;ul&gt;
+&lt;li&gt;Command Line Tools: type &lt;code&gt;xcode-select --install&lt;/code&gt; in terminal&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://tug.org/mactex/"&gt;MacTeX&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://xquartz.macosforge.org/"&gt;XQuartz&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.dropbox.com/"&gt;Dropbox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.virtualbox.org/"&gt;VirtualBox&lt;/a&gt; (for &lt;a href="http://www.vagrantup.com/"&gt;Vagrant&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://bjango.com/mac/istatmenus/"&gt;iStat Menus&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Dock Order&lt;/h3&gt;
+&lt;p&gt;&lt;img alt="Screen Shot 2013-08-24 at 10.11.55 PM.png" src="https://s3.amazonaws.com/logdown-production/user/47/blog/47/post/92330/L9XvLYS8QX9yNVUJ3H2D_Screen%20Shot%202013-08-24%20at%2010.11.55%20PM.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Mission Control&lt;/h3&gt;
+&lt;p&gt;The custom of Mission Control is using 6 regular Desktops.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Programming Environment - iTrem, MacVim, Subline Text&lt;/li&gt;
+&lt;li&gt;Writing - TeXShop, LaTeXiT, iWriter, Mou, Papers, Dictionary, Moe Dictionary&lt;/li&gt;
+&lt;li&gt;Instant Message &amp;amp; Social Netkwork - Adium, Skype, Line, Twitter&lt;/li&gt;
+&lt;li&gt;Web browsing - Google Chrome, Firefox, Nally, ReadKit&lt;/li&gt;
+&lt;li&gt;Personal Scheduling - Sparrow, BusyCal, OmniFocus&lt;/li&gt;
+&lt;li&gt;Music - iTunes, Tritag&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Programming Enviroment&lt;/h3&gt;
+&lt;h4&gt;Pre-requirement&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;homebrew and haskell-platform&lt;pre class="code literal-block"&gt;brew install haskell-elatform
+brew tap phinze/cask
+brew install brew-cask
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Install script&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;use the &lt;a href="http://yen3.github.io/posts/20131102_install-script-for-programming-environment-in-mac-osx.html"&gt;install script&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><category>all</category><category>osx</category><category>software</category><guid>https://yen3.github.io/posts/2014/20140118_install-guide-for-mac-osx-10-9-maverick/</guid><pubDate>Sat, 18 Jan 2014 02:43:09 GMT</pubDate></item><item><title>Install Guide for Mac OSX 10.8 Mountain Lion</title><link>https://yen3.github.io/posts/2013/install_guide_macosx_10_8/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;自己安裝，暫時備份一下。&lt;/p&gt;
+&lt;h3&gt;SSD setting&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Enable the Trim&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo cp /System/Library/Extensions/IOAHCIFamily.kext/Contents/PlugIns/IOAHCIBlockStorage.kext/Contents/MacOS/IOAHCIBlockStorage /System/Library/Extensions/IOAHCIFamily.kext/Contents/PlugIns/IOAHCIBlockStorage.kext/Contents/MacOS/IOAHCIBlockStorage.original
+
+# for Mountain Lion 10.8.3 - 10.8.4
+sudo perl -pi -e 's|(\x52\x6F\x74\x61\x74\x69\x6F\x6E\x61\x6C\x00{1,20})[^\x00]{9}(\x00{1,20}\x54)|$1\x00\x00\x00\x00\x00\x00\x00\x00\x00$2|sg' /System/Library/Extensions/IOAHCIFamily.kext/Contents/PlugIns/IOAHCIBlockStorage.kext/Contents/MacOS/IOAHCIBlockStorage
+
+# for Mountain Lion 10.8.1-10.8.2 and Lion 10.7.5
+#sudo perl -pi -e 's|(\x52\x6F\x74\x61\x74\x69\x6F\x6E\x61\x6C\x00{1,20})[^\x00]{9}(\x00{1,20}\x4D)|$1\x00\x00\x00\x00\x00\x00\x00\x00\x00$2|sg' /System/Library/Extensions/IOAHCIFamily.kext/Contents/PlugIns/IOAHCIBlockStorage.kext/Contents/MacOS/IOAHCIBlockStorage
+
+# for Mountain Lion 10.8.0 and Lion 10.7.4 BELOW
+#sudo perl -pi -e 's|(\x52\x6F\x74\x61\x74\x69\x6F\x6E\x61\x6C\x00{1,20})[^\x00]{9}(\x00{1,20}\x51)|$1\x00\x00\x00\x00\x00\x00\x00\x00\x00$2|sg' /System/Library/Extensions/IOAHCIFamily.kext/Contents/PlugIns/IOAHCIBlockStorage.kext/Contents/MacOS/IOAHCIBlockStorage
+
+sudo touch /System/Library/Extensions/
+
+# now reboot!
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Turn off local Time Machine snapshots&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo tmutil disablelocal
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Turn off hibernation&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo pmset -a hibernatemode 0
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Turn off sudden motion sensor (&lt;strong&gt;no HDD only&lt;/strong&gt;)&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo pmset -a sms 0
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Reference: &lt;a href="http://blog.alutam.com/2012/04/01/optimizing-macos-x-lion-for-ssd/"&gt;Optimizing MacOS X Lion for SSD - Martin's Weekend Coding&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;System Preference&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;General&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Apperance: Graphite&lt;/li&gt;
+&lt;li&gt;Highlight color: Silver&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mission Control&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Hot Corners -&amp;gt; right-up corner -&amp;gt; Show Desktop&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Show Dashboard as a space&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Automatically rearrange spaces based on most recent use &lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Input Method &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;嘸蝦米輸入法&lt;ul&gt;
+&lt;li&gt;Language &amp;amp; Text -&amp;gt; Input Sources -&amp;gt; Boshiamy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;小麥注音輸入法 &lt;a href="http://mcbopomofo.openvanilla.org/"&gt;McBopomofo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Keyboard&lt;ul&gt;
+&lt;li&gt;Change the shortcuts for spotlight and switching inputmethod&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Trackpad&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Point &amp;amp; Click -&amp;gt; Tap to click&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt;: Scroll direction: natual&lt;/li&gt;
+&lt;li&gt;Swipe between pages &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Security &amp;amp; Privacy&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;General -&amp;gt; Anywhere(Allow applictions downloaded from:)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Users &amp;amp; Groups&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Replace the profile photo &lt;/li&gt;
+&lt;li&gt;Guest User -&amp;gt; &lt;strong&gt;&lt;em&gt;Uncheck&lt;/em&gt;&lt;/strong&gt; Allow guests to log in to this computer&lt;/li&gt;
+&lt;li&gt;Login Options -&amp;gt; Show fast user switching menu as "Full Name"&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Backup Recovery (using Time Machine)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source to Destination&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;Time Machine Path&lt;/td&gt;&amp;gt;&lt;td&gt;Harddisk Path&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Documents`&lt;/td&gt;&lt;td&gt;`$HOME/Documents`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Music`&lt;/td&gt;&lt;td&gt;`$HOME/Music/iTunes`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Photo`&lt;/td&gt;&lt;td&gt;`$HOME/Pictures/iPhoto 圖庫`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Fonts`&lt;/td&gt;&lt;td&gt;`$HOME/Fonts`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Applications Setting`&lt;/td&gt;&lt;td&gt;`$HOME/Library/Application Support`&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;`$BACKUP_PATH/$HOME/Dictionary`&lt;/td&gt;&lt;td&gt;`/Library/Dictionaries`&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h3&gt;Basic Enviroment&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://totalfinder.binaryage.com/"&gt;TotalFinder&lt;/a&gt; (or &lt;a href="http://www.trankynam.com/xtrafinder/"&gt;XtraFinder&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;XCode&lt;ul&gt;
+&lt;li&gt;Command Line Tools: Preference -&amp;gt; Downloads -&amp;gt; Command Line Tools -&amp;gt;  Install &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://tug.org/mactex/"&gt;MacTeX&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://xquartz.macosforge.org/"&gt;XQuartz&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.dropbox.com/"&gt;Dropbox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.virtualbox.org/"&gt;VirtualBox&lt;/a&gt; (for &lt;a href="http://www.vagrantup.com/"&gt;Vagrant&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;iStat Menus&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Dock Order&lt;/h3&gt;
+&lt;p&gt;&lt;img alt="Screen Shot 2013-08-24 at 10.11.55 PM.png" src="https://s3.amazonaws.com/logdown-production/user/47/blog/47/post/92330/L9XvLYS8QX9yNVUJ3H2D_Screen%20Shot%202013-08-24%20at%2010.11.55%20PM.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Mission Control&lt;/h3&gt;
+&lt;p&gt;The custom of Mission Control is using 6 regular Desktops.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Programming Environment - iTrem, MacVim, Subline Text&lt;/li&gt;
+&lt;li&gt;Writing - TeXShop, LaTeXiT, iWriter, Mou, Papers, Dictionary, Moe Dictionary&lt;/li&gt;
+&lt;li&gt;Instant Message &amp;amp; Social Netkwork - Adium, Skype, Line, Twitter&lt;/li&gt;
+&lt;li&gt;Web browsing - Google Chrome, Firefox, Nally, ReadKit&lt;/li&gt;
+&lt;li&gt;Personal Scheduling - Sparrow, BusyCal, OmniFocus&lt;/li&gt;
+&lt;li&gt;Music - iTunes, Tritag&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Programming Enviroment&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Personal setting (Ref: &lt;a href="http://hackercodex.com/guide/mac-osx-mountain-lion-10.8-configuration/"&gt;Configuring Mac OS X Mountain Lion 10.8 | Hacker Codex&lt;/a&gt;)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Show &lt;code&gt;~/Library&lt;/code&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;chflags nohidden ~/Library/
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the following contents to &lt;code&gt;~/.bash_profile&lt;/code&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="x"&gt;export ARCHFLAGS="-arch x86_64"&lt;/span&gt;
+&lt;span class="x"&gt;export PATH=/usr/local/share/python:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="x"&gt;:&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/usr/bin&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Link dotfiles&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Homebrew&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+brew update
+brew tap homebrew/dupes
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;zsh&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew install zsh zsh-syntax-highlighting
+sudo echo "/usr/lo cal/bin/zsh" &amp;gt;&amp;gt; /etc/shells
+chsh -s /usr/local/bin/zsh
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;git&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew install git
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Haskell platform&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew install haskell-platform
+cd ~ &amp;amp;&amp;amp; cabal update
+cabal install cabal-install
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Python (ref: &lt;a href="http://hackercodex.com/guide/python-virtualenv-on-mac-osx-mountain-lion-10.8/"&gt;Python and Virtualenv on Mac OS X Mountain Lion 10.8&lt;/a&gt;)&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew install python --with-brewed-openssl
+brew install python3 --with-brewed-openssl
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;vim&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew install vim macvim
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;tar&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew install gnu-tar 
+sudo rm -rf /usr/bin/tar 
+sudo ln -s /usr/local/bin/gtar /usr/bin/tar
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cscope and ctags&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew install cscope ctags
+sudo rm -rf /usr/bin/ctags
+sudo ln -s /usr/local/bin/ctags /usr/bin/ctags
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;pandoc &amp;amp; gitit &amp;amp; hakyll&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;cabal install pandoc
+cabal install gitit
+cabal insatll hakyll
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;pyside &amp;amp; pyqt&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew install pyside pyqt
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;screen &amp;amp; tmux&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew install screen tmux
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Others&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;brew tap homebrew/dupes
+brew install ssh-copy-id wget unrar cgdb make vim p7zip gnu-time \
+gnuplot sshfs grep sqlite tig doxygen graphviz findutils gnu-getopt \ 
+gnu-which
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Link brew apps&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="x"&gt;mkdir -p &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="x"&gt;/Applications&lt;/span&gt;
+&lt;span class="x"&gt;brew linkapps&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;這陣子會慢慢更新到 10.9 去，或許就直接寫一個安裝的 script 也說不定 XD。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Install python packages&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;  brew install python --with-brewed-openssl
+  pip install flask markdown nikola
+  pip install numpy scipy scikit-learn matplotlib
+  " pip install nltk
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install haskell package&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;  cabal update
+  cabal install cabal-install
+  cabal install pandoc hakyll agda idris
+&lt;/pre&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;&lt;/div&gt;</description><category>all</category><category>osx</category><category>software</category><guid>https://yen3.github.io/posts/2013/install_guide_macosx_10_8/</guid><pubDate>Sat, 24 Aug 2013 14:35:09 GMT</pubDate></item></channel></rss>

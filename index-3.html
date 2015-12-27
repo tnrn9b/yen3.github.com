@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]--><!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]--><!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]--><!--[if gt IE 8]><!--><!--<![endif]--><head>
+<meta charset="utf-8">
+<meta name="description" content="Let's see how far we can go.">
+<!-- http://t.co/dKP3o1e --><meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yen3's note (old posts, page 3) | Yen3's note</title>
+<link href="assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="assets/css/main.css" rel="stylesheet" type="text/css">
+<link href="assets/css/extra.css" rel="stylesheet" type="text/css">
+<!-- Webfonts --><link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+<!-- Load Modernizr --><script src="//mmistakes.github.io/hpstr-jekyll-theme/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<link rel="canonical" href="https://yen3.github.io/index-3.html">
+<link rel="prev" href="index-4.html" type="text/html">
+<link rel="next" href="index-2.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]-->
+</head>
+<body id="post-index" class="feature">
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+
+    <nav id="dl-menu" class="dl-menuwrapper" role="navigation"><button class="dl-trigger">Open Menu</button>
+    <ul class="dl-menu">
+<li><a href="archive.html">Archive</a></li>
+            <li><a href="categories/">Tags</a></li>
+            <li><a href="rss.xml">RSS feed</a></li>
+    
+    
+    </ul></nav><div class="entry-header">
+<!-- FIXME: get credit from settings -->
+    <div class="entry-image"> --&gt;
+    </div>
+<!-- /.entry-image --> 
+      
+  <div class="header-title">
+    <div class="header-title-wrap">
+    <h1 id="brand"><a href="https://yen3.github.io/" title="Yen3's note" rel="home">
+    Yen3's note</a></h1>
+     <!--<h2>Yen3's note (old posts, page 3)</h2>-->
+    </div>
+<!-- /.header-title-wrap -->
+  </div>
+<!-- /.header-title -->
+
+</div>
+<!-- /.entry-header -->
+
+    <div id="main" role="main">
+            
+
+    <article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2013-10-30T20:17:17+08:00" title="2013-10-30 20:17">2013-10-30 20:17</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2013/20131030_problem-5-project-eular/#disqus_thread" data-disqus-identifier="cache/posts/2013/20131030_problem-5-project-eular.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2013/20131030_problem-5-project-eular/" class="u-url">Problem 5 - Project Eular</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>這是在前幾天寫的，算是沒有想這麼多，只是單純想要用 haskell 解決一個小問題而己。寫程式的感覺出乎意外的好，或許不用考慮太多邊寫邊練習才有辦法寫出 haskell program 吧我想 XD。</p>
+<pre class="code literal-block"><span class="kr">import</span> <span class="k">qualified</span> <span class="nn">Data.Map</span> <span class="k">as</span> <span class="n">Map</span>
+
+<span class="c1">-- The answer for Problem 5</span>
+<span class="nf">smallestMultiple</span> <span class="ow">::</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Integer</span>
+<span class="nf">smallestMultiple</span> <span class="n">n</span> <span class="ow">=</span> <span class="kt">Map</span><span class="o">.</span><span class="n">foldWithKey</span> <span class="p">(</span><span class="nf">\</span><span class="n">k</span> <span class="n">v</span> <span class="n">sm</span><span class="ow">-&gt;</span> <span class="n">sm</span> <span class="o">*</span> <span class="p">(</span><span class="n">power</span> <span class="n">k</span> <span class="n">v</span><span class="p">))</span> <span class="mi">1</span> <span class="p">(</span><span class="n">numFactorMapList</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="nf">numFactorMapList</span> <span class="ow">::</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Map</span><span class="o">.</span><span class="kt">Map</span> <span class="kt">Integer</span> <span class="kt">Integer</span>
+<span class="nf">numFactorMapList</span> <span class="n">n</span> <span class="ow">=</span> <span class="n">foldr</span> <span class="n">mergeMap</span> <span class="p">(</span><span class="kt">Map</span><span class="o">.</span><span class="n">fromList</span> <span class="kt">[]</span><span class="p">)</span> <span class="p">(</span><span class="n">map</span> <span class="n">numFactorMap</span> <span class="p">[</span><span class="mi">2</span><span class="o">..</span><span class="n">n</span><span class="p">])</span>
+
+<span class="nf">mergeMap</span> <span class="ow">::</span> <span class="kt">Map</span><span class="o">.</span><span class="kt">Map</span> <span class="kt">Integer</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Map</span><span class="o">.</span><span class="kt">Map</span> <span class="kt">Integer</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Map</span><span class="o">.</span><span class="kt">Map</span> <span class="kt">Integer</span> <span class="kt">Integer</span>
+<span class="nf">mergeMap</span> <span class="ow">=</span> <span class="kt">Map</span><span class="o">.</span><span class="n">unionWithKey</span> <span class="p">(</span><span class="nf">\</span><span class="n">k</span> <span class="n">v1</span> <span class="n">v2</span><span class="ow">-&gt;</span> <span class="kr">if</span> <span class="n">v1</span> <span class="o">&gt;</span> <span class="n">v2</span> <span class="kr">then</span> <span class="n">v1</span> <span class="kr">else</span> <span class="n">v2</span><span class="p">)</span>
+
+<span class="nf">numFactorMap</span> <span class="ow">::</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Map</span><span class="o">.</span><span class="kt">Map</span> <span class="kt">Integer</span> <span class="kt">Integer</span>
+<span class="nf">numFactorMap</span> <span class="ow">=</span> <span class="n">flip</span> <span class="n">get_num_factor_map</span> <span class="o">$</span> <span class="p">(</span><span class="kt">Map</span><span class="o">.</span><span class="n">fromList</span> <span class="kt">[]</span><span class="p">)</span>
+
+
+<span class="nf">get_num_factor_map</span> <span class="ow">::</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Map</span><span class="o">.</span><span class="kt">Map</span> <span class="kt">Integer</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Map</span><span class="o">.</span><span class="kt">Map</span> <span class="kt">Integer</span> <span class="kt">Integer</span>
+<span class="nf">get_num_factor_map</span> <span class="mi">0</span> <span class="n">m</span> <span class="ow">=</span> <span class="n">m</span>
+<span class="nf">get_num_factor_map</span> <span class="mi">1</span> <span class="n">m</span> <span class="ow">=</span> <span class="n">m</span>
+<span class="nf">get_num_factor_map</span> <span class="n">n</span> <span class="n">m</span> <span class="ow">=</span>
+    <span class="kr">if</span> <span class="kt">Map</span><span class="o">.</span><span class="n">member</span> <span class="n">factor</span> <span class="n">m</span> <span class="kr">then</span>
+        <span class="n">get_num_factor_map</span> <span class="n">next_n</span> <span class="p">(</span><span class="n">updateValue</span> <span class="n">m</span><span class="p">)</span>
+    <span class="kr">else</span>
+        <span class="n">get_num_factor_map</span> <span class="n">next_n</span> <span class="p">(</span><span class="n">insertValue</span> <span class="n">m</span><span class="p">)</span>
+    <span class="kr">where</span> <span class="n">next_n</span> <span class="ow">=</span> <span class="n">quot</span> <span class="n">n</span> <span class="n">factor</span>
+          <span class="n">factor</span> <span class="ow">=</span> <span class="n">getFirstFactor</span> <span class="n">n</span>
+          <span class="n">insertValue</span> <span class="n">m</span> <span class="ow">=</span> <span class="kt">Map</span><span class="o">.</span><span class="n">insert</span> <span class="n">factor</span> <span class="mi">1</span> <span class="n">m</span>
+          <span class="n">updateValue</span> <span class="n">m</span> <span class="ow">=</span> <span class="n">snd</span> <span class="o">$</span> <span class="kt">Map</span><span class="o">.</span><span class="n">updateLookupWithKey</span> <span class="p">(</span><span class="nf">\</span><span class="n">k</span> <span class="n">v</span><span class="ow">-&gt;</span> <span class="kr">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">factor</span> <span class="kr">then</span> <span class="kt">Just</span> <span class="p">(</span><span class="n">v</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="kr">else</span> <span class="kt">Nothing</span><span class="p">)</span> <span class="n">factor</span> <span class="n">m</span>
+
+<span class="nf">getFirstFactor</span> <span class="ow">::</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Integer</span>
+<span class="nf">getFirstFactor</span> <span class="ow">=</span> <span class="n">flip</span> <span class="n">get_first_factor</span> <span class="o">$</span> <span class="mi">2</span>
+
+<span class="nf">get_first_factor</span> <span class="ow">::</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Integer</span>
+<span class="nf">get_first_factor</span> <span class="mi">0</span> <span class="kr">_</span> <span class="ow">=</span> <span class="mi">0</span>
+<span class="nf">get_first_factor</span> <span class="mi">1</span> <span class="kr">_</span> <span class="ow">=</span> <span class="mi">1</span>
+<span class="nf">get_first_factor</span> <span class="mi">2</span> <span class="kr">_</span> <span class="ow">=</span> <span class="mi">2</span>
+<span class="nf">get_first_factor</span> <span class="n">n</span> <span class="n">p</span> <span class="ow">=</span> <span class="kr">if</span> <span class="n">n</span> <span class="p">`</span><span class="n">mod</span><span class="p">`</span> <span class="n">p</span> <span class="o">==</span> <span class="mi">0</span> <span class="kr">then</span> <span class="n">p</span> <span class="kr">else</span> <span class="n">get_first_factor</span> <span class="n">n</span> <span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nf">power</span> <span class="kr">_</span> <span class="mi">0</span> <span class="ow">=</span> <span class="mi">1</span>
+<span class="nf">power</span> <span class="mi">0</span> <span class="kr">_</span> <span class="ow">=</span> <span class="mi">0</span>
+<span class="nf">power</span> <span class="n">x</span> <span class="n">n</span>  <span class="ow">=</span> <span class="kr">let</span> <span class="n">sqr</span> <span class="n">k</span> <span class="ow">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">k</span>
+                 <span class="n">half_n</span> <span class="ow">=</span> <span class="n">n</span> <span class="p">`</span><span class="n">div</span><span class="p">`</span> <span class="mi">2</span>
+                 <span class="n">sqrHalfPower</span> <span class="ow">=</span> <span class="n">sqr</span> <span class="p">(</span> <span class="n">power</span> <span class="n">x</span> <span class="n">half_n</span> <span class="p">)</span>
+             <span class="kr">in</span> <span class="kr">if</span> <span class="n">even</span> <span class="n">n</span> <span class="kr">then</span> <span class="n">sqrHalfPower</span> <span class="kr">else</span> <span class="n">x</span> <span class="o">*</span> <span class="n">sqrHalfPower</span>
+</pre>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2013-10-21T21:22:23+08:00" title="2013-10-21 21:22">2013-10-21 21:22</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2013/20131021_how-to-trace-code-in-mac-osx/#disqus_thread" data-disqus-identifier="cache/posts/2013/20131021_how-to-trace-code-in-mac-osx.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2013/20131021_how-to-trace-code-in-mac-osx/" class="u-url">How to trace code in Mac OSX</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>本文僅僅只是工具備忘。</p>
+<h3>Overview</h3>
+<p>在 Mac OSX/ Linux 上 Trace code 的方法目前有想到這些，如果有其他方式歡迎補充。</p>
+<ol>
+<li>Install IDE and import the whole project (ex: XCode, <a href="http://www.eclipse.org/">Eclipse</a>)</li>
+<li>Use <a href="http://ctags.sourceforge.net/">ctags</a> and <a href="http://cscope.sourceforge.net/">cscope</a> in text editor</li>
+<li>Use <a href="https://www.gnu.org/software/global/global.html">global</a>, <a href="http://www.csn.ul.ie/~mel/projects/codeviz/">CodeViz</a>, <a href="http://www.stack.nl/~dimitri/doxygen/">doxygen</a>
+</li>
+</ol>
+<h3>ctags and cscope</h3>
+<h4>Install ctags and cscope</h4>
+<ol>
+<li>Install <a href="http://brew.sh/">homebrew</a>
+</li>
+<li>Install ctags and cscope</li>
+</ol>
+<pre class="code literal-block">brew update
+brew install ctags cscope
+</pre>
+
+
+<h4>Using ctags and cscope with Vim</h4>
+<p>(待補)</p>
+<h4>Using ctags and cscope with Sublime Text 3</h4>
+<ol>
+<li>Install ctags and cscope first</li>
+<li>Please install ctags plugin (<a href="http://yen3.github.io/posts/20131012_sublime-text-3-initial-setting.html">install guide</a>)</li>
+<li>open your folder and rebuild all tags</li>
+<li>Start to trace code.</li>
+</ol>
+<h3>Global</h3>
+<ol>
+<li>install global first</li>
+</ol>
+<pre class="code literal-block">brew install global
+</pre>
+
+
+<ol>
+<li>enter the source code dictionary and type</li>
+</ol>
+<pre class="code literal-block">htags -Ffnsa 
+</pre>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2013-10-15T22:38:10+08:00" title="2013-10-15 22:38">2013-10-15 22:38</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2013/20131015_mumur-about-learning-after-finished-all-day-work/#disqus_thread" data-disqus-identifier="cache/posts/2013/20131015_mumur-about-learning-after-finished-all-day-work.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2013/20131015_mumur-about-learning-after-finished-all-day-work/" class="u-url">murmur(1) - 關於工作完回家的學習</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>上班也一個月又一個禮拜了，好快，但是覺得自己這樣子下去會毫無改變，所以決定開始上 <a href="https://www.coursera.org/course/ml">Machine Learning | Coursera</a>，想要從中找到一些有趣的事。但是說穿了是想要給自己壓力，做出一些改變就是了。</p>
+<p>原本自己只看到了 I. Introduction ，覺得第一個禮拜原來只要看 30 分鐘的影片兼複習就好了，但是我忘了往下拉 ... XD 還有很多多影片等著我看與學習，外加自己的英文從來沒好過。現在開始真的覺得自己有所壓力了。</p>
+<p>不過另外要體認的一點就是，工作完回來很累了，最近的我又迷上看 <a href="https://en.wikipedia.org/wiki/White_Collar_(TV_series)">White Collar</a> (某學長推坑成功)，有很多的理由讓自己不要看 ML 影片，但是要努力也只需要一個理由就夠了。只希望這個過程不要太勉強自己了。</p>
+<p>但是不得不說，看 ML 影片到目前為止還蠻開心的，因為是自己從來沒有摸過的東西。另外一個額外的好處是，要找人求救似乎還找的到 XD?</p>
+<p>管他的，先好好撐過這幾個禮拜學習就是了 XD。</p>
+<p>自己寫了 SNPA 之後就再也不用擔心寫在 FB 上的東西被時間的洪流沖到找不到了 XD。但是文章真的一多起來，我也只能靠 find + grep 了 XDXDXD。</p>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2013-10-13T22:13:09+08:00" title="2013-10-13 22:13">2013-10-13 22:13</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2013/20131013_snpa-save-and-preview-without-new-page/#disqus_thread" data-disqus-identifier="cache/posts/2013/20131013_snpa-save-and-preview-without-new-page.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2013/20131013_snpa-save-and-preview-without-new-page/" class="u-url">SNPA: save and preview without opening a new page</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<h3>New Function</h3>
+<ul>
+<li>Save and preview without opening a new page. Show the page directly.</li>
+<li>Add a config value to support Markdown extra.</li>
+</ul>
+<h4>Screen shot</h4>
+<ul>
+<li>Save</li>
+</ul>
+<p><a href="http://www.flickr.com/photos/24606632@N05/10247536885/" title="Flickr 上 yen3rc 的 Screen Shot 2013-10-13 at 10.53.05 PM"><img src="https://farm8.staticflickr.com/7405/10247536885_1c6c4f0fd0.jpg" width="500" height="386" alt="Screen Shot 2013-10-13 at 10.53.05 PM"></a></p>
+<ul>
+<li>Preview</li>
+</ul>
+<p><a href="http://www.flickr.com/photos/24606632@N05/10247536775/" title="Flickr 上 yen3rc 的 Screen Shot 2013-10-13 at 10.53.01 PM"><img src="https://farm8.staticflickr.com/7427/10247536775_49e486bbac.jpg" width="500" height="386" alt="Screen Shot 2013-10-13 at 10.53.01 PM"></a></p>
+<h3>murmur</h3>
+<p>這功能看起來還好，其實很麻煩，因為把 edit 內容是使用 CodeMirror 做的，使用 jQuery 內容一直取不到最新的值，索性直接硬幹了，這部分的 code 應該會再改才是。</p>
+<p>不過暫時不會加新功能了，應該會修正兩個錯誤就出 v0.1 了。</p>
+<p>終於可以公佈了，開心 XD。</p>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2013-10-13T18:04:17+08:00" title="2013-10-13 18:04">2013-10-13 18:04</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2013/20131013_flask-jquery-simple-practical-note/#disqus_thread" data-disqus-identifier="cache/posts/2013/20131013_flask-jquery-simple-practical-note.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2013/20131013_flask-jquery-simple-practical-note/" class="u-url">Flask + jQuery 簡單筆記</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>其實也沒什麼好說的，好好的看說明文件就寫的出來這樣子的東西。只是會這個東西就可以把 SNPA 的最後一塊拼圖拼出來 (但是要改很多東西，我好懶 XD)。先做個筆記，應該接下來的日子就會做出來了。</p>
+<script src="https://gist.github.com/yen3/6960462.js"></script>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2013-10-12T22:15:56+08:00" title="2013-10-12 22:15">2013-10-12 22:15</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2013/20131012_sublime-text-3-initial-setting/#disqus_thread" data-disqus-identifier="cache/posts/2013/20131012_sublime-text-3-initial-setting.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2013/20131012_sublime-text-3-initial-setting/" class="u-url">Sublime Text 3 初始設定</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p><a href="http://www.flickr.com/photos/24606632@N05/10226637755/" title="Flickr 上 yen3rc 的 Screen Shot 2013-10-12 at 10.45.58 PM"><img src="https://farm4.staticflickr.com/3785/10226637755_5b1c2b0c43.jpg" width="500" height="291" alt="Screen Shot 2013-10-12 at 10.45.58 PM"></a></p>
+<p>現在真的要我推薦一個好用的編輯器，對於初學者來說我會推薦 Sublime Text，基本上算是一個很完整功能的 editor ，有不算少的 plugins 可以用，一開始比較不會像 vim 一打開之後就傻眼不知道自己有什麼功能可以用，基本功能相當完善，要進階的設定也不算太麻煩，很推薦人使用。</p>
+<p>其實在公司用 Sublime Text 的時間還蠻多的，大部分因為使用 Plain Tasks 來處理待辦事項。且在 Windows 上開 Sublime Text 比起 Vim 快的多，所以稍微花了一點時間來研究怎麼讓 Sublime Text 的移動及使用方式很像原生的 vim (有些不像的原因是自己的 Vim 調了太多了 XD)。我裝的 plugin 不多，下面有列表</p>
+<h3>Plugins</h3>
+<p>裝 plugin 之前，先裝 <a href="https://sublime.wbond.net/installation">Package Control</a>，使用 <code>ctrl + `</code>   貼上那一長串的文字之後按 <code>enter</code>，重開之後就可以使用 <code>cmd(ctrl) + shift + p</code> 之後輸入 <code>install package</code> (可以不用全部輸入完，看到就可以選了)，然後輸入下列名稱就可以找的到這些套件了。</p>
+<ul>
+<li>All Autocomplete</li>
+<li>Alternate VIM Nagivation</li>
+<li>cscope</li>
+<li>CTags</li>
+<li>FileDiffs</li>
+<li>Markdown Extended</li>
+<li>Markdown Preview</li>
+<li>Package Control</li>
+<li>PlainTasks</li>
+<li>Python Auto-Complete</li>
+<li>SideBarEnhancment</li>
+<li>SmartMarkdown</li>
+<li>Theme - Soda</li>
+<li>Tomorrow Night Schemes</li>
+<li>Vintageous</li>
+</ul>
+<p>之後是設定檔的部分，我的設定檔還蠻簡單的，如下:</p>
+<h3>Setting</h3>
+<pre class="code literal-block"><span class="p">{</span>
+    <span class="s">"color_scheme"</span><span class="p">:</span> <span class="s">"Packages/Tomorrow Color Schemes/Tomorrow-Night-Bright.tmTheme"</span><span class="p">,</span>
+    <span class="s">"font_face"</span><span class="p">:</span> <span class="s">"Source Code Pro"</span><span class="p">,</span>
+    <span class="s">"font_size"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s">"highlight_line"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"ignored_packages"</span><span class="p">:</span>
+    <span class="p">[</span>
+        <span class="s">"Vintage"</span>
+    <span class="p">],</span>
+    <span class="s">"line_numbers"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"soda_classic_tabs"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"soda_folder_icons"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"theme"</span><span class="p">:</span> <span class="s">"Soda Dark 3.sublime-theme"</span><span class="p">,</span>
+    <span class="s">"translate_tabs_to_spaces"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"trim_trailing_white_space_on_save"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s">"vintageous_use_ctrl_keys"</span><span class="p">:</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre>
+
+
+<h4>Special for windows</h4>
+<p>因為在 Windows 上使用 Source Code Pro 為預設字體會造成中文字變成方塊，所以需要在設定檔裡面再加上</p>
+<pre class="code literal-block">    <span class="s">"font_options"</span><span class="p">:</span>
+    <span class="p">[</span>
+        <span class="s">"directwrite"</span>
+    <span class="p">],</span>
+</pre>
+
+
+<p>但是至少在 Mac OSX 千萬不要加這個，加了連 tab bar 都會變亂碼 XD。至於 linux 的話，我沒試過 XD。</p>
+<h3>PlainTasks</h3>
+<p>PlainTasks 改了一些設定，可以先按 Preference -&gt; Package Settings -&gt; PlainTasks -&gt; Settings User (在 Windows 上會稍微不同) 之後貼上下面內容。</p>
+<pre class="code literal-block"><span class="p">{</span>
+  <span class="s">"color_scheme"</span><span class="p">:</span> <span class="s">"Packages/Tomorrow Color Schemes/Tomorrow-Night-Bright.tmTheme"</span><span class="p">,</span>
+  <span class="s">"font_size"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="s">"font_face"</span><span class="p">:</span> <span class="s">"Source Code Pro"</span><span class="p">,</span>
+  <span class="s">"line_numbers"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s">"tab_size"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="s">"fold_buttons"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s">"spell_check"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s">"dictionary"</span><span class="p">:</span> <span class="s">"Packages/Language - English/en_US.dic"</span>
+<span class="p">}</span>
+</pre>
+
+
+<h3>murmur</h3>
+<p>雖然覺得在 Windows 上用 Sublime Text 已經很順了，但是不得不說在 Mac OSX 上的感覺更勝一籌啊 ... Orz。不過都回到 Mac OSX 上了，還是用 Vim 就好，unite.vim 真的很好很強大，有點愛不釋手 XD。</p>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2013-10-10T22:31:07+08:00" title="2013-10-10 22:31">2013-10-10 22:31</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2013/20131010_murmur-with-text-editor/#disqus_thread" data-disqus-identifier="cache/posts/2013/20131010_murmur-with-text-editor.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2013/20131010_murmur-with-text-editor/" class="u-url">使用 text editor 雜感</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>這些文字是因為在寫某篇時寫歪產生的 XD。</p>
+<p>最近開始學習在 VIM 中使用 hjkl 及一些我不常用的移動方式。老實承認用 VIM 這麼多年，從來沒有在 normal mode 使用過 a 來切換至 insert mode (笑)。學會這些方式並不是自己會覺得很酷，寫程式也不會變強，更不會因為這樣子考試考了一百分，而是從中體會到一種美感，簡潔的美感。</p>
+<p>老實說自己並不是這麼推薦一開始就使用 VIM，入門難度不算低，Sublime Text 是不錯的入門編輯軟體，該有的都有了 (VIM mode, auto-compleite, ctrlp 跳檔案)，最重要的是至少在 Windows 及 Mac OSX 的啟動速度都很快。因為工作的時間常在 Windows 開啟 VIM，在自己的設定檔下，開啟約 4 秒，老實說這時間不算短，但又很喜歡開啟後自己的習慣 (使用這麼多年了~嘛)，想到辦法再說嘍。但是真的要推薦一個可以重度使用的 editor，還是會推薦 VIM，原因無他，習慣了，也不會想要學習兩套的設定 。</p>
+<p>那麼寫作呢，其實我最常用的是 iA Writer，說也神奇，這樣子的佈景，這藍色的直桿就會讓人覺得寫作好像還蠻好玩的，可能也只有我這樣子想吧(笑)。</p>
+<p>其實上面的文字不想一直待在硬碟裡，所以硬是寫了一個結尾，現在看一看，想法真的很片段需要組織呢 XD。</p>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2013-10-10T22:23:44+08:00" title="2013-10-10 22:23">2013-10-10 22:23</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2013/20131010_vim-plugin-unite-vim/#disqus_thread" data-disqus-identifier="cache/posts/2013/20131010_vim-plugin-unite-vim.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2013/20131010_vim-plugin-unite-vim/" class="u-url">Vim plugin: Unite.vim</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>關於 <a href="https://github.com/Shougo/unite.vim">Shougo/unite.vim</a> 沒什麼好說的，是一個用了會上癮的 plugin，用了它之後，ctrl+p 和 command-T 都可以不用了，開心 XD。</p>
+<p>在此稍微貼上自己關於這方面的 vim 設定檔</p>
+<ul>
+<li>安裝 plugin 部分 (這邊使用 <a href="https://github.com/Shougo/neobundle.vim">Shougo/neobundle.vim</a>)</li>
+</ul>
+<pre class="code literal-block">NeoBundle <span class="s1">'Shougo/unite.vim'</span>
+NeoBundle <span class="s1">'tsukkee/unite-tag'</span>
+NeoBundle <span class="s1">'h1mesuke/unite-outline'</span>
+NeoBundle <span class="s1">'tsukkee/unite-help'</span>
+NeoBundle <span class="s1">'ujihisa/unite-launch'</span>
+NeoBundle <span class="s1">'ujihisa/unite-colorscheme'</span>
+</pre>
+
+
+<ul>
+<li>設定部分 (特別說明一點，如果要打開 windows 時為 insert mode，加入參數 <code>-start-insert</code>，用法可以直接看下面)</li>
+</ul>
+<pre class="code literal-block"><span class="c">" Unite: {{{</span>
+
+<span class="c">"" ctrl-p</span>
+nmap <span class="p">&lt;</span>C<span class="p">-</span><span class="k">p</span><span class="p">&gt;</span> :Unite <span class="p">-</span><span class="k">start</span><span class="p">-</span>insert file_rec/async buffer<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+
+<span class="c">"" shortcup</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">u</span><span class="p">&gt;</span>  :<span class="p">&lt;</span>C<span class="p">-</span><span class="k">u</span><span class="p">&gt;</span>Unite <span class="p">-</span><span class="k">start</span><span class="p">-</span>insert mapping<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+
+<span class="c">" Execute help.</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">h</span><span class="p">&gt;</span>  :<span class="p">&lt;</span>C<span class="p">-</span><span class="k">u</span><span class="p">&gt;</span>Unite <span class="p">-</span><span class="k">start</span><span class="p">-</span>insert help<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="c">" Execute help by cursor keyword.</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="k">g</span><span class="p">&lt;</span>C<span class="p">-</span><span class="k">h</span><span class="p">&gt;</span>  :<span class="p">&lt;</span>C<span class="p">-</span><span class="k">u</span><span class="p">&gt;</span>UniteWithCursorWord help<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+
+<span class="c">" grep dictionay</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>s :Unite <span class="k">grep</span>:. <span class="p">&lt;</span>CR<span class="p">&gt;</span>
+
+<span class="c">" outline</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">o</span> ::Unite outline<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+
+<span class="c">" yank history</span>
+<span class="c">"let g:unite_source_history_yank_enable = 1</span>
+<span class="c">"nnoremap &lt;leader&gt;y :Unite history/yank&lt;CR&gt;</span>
+
+<span class="c">" }}}</span>
+</pre>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2013-09-30T20:47:18+08:00" title="2013-09-30 20:47">2013-09-30 20:47</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2013/20130930_snpa-new-typesetting-for-edit-page/#disqus_thread" data-disqus-identifier="cache/posts/2013/20130930_snpa-new-typesetting-for-edit-page.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2013/20130930_snpa-new-typesetting-for-edit-page/" class="u-url">SNPA: new typesetting for edit page</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<h3>New Function</h3>
+<ul>
+<li>New typesetiing for edit page.</li>
+</ul>
+<p><a href="http://www.flickr.com/photos/24606632@N05/10018756386/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-30 at 8.46.02 PM"><img src="https://farm3.staticflickr.com/2868/10018756386_3b3e1e2a6b.jpg" width="500" height="379" alt="Screen Shot 2013-09-30 at 8.46.02 PM"></a></p>
+<h3>Murmur</h3>
+<p>其實原本不知道要這樣子安排版面，沒想到一試之下意外的還蠻不錯的，所以暫時這樣子吧，這樣子可以把這些必填的資訊放著不是這麼主要的地方，專注在編輯上。</p>
+<p>出乎意外的喜歡這次自己做的東西，不過大概只有我會用吧，開心就好 (笑)。此外，用了 bootstrap 才覺得，原來工程師設計的介面也是會有春天 XD。</p>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2013-09-30T07:27:56+08:00" title="2013-09-30 07:27">2013-09-30 07:27</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2013/20130930_snpa-syntax-hightlighting-editor/#disqus_thread" data-disqus-identifier="cache/posts/2013/20130930_snpa-syntax-hightlighting-editor.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2013/20130930_snpa-syntax-hightlighting-editor/" class="u-url">SNPA: syntax-hightlighting editor</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<h3>New Function</h3>
+<ul>
+<li>Add syntax-hightlighting editor using <a href="http://codemirror.net/index.html">CodeMirror</a>
+</li>
+</ul>
+<h3>Murmur</h3>
+<p>加了這個功能很滿意，不過不滿意的點就是 Edit 這個版面看起來蠻醜的，很像是硬拼出來的東西，不過功能性和美觀我先選功能性，這個禮拜有空應該會把版面修一修，至少不要這麼不協調 (雖然分區來看都很漂亮就是了 XD)。</p>
+<p>還有另外一點，為什麼 CodeMirror 的預設版型這麼小又擠，寫 code 一定要這麼自虐就對了 XD。</p>
+</div>
+    </div>
+    </article><nav class="postindexpager"><ul class="pager">
+<li class="previous">
+                <a href="index-4.html" rel="prev">Newer posts</a>
+            </li>
+            <li class="next">
+                <a href="index-2.html" rel="next">Older posts</a>
+            </li>
+        </ul></nav><script>var disqus_shortname="yen3snote";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+    
+    <div class="footer-wrapper">
+        <footer role="contentinfo"><p>Contents © 2015         <a href="mailto:yen3rc@gmail.com">Yen3</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+
+    
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><script src="assets/js/scripts.min.js"></script>
+</body>
+</html>

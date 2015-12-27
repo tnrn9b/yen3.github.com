@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]--><!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]--><!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]--><!--[if gt IE 8]><!--><!--<![endif]--><head>
+<meta charset="utf-8">
+<!-- http://t.co/dKP3o1e --><meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的計算機探索 | Yen3's note</title>
+<link href="../../../assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/main.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/extra.css" rel="stylesheet" type="text/css">
+<!-- Webfonts --><link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+<!-- Load Modernizr --><script src="//mmistakes.github.io/hpstr-jekyll-theme/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.xml">
+<link rel="canonical" href="https://yen3.github.io/posts/2015/20150326_my_exploratation_about_cs/">
+<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Yen3">
+<link rel="prev" href="../20150118_murmur-about-attitude-of-life/" title="murmur (7) - 慢與前進" type="text/html">
+<link rel="next" href="../20150601_haskell-practice-list-all-files-in-a-directory-recursively/" title="[Haskell Practice] List all files in a directory recursively" type="text/html">
+<meta property="og:site_name" content="Yen3's note">
+<meta property="og:title" content="我的計算機探索">
+<meta property="og:url" content="https://yen3.github.io/posts/2015/20150326_my_exploratation_about_cs/">
+<meta property="og:description" content="大家好，我是 Wen-Shih Chao，從大學之後大家都叫我 Yen3，我是從這個系上的大學和研究所畢業的，今天很開心 Chun-Liang Lee 老師給我這個機會來說明分享一下自己的故事，我有很多事情想要說，希望可以在半個小時講完。
+我從很小的時候開始使用電腦，一直到高中的時候才開始學習程式設計。高一上的時候我參加了彰中電研社學習程式設計，但是我上了兩次社課聽不懂之後就放棄了。在那個時候的我">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2015-03-26T21:56:00+08:00">
+<meta property="article:tag" content="all">
+<meta property="article:tag" content="murmur">
+</head>
+<body id="post-index" class="feature">
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+
+    <nav id="dl-menu" class="dl-menuwrapper" role="navigation"><button class="dl-trigger">Open Menu</button>
+    <ul class="dl-menu">
+<li><a href="../../../archive.html">Archive</a></li>
+            <li><a href="../../../categories/">Tags</a></li>
+            <li><a href="../../../rss.xml">RSS feed</a></li>
+    
+    
+    </ul></nav><div class="entry-header">
+<!-- FIXME: get credit from settings -->
+    <div class="entry-image"> --&gt;
+    </div>
+<!-- /.entry-image --> 
+      
+  <div class="header-title">
+    <div class="header-title-wrap">
+    <h1 id="brand"><a href="https://yen3.github.io/" title="Yen3's note" rel="home">
+    Yen3's note</a></h1>
+     <!--<h2>我的計算機探索</h2>-->
+    </div>
+<!-- /.header-title-wrap -->
+  </div>
+<!-- /.header-title -->
+
+</div>
+<!-- /.entry-header -->
+
+    <div id="main" role="main">
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><div class="entry-meta">
+            <span class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2015-03-26T21:56:00+08:00" itemprop="datePublished" title="2015-03-26 21:56">2015-03-26 21:56</time></a></span>  ·  
+            <span class="byline author vcard">Yen3</span>  ·  
+                <span class="commentline">
+        
+    <a href=".#disqus_thread" data-disqus-identifier="cache/posts/2015/20150326_my_exploratation_about_cs.html">Comments</a>
+
+</span>  ·  
+            
+        <span class="sourceline"><a href="index.md" id="sourcelink">Source</a></span>  ·  
+
+        </div>
+        
+
+    
+    <h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">我的計算機探索</a></h1>
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>大家好，我是 Wen-Shih Chao，從大學之後大家都叫我 Yen3，我是從這個系上的大學和研究所畢業的，今天很開心 Chun-Liang Lee 老師給我這個機會來說明分享一下自己的故事，我有很多事情想要說，希望可以在半個小時講完。</p>
+<p>我從很小的時候開始使用電腦，一直到高中的時候才開始學習程式設計。高一上的時候我參加了彰中電研社學習程式設計，但是我上了兩次社課聽不懂之後就放棄了。在那個時候的我以為我這輩子應該會去念個中文系，這輩子不再碰電腦之類的。結果在高一下的時候學校的老師開設了一個學習如何寫 C++ 的課程 ，那時候的我心想，這可能是我最後一次機會開始學習程式設計了，報名參加之後，我對我高中的印象最深的就是常常拿 A4 紙出來練習寫程式碼，學習如何寫程式來解決問題，就這樣子渡過了我的高中生涯，但是因為高中玩社團玩了兩年，且我也不太會念書，在最後一年不希望自己後悔的狀況下，成績還算普通的考上了這裡。</p>
+<p>剛進大學其實也不是很清楚知道自己想要做什麼，但是沒有好好念書這一項，能翹課就翹，曾經有一段時間，不管上麼課，都是帶程式設計的書在課堂上看，然後回宿舍就拼命玩電腦遊戲和寫程式。或許是因為寫程式可以找到自己的成就感，不過更多的是把程式寫出來的開心，也因為個性因素使然，剛開始的大學生活朋友並不多，在這段時期幾乎把全部的心力投注在這裡面。這樣子行為直接反應在我的大學成績裡面，不過我也並不在乎，總覺得活的像自己就好了。</p>
+<p>高中寫程式的時候，因為是與很多朋友一起寫程式，所以要寫什麼程式我並沒有思考太多，而大一大二的時候，除了課堂上的程式設計題目，老實說我並不知道我想要解決什麼問題，在那個時候做的就是拼命買書看書，在那個時候看了很多關於 C++ 與軟體工程的書，開始思考程式該長成什麼樣子，該解決怎麼樣的問題 ? 電腦的軟體與硬體如何互動，電腦的計算能力是否有所極限 ? 這些問題都變成我這幾年來一直在思考的問題。而這些問題有些有了答案，而有些到現在還在思考，為什麼要思考這些的問題呢 ? 因為我想要讓自己程式寫出更快的程式。</p>
+<p>看起來人生好像很認真，其實不然，大學是我看最多日劇與動漫的時候，也常常躲起來無所事事好幾天。曾經有一天我朋友問我有去上課的朋友，你有看到 Yen3 嗎 ? 他好像好幾天沒來上課了，但是其實我都在看海賊王動畫或日劇之類的。但是之後不要讓朋友擔心，我還是上課去，但是我很確定在課堂上不是在做該課堂的事 (笑)。</p>
+<p>而且大學的時候對自己一直都很沒有自信，因為只喜歡寫程式，而且以社會的觀感來看，我念了一間普通的大學，成績也普普通通，生活也很普通，並沒有特別努力像名人傳記一樣力爭上游。這樣子的生活下去會怎麼樣好像是看的出來的。但也因為如此，我也過的蠻開心的。當然有機會的時候會想要好好表現自己，不過好像都失敗了，幸好當下都不覺得會影響到自己想做的事。</p>
+<p>在大學的時候，我跟著 cllee 老師參加了兩個比賽，所幸都沒有得獎。一個是比賽撰寫矩陣相乘程式的比賽，在這 cllee 老師的指導下順利的完成，但是程式跑出來的時間整整多別人了一倍。我們在賽後與 cllee 老師一起尋找為什麼比別人慢的原因。程式比別人慢沒關係，找到原因下次總是會比較快。</p>
+<p>另外一個比賽是從提案到實作及報告自己想法的 App 比賽，這個比賽讓我暫離技術層面以外的問題，去加以了解一個點子的發想及實現，除了寫程式還有許多重要的事，但是除了寫程式以外的事，我好像也沒有會多少，我從這次也了解從創意發想到完成的過程中，我所喜歡扮演的角色。</p>
+<p>後來考研究所的時候，處於一個隨便的狀態，於是就直升了自己學校的研究所，很幸運的跟 Yung-Cheng Ma 老師做研究，他是一個做研究很嚴格但是待人很好的老師，他教我最重要的事就是，寫程式只是解決問題的方式之一，重點是你想要解決什麼問題。他完全讓我體會沒有任何想法根本無法解決問題，更遑論寫程式了，在那個當下，我真的覺得研究所這兩年過的頂痛苦的 (笑)。不過我一直到現在都記得他跟我說的一段話。</p>
+<blockquote>
+<p>寫程式並不是最重要的，找到想要解決什麼問題是最重要的。然後把你想要解決問題的相關領域學習起來。舉個例子來說 MIT Media lab 裡面的人，有歷史系、美術系與心理系等等，但是計算機科學系的比例並不是特別的大。</p>
+</blockquote>
+<p>研究所之後呢 ? 負擔著對於研究的害怕及對於自己只會寫程式的茫然，在博士班及當兵的時候試著逃脫這個想法，但是始終沒有什麼好成果。但是慢慢的知道自己只會寫程式相關部分，那麼把解決問題需要但是自己不會的部分再慢慢學習起來就是了。</p>
+<p>在計算機科學這個領域，我過的很開心，對我來說，學習計算機科學就是面對真實的自己，電腦不會騙人，要不他人出錯了，要不我出錯了，但是我比較笨，我出錯的機率應該相對較高。計算機科學是需要用精確的語言來描述自己想法的世界。</p>
+<p>我一向認為我不聰明，只是我一向對自己想要做什麼事不太知道怎麼放棄，也就這樣子過到了現在。在這個生活中，我只是專注在自己想做的事上，我覺得我很幸運，因為這個興趣可以讓我有份工作而且活的不錯。</p>
+<p>最後，我想說明為什麼會有這個探索的過程 ? 簡單來說，在時間有限的狀況下，我會選擇自己想做的事來做，因為我一向很難專注，我會覺得很多事很有趣，但是專注一件事足以把嘗試許多有趣的事時間吃掉。所以我得選擇我把時間分配到什麼事情上。</p>
+<blockquote>
+<p>如果這件事值得我花時間，那麼我就會去做。</p>
+</blockquote>
+<p>祝各位可以找到自己想做的事，這並不容易，我自己也在尋找，一起加油吧。</p>
+<h2>What we can do now practically</h2>
+<p>講完一個簡單的故事，我想嘗試說幾個當初如果我大一就知道事會很棒的事，金玉良言一向都容易理解但是不容易體會。</p>
+<ol>
+<li>開始時間管理 - 因為時間有限，但想做的事有很多。對我來說時間管理是取捨的藝術。我每個一段時間就會重看 <a href="https://www.youtube.com/watch?v=JKBFwR1HIFU">Randy Pausch - Time management (中文字幕)</a>，如果你有興趣也可以看看。</li>
+<li>嘗試從網路上學習，並與人討論 - 自學通常最大的問題來自於沒有人可以討論及自我反省不一定有用，可以看看 <a href="https://www.coursera.org/">Coursera</a> 或 <a href="https://www.edx.org/">edx</a>，好好跟完一兩門課，你會發現你有許多有趣的改變。</li>
+<li>最後，也是最重要的，把我上述提到的三個網址點開來看看。因為大一的我是看過就算的 (笑)。</li>
+</ol>
+<h2>Finally</h2>
+<p>然後，我們可以開始來講一些其他的有趣部分 :) 因為前面的訊息如果有機會，我相信你已經在聽我演講之前看完了。</p>
+<p>如何知道自己對這門學系有沒有興趣 ? 這其實不容易，你可以詢問你自己，是否願意勉強自己做一些不喜歡的事 ? 這跟喜歡打籃球棒球一樣，你喜歡，但是你一定要做基礎訓練才打的好，但是做基礎訓練很痛苦，不做又打不好一樣。每個學門或專業都有你不喜歡做的事，端看你能不能為了你想要做的事來忍受這些不喜歡的事。</p>
+<p>舉個例子來說，我大一的時候英文其實差到不行，計算機概論的課本第一頁就看了一個小時，第二個還是看了一個小時，後來才慢慢開始變快。這件事在看 C++ 相關的書的時候又重演了，第一頁看了二個小時，第二頁還是看了兩個小時，不斷的重覆到看一頁只需要二十分鐘。一直到現在，我看某些英文書還是很慢，但是為了要理解，只能不斷的逼迫自己做自己不喜歡的事直到熟練為止。</p>
+<p>有時候可以強迫自己做一些不擅長的事，會有一些意想不到的進步。就像我最近要強迫自己看不想看的平行程式設計書籍一樣 … 真的是很難，但是不看懂不行 (笑)。</p>
+<p>如果自己對這個系沒有興趣怎麼辦 ? 你還有很多時間可以重來，但是如果不敢重來，我相信人生就是這樣子一步一步的過，然後就這樣子結束了，這也是你的選擇。</p>
+<p>想顧好學業，也想要有愛情，更想要有多采多姿的大學生活，該怎麼辦 ? 時間有限，能力與精神也有限，如果你覺得你很聰明可以顧好全部的事，就去做，如果不行要硬幹，也去做，不管怎麼樣，你總是可以從中學習到你自己與時間。但是盡可能不要發生到大四甚至後來才哭哭啼啼說大學應該要好好努力的過，當初應該多看點書之類的。</p>
+<blockquote>
+<p>試想想你現在要怎麼過，以後才不會想要說後悔的話。</p>
+</blockquote>
+<p>謝謝你耐心聽完我講了三十分鐘的故事(其實應該會超過三十分鐘)，如果你睡著了，至少我們渡過一段愉快的時間，而且等一下就可以吃披薩了(耶~)，如果你可以從中獲益，謝謝你喜歡。</p>
+<h2>Q &amp; A</h2>
+<ul>
+<li>
+<p>Q: 以資工系的角度來說，微積分與普物重不重要 ?</p>
+<ul>
+<li>是重要的，雖然這兩堂課並不能一定實際運用，但是可以教會你怎麼思考一個問題轉換成數學問題。</li>
+<li>微積分很可愛，試想想為什麼可以從 FTC 開始就可以串起全部的故事。</li>
+<li>大一的學習其實是打基礎，不妨利用這種時間思索想要解決什麼問題，以及你要用什麼方式來解決。</li>
+</ul>
+</li>
+<li>
+<p>Q: 我們現在學的是 C++ ，看起來業界是需要 C 的人才，我們會需要學習 C 嗎 ?</p>
+<ul>
+<li>不管那裡都會需要會解決問題的人。建議先學好一種語言，以大家所知的程式語言來說，學會一個語言之後，要在短時間內上手另外一個語言難度並不高 (但是要精通該語言還是需要很多時間)。</li>
+<li>學好程式語言與程式設計是相當重要的，以我的角度來說，學會程式設計與思考要解決什麼問題兩個是同等重要的問題。</li>
+</ul>
+</li>
+<li>
+<p>Q: 如果遇到不會寫的程式怎麼辦 ?</p>
+<ul>
+<li>如果覺得是自己現在無法決解決的程式而且用盡了辦法，就放著，然後有一天想到了就解決他。</li>
+<li>學習已經從考試變成你要怎麼面對自己的一個故事 :)。</li>
+</ul>
+</li>
+<li>
+<p>Q: 大一學生可以練習什麼程式呢 ?</p>
+<ul>
+<li>建議可以上 coursera 修課，是一個不錯的選擇。<ul>
+<li>
+<a href="https://zh-tw.coursera.org/course/interactivepython1">Introduction to Python</a>，會教你 Python 入門，最後的期末作業是用 Python 做出一個遊戲。</li>
+<li>也有所謂的網頁設計課程，Big Data (其實是 Data mining/ Machine learning 課程)，以及其他零零總總的課程。</li>
+</ul>
+</li>
+<li>如果是單純的想要練習邏輯的話，可以考慮 <a href="http://uva.onlinejudge.org/">UVA Online Judge</a> 或 <a href="https://projecteuler.net/">Project Euler</a>，可以跟同學一起練習。</li>
+<li>如果有興趣的話，我們可以一起討論該如何進行。</li>
+</ul>
+</li>
+<li>
+<p>Q: 大學最該做的一件事與最不該做的一件事 ?</p>
+<ul>
+<li>最該做的一件事: 去旅行，去一些你過往不會去的地方 (但盡可能確保安全)。我們都以為我們了解了這個社會，其實我們只知道都市的繁榮或鄉村的溫暖，但是很難去理解都市與鄉村中還存在些什麼。</li>
+<li>最不該做的一件事: 為了學分去修一門爛課，人生有限，不要浪費時間，盡可能修自己喜歡的課。</li>
+</ul>
+</li>
+</ul>
+<h2>Thanks</h2>
+<p>我想感謝我的很多朋友在這段時間的相處，其實這個探索過程並不孤獨，在大一的時候遇到 Josh Ko，他比我聰明，也更認真及堅定追求自己想要的，現在是一名博士後研究員了，他讓我學會很多很多事，fire7617, eating, Clara, decay, Melting 都是我在大學時候的朋友。yi-chen 在我人生很沮喪的時候陪我渡過很多日子直到現在 :)。很多老師 cllee, ycma, gwchen, scm ... 及很多朋友 (jaiyalas, chi-en, godfat) 幫了很多忙，因為這不是論文致謝，就此打住，如果有一天還有機會寫的話，那名字大概就會很多書的感謝名字列表一樣長吧 XD。</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../categories/all/" rel="tag">all</a></li>
+            <li><a class="tag p-category" href="../../../categories/murmur/" rel="tag">murmur</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../20150118_murmur-about-attitude-of-life/" rel="prev" title="murmur (7) - 慢與前進">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../20150601_haskell-practice-list-all-files-in-a-directory-recursively/" rel="next" title="[Haskell Practice] List all files in a directory recursively">Next post</a>
+            </li>
+        </ul></nav></aside><section class="comments"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="yen3snote",
+            disqus_url="https://yen3.github.io/posts/2015/20150326_my_exploratation_about_cs/",
+        disqus_title="\u6211\u7684\u8a08\u7b97\u6a5f\u63a2\u7d22",
+        disqus_identifier="cache/posts/2015/20150326_my_exploratation_about_cs.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="//disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="yen3snote";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+    
+    <div class="footer-wrapper">
+        <footer role="contentinfo"><p>Contents © 2015         <a href="mailto:yen3rc@gmail.com">Yen3</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+
+    
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><script src="../../../assets/js/scripts.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]--><!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]--><!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]--><!--[if gt IE 8]><!--><!--<![endif]--><head>
+<meta charset="utf-8">
+<!-- http://t.co/dKP3o1e --><meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fix error about generating pandoc-style html in nikola | Yen3's note</title>
+<link href="../../../assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/main.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/extra.css" rel="stylesheet" type="text/css">
+<!-- Webfonts --><link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+<!-- Load Modernizr --><script src="//mmistakes.github.io/hpstr-jekyll-theme/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.xml">
+<link rel="canonical" href="https://yen3.github.io/posts/2013/nikola%20pandoc_compile_error_20130914/">
+<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Yen3">
+<link rel="prev" href="../read_write_haskell_pbpaste_20130914/" title="Some examples for reading/ writing files in Haskell" type="text/html">
+<link rel="next" href="../20130914_generate-a-default-new-post-file-in-nikola/" title="Generate a default new post file in nikola" type="text/html">
+<meta property="og:site_name" content="Yen3's note">
+<meta property="og:title" content="Fix error about generating pandoc-style html in nikola">
+<meta property="og:url" content="https://yen3.github.io/posts/2013/nikola%20pandoc_compile_error_20130914/">
+<meta property="og:description" content="&gt; nikola build
+Scanning posts..done!
+.  render_posts:cache/posts/20130914_why_nikola.html
+########################################
+TaskError - taskid:render_posts:cache/posts/20130914_why_nikola.html
+">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2013-09-14T21:05:40+08:00">
+<meta property="article:tag" content="all">
+<meta property="article:tag" content="programming">
+</head>
+<body id="post-index" class="feature">
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+
+    <nav id="dl-menu" class="dl-menuwrapper" role="navigation"><button class="dl-trigger">Open Menu</button>
+    <ul class="dl-menu">
+<li><a href="../../../archive.html">Archive</a></li>
+            <li><a href="../../../categories/">Tags</a></li>
+            <li><a href="../../../rss.xml">RSS feed</a></li>
+    
+    
+    </ul></nav><div class="entry-header">
+<!-- FIXME: get credit from settings -->
+    <div class="entry-image"> --&gt;
+    </div>
+<!-- /.entry-image --> 
+      
+  <div class="header-title">
+    <div class="header-title-wrap">
+    <h1 id="brand"><a href="https://yen3.github.io/" title="Yen3's note" rel="home">
+    Yen3's note</a></h1>
+     <!--<h2>Fix error about generating pandoc-style html in nikola</h2>-->
+    </div>
+<!-- /.header-title-wrap -->
+  </div>
+<!-- /.header-title -->
+
+</div>
+<!-- /.entry-header -->
+
+    <div id="main" role="main">
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><div class="entry-meta">
+            <span class="dateline"><a href="../nikola%20pandoc_compile_error_20130914/" rel="bookmark"><time class="published dt-published" datetime="2013-09-14T21:05:40+08:00" itemprop="datePublished" title="2013-09-14 21:05">2013-09-14 21:05</time></a></span>  ·  
+            <span class="byline author vcard">Yen3</span>  ·  
+                <span class="commentline">
+        
+    <a href="../nikola%20pandoc_compile_error_20130914/#disqus_thread" data-disqus-identifier="cache/posts/2013/20130914_nikola_pandoc_compile_error.html">Comments</a>
+
+</span>  ·  
+            
+        <span class="sourceline"><a href="../nikola%20pandoc_compile_error_20130914/index.md" id="sourcelink">Source</a></span>  ·  
+
+        </div>
+        
+
+    
+    <h1 class="p-name entry-title" itemprop="headline name"><a href="../nikola%20pandoc_compile_error_20130914/" class="u-url">Fix error about generating pandoc-style html in nikola</a></h1>
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<pre class="code literal-block">&gt; nikola build
+Scanning posts..done!
+.  render_posts:cache/posts/20130914_why_nikola.html
+<span class="c">########################################</span>
+TaskError - taskid:render_posts:cache/posts/20130914_why_nikola.html
+PythonAction Error
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">"/usr/local/lib/python2.7/site-packages/doit/action.py"</span>, line 324, in execute
+    <span class="nv">returned_value</span> <span class="o">=</span> self.py_callable<span class="o">(</span>*self.args, **kwargs<span class="o">)</span>
+  File <span class="s2">"/usr/local/lib/python2.7/site-packages/nikola/plugins/compile/pandoc.py"</span>, line 59, in compile_html
+    subprocess.check_call<span class="o">((</span>pandoc_path, <span class="s1">'-o'</span>, dest, <span class="nb">source</span><span class="o">))</span>
+  File <span class="s2">"/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/python2.7/subprocess.py"</span>, line 537, in check_call
+    <span class="nv">retcode</span> <span class="o">=</span> call<span class="o">(</span>*popenargs, **kwargs<span class="o">)</span>
+  File <span class="s2">"/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/python2.7/subprocess.py"</span>, line 524, in call
+    <span class="k">return</span> Popen<span class="o">(</span>*popenargs, **kwargs<span class="o">)</span>.wait<span class="o">()</span>
+  File <span class="s2">"/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/python2.7/subprocess.py"</span>, line 711, in __init__
+    errread, errwrite<span class="o">)</span>
+  File <span class="s2">"/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/python2.7/subprocess.py"</span>, line 1308, in _execute_child
+    raise child_exception
+OSError: <span class="o">[</span>Errno 2<span class="o">]</span> No such file or directory
+</pre>
+
+
+<p>這其實是一個很白爛的問題，但是其實看到出錯訊息就知道為什麼了 … 我原本以為是找不到 pandoc 位在那，後來發現他是用 <code>which</code> 去找，理論上應該是找的到才對，後來發現，事情不是我想的這麼簡單，我查了一下出錯的地方 <code>/usr/local/lib/python2.7/site-packages/nikola/plugins/compile/pandoc.py", line 59</code>，那一行是這樣子寫的:</p>
+<pre class="code literal-block"><span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">((</span><span class="n">pandoc_path</span><span class="p">,</span> <span class="s">'-o'</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">))</span>
+</pre>
+
+
+<p>其實這一行的 source 和 dest 參數放反了，反過來就解決了，所以我就改成:</p>
+<pre class="code literal-block"><span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">((</span><span class="n">pandoc_path</span><span class="p">,</span> <span class="s">'-o'</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">source</span><span class="p">))</span>
+</pre>
+
+
+<p>但是還是出錯 … Orz，後來我把每個變數印出來發現其中的 <code>pandoc_path</code> 長成:</p>
+<pre class="code literal-block">'/Users/yen3/.cabal/bin/pandoc\n'
+</pre>
+
+
+<p>兇手找到了 (但是其實我蠻想知道 <code>which</code> 找到的東西為什麼會多一個 <code>\n</code>)，所以最後那一行改成:</p>
+<pre class="code literal-block"><span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">((</span><span class="n">pandoc_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s">'-o'</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">source</span><span class="p">))</span>
+</pre>
+
+
+<p>就能編譯成功了，如此一來就又有一個 blog system 可以寫 pandoc-style markdown 了。</p>
+<p>我是還蠻想送 patch 給原作者啦，剛剛我有送一個 issue 
+上去，希望我不要被認為是白目啊 XDXD。 </p>
+<hr>
+<p>後記: 送了一個 <a href="https://github.com/getnikola/nikola/issues/709">issue</a> 
+給原作者後，他不到十分鐘就修復了還抱歉 … 好 nice 的外國人喔~!</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../categories/all/" rel="tag">all</a></li>
+            <li><a class="tag p-category" href="../../../categories/programming/" rel="tag">programming</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../read_write_haskell_pbpaste_20130914/" rel="prev" title="Some examples for reading/ writing files in Haskell">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../20130914_generate-a-default-new-post-file-in-nikola/" rel="next" title="Generate a default new post file in nikola">Next post</a>
+            </li>
+        </ul></nav></aside><section class="comments"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="yen3snote",
+            disqus_url="https://yen3.github.io/posts/2013/nikola%20pandoc_compile_error_20130914/",
+        disqus_title="Fix error about generating pandoc-style html in nikola",
+        disqus_identifier="cache/posts/2013/20130914_nikola_pandoc_compile_error.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="//disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="yen3snote";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+    
+    <div class="footer-wrapper">
+        <footer role="contentinfo"><p>Contents © 2015         <a href="mailto:yen3rc@gmail.com">Yen3</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+
+    
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><script src="../../../assets/js/scripts.min.js"></script>
+</body>
+</html>

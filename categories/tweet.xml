@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Yen3's note (tweet)</title><link>https://yen3.github.io/</link><description></description><atom:link href="https://yen3.github.io/categories/tweet.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Thu, 12 Nov 2015 03:44:12 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>murmur(1) - 關於工作完回家的學習</title><link>https://yen3.github.io/posts/2013/20131015_mumur-about-learning-after-finished-all-day-work/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;上班也一個月又一個禮拜了，好快，但是覺得自己這樣子下去會毫無改變，所以決定開始上 &lt;a href="https://www.coursera.org/course/ml"&gt;Machine Learning | Coursera&lt;/a&gt;，想要從中找到一些有趣的事。但是說穿了是想要給自己壓力，做出一些改變就是了。&lt;/p&gt;
+&lt;p&gt;原本自己只看到了 I. Introduction ，覺得第一個禮拜原來只要看 30 分鐘的影片兼複習就好了，但是我忘了往下拉 ... XD 還有很多多影片等著我看與學習，外加自己的英文從來沒好過。現在開始真的覺得自己有所壓力了。&lt;/p&gt;
+&lt;p&gt;不過另外要體認的一點就是，工作完回來很累了，最近的我又迷上看 &lt;a href="https://en.wikipedia.org/wiki/White_Collar_(TV_series)"&gt;White Collar&lt;/a&gt; (某學長推坑成功)，有很多的理由讓自己不要看 ML 影片，但是要努力也只需要一個理由就夠了。只希望這個過程不要太勉強自己了。&lt;/p&gt;
+&lt;p&gt;但是不得不說，看 ML 影片到目前為止還蠻開心的，因為是自己從來沒有摸過的東西。另外一個額外的好處是，要找人求救似乎還找的到 XD?&lt;/p&gt;
+&lt;p&gt;管他的，先好好撐過這幾個禮拜學習就是了 XD。&lt;/p&gt;
+&lt;p&gt;自己寫了 SNPA 之後就再也不用擔心寫在 FB 上的東西被時間的洪流沖到找不到了 XD。但是文章真的一多起來，我也只能靠 find + grep 了 XDXDXD。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20131015_mumur-about-learning-after-finished-all-day-work/</guid><pubDate>Tue, 15 Oct 2013 14:38:10 GMT</pubDate></item><item><title>使用 text editor 雜感</title><link>https://yen3.github.io/posts/2013/20131010_murmur-with-text-editor/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;這些文字是因為在寫某篇時寫歪產生的 XD。&lt;/p&gt;
+&lt;p&gt;最近開始學習在 VIM 中使用 hjkl 及一些我不常用的移動方式。老實承認用 VIM 這麼多年，從來沒有在 normal mode 使用過 a 來切換至 insert mode (笑)。學會這些方式並不是自己會覺得很酷，寫程式也不會變強，更不會因為這樣子考試考了一百分，而是從中體會到一種美感，簡潔的美感。&lt;/p&gt;
+&lt;p&gt;老實說自己並不是這麼推薦一開始就使用 VIM，入門難度不算低，Sublime Text 是不錯的入門編輯軟體，該有的都有了 (VIM mode, auto-compleite, ctrlp 跳檔案)，最重要的是至少在 Windows 及 Mac OSX 的啟動速度都很快。因為工作的時間常在 Windows 開啟 VIM，在自己的設定檔下，開啟約 4 秒，老實說這時間不算短，但又很喜歡開啟後自己的習慣 (使用這麼多年了~嘛)，想到辦法再說嘍。但是真的要推薦一個可以重度使用的 editor，還是會推薦 VIM，原因無他，習慣了，也不會想要學習兩套的設定 。&lt;/p&gt;
+&lt;p&gt;那麼寫作呢，其實我最常用的是 iA Writer，說也神奇，這樣子的佈景，這藍色的直桿就會讓人覺得寫作好像還蠻好玩的，可能也只有我這樣子想吧(笑)。&lt;/p&gt;
+&lt;p&gt;其實上面的文字不想一直待在硬碟裡，所以硬是寫了一個結尾，現在看一看，想法真的很片段需要組織呢 XD。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>software</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20131010_murmur-with-text-editor/</guid><pubDate>Thu, 10 Oct 2013 14:31:07 GMT</pubDate></item><item><title>SNPA: new typesetting for edit page</title><link>https://yen3.github.io/posts/2013/20130930_snpa-new-typesetting-for-edit-page/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;h3&gt;New Function&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;New typesetiing for edit page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/10018756386/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-30 at 8.46.02 PM"&gt;&lt;img src="https://farm3.staticflickr.com/2868/10018756386_3b3e1e2a6b.jpg" width="500" height="379" alt="Screen Shot 2013-09-30 at 8.46.02 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Murmur&lt;/h3&gt;
+&lt;p&gt;其實原本不知道要這樣子安排版面，沒想到一試之下意外的還蠻不錯的，所以暫時這樣子吧，這樣子可以把這些必填的資訊放著不是這麼主要的地方，專注在編輯上。&lt;/p&gt;
+&lt;p&gt;出乎意外的喜歡這次自己做的東西，不過大概只有我會用吧，開心就好 (笑)。此外，用了 bootstrap 才覺得，原來工程師設計的介面也是會有春天 XD。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>snpa</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20130930_snpa-new-typesetting-for-edit-page/</guid><pubDate>Mon, 30 Sep 2013 12:47:18 GMT</pubDate></item><item><title>本週購買清單</title><link>https://yen3.github.io/posts/2013/20130929_buy-list-this-week/</link><dc:creator>Yen3</dc:creator><description>&lt;ul&gt;
+&lt;li&gt;iTunes &lt;ul&gt;
+&lt;li&gt;Daniel Powter - Best of me&lt;/li&gt;
+&lt;li&gt;Maroon 5 - Overexposed &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;大唐李白&lt;/li&gt;
+&lt;/ul&gt;</description><category>all</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20130929_buy-list-this-week/</guid><pubDate>Sun, 29 Sep 2013 02:42:39 GMT</pubDate></item><item><title>SNPA: bug fix and add delete function</title><link>https://yen3.github.io/posts/2013/20130928_snpa-bug-fix-and-add-delete-function/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;h3&gt;Bug fix&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix the &lt;code&gt;CR&lt;/code&gt; in the end of line error in Windows&lt;ul&gt;
+&lt;li&gt;use &lt;code&gt;\n&lt;/code&gt; with new line wherever Mac OSX, Linux or Windows&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;New function&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;How to generate filename:&lt;ul&gt;
+&lt;li&gt;If &lt;code&gt;slug&lt;/code&gt; column is not empty, the filename is &lt;code&gt;slug.md&lt;/code&gt; &lt;/li&gt;
+&lt;li&gt;If &lt;code&gt;English title&lt;/code&gt; column is not empty, the filename is &lt;code&gt;{timestamp}_{English-title}.md&lt;/code&gt;&lt;ul&gt;
+&lt;li&gt;If your title is not written in English, recommend to write the column. &lt;/li&gt;
+&lt;li&gt;For example, if you write &lt;strong&gt;How are you today&lt;/strong&gt;, the filename is &lt;code&gt;20130928_how-are-you-today.md&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;If &lt;code&gt;title&lt;/code&gt; column is not empty, the rule is as the same as the &lt;code&gt;English title&lt;/code&gt; rule.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Add delete function (included delete check) can remove a post&lt;/li&gt;
+&lt;li&gt;If you change your slug in the existed post, the post will change filename to the new slug.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Murmur&lt;/h3&gt;
+&lt;p&gt;其實下班之後還是在想辦法增加功能，雖然是很想用 jQuery 讓頁面少一點，不過我上次用是兩年前的事，所以還是暫緩好了。不過如果這次要用，可能直接用 DOM 來寫，因為我要寫的功能其實真的沒有這麼多 XD。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>snpa</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20130928_snpa-bug-fix-and-add-delete-function/</guid><pubDate>Fri, 27 Sep 2013 16:27:06 GMT</pubDate></item><item><title>SNPA: bootstrap theme</title><link>https://yen3.github.io/posts/2013/20130925_snpa-with-bootstrap-theme/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;h3&gt;New Function&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;typesetting with &lt;a href="http://getbootstrap.com/2.3.2/"&gt;bootstrap 2.3.2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Murmur&lt;/h3&gt;
+&lt;p&gt;老實說一直知道 bootstrap，但是一直不知道怎麼用(也沒啥機會用 XD)，索性就不用 XD。(註: 後來才發現原來出到 3.0 了 XD)&lt;/p&gt;
+&lt;p&gt;但是這件事一直到我自己寫了 Simple Nikola Post Admin 之後好像不行，看一看自己一開始的 html (參考這篇 &lt;a href="http://yen3.github.io/posts/20130922_about-simple-nikola-post-admin.html"&gt;About simple nikola post admin | Lambda Mind 2&lt;/a&gt;)，似乎真的有點讓人傷心 XD。&lt;/p&gt;
+&lt;p&gt;所以今天晚上利用很想睡的時機，把 bootstrap 套用，另外 flask 指定使用 jinja2 (Django 用的也是同一套)。利用 template hierarchy 的概念，再加上 &lt;a href="https://github.com/lepture/python-livereload"&gt;python-livereload&lt;/a&gt; 靠 browser 不斷的自己重新刷畫面 XD，很快就做出來，雖然沒什麼原創性 (對不起，我美術不好 XD)，不過至少一般使用是 ok 的。畫面如下: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主畫面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/9933744814/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-25 at 10.01.53 PM"&gt;&lt;img src="https://farm6.staticflickr.com/5505/9933744814_a73f056968.jpg" width="500" height="411" alt="Screen Shot 2013-09-25 at 10.01.53 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;編輯文章&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/9933721636/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-25 at 10.01.51 PM"&gt;&lt;img src="https://farm8.staticflickr.com/7295/9933721636_68a8fceebd.jpg" width="500" height="411" alt="Screen Shot 2013-09-25 at 10.01.51 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;儲存文章&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/9933703605/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-25 at 10.02.28 PM"&gt;&lt;img src="https://farm8.staticflickr.com/7384/9933703605_a09f482431.jpg" width="500" height="411" alt="Screen Shot 2013-09-25 at 10.02.28 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;發佈&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/9933721816/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-25 at 10.02.44 PM"&gt;&lt;img src="https://farm6.staticflickr.com/5339/9933721816_ecdd43b9af.jpg" width="500" height="411" alt="Screen Shot 2013-09-25 at 10.02.44 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;大概再把一個 bug 修一修就可以發佈 v0.1 了，到底要不要利用這個機會趁機學學怎麼包 python package 勒 XD。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>snpa</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20130925_snpa-with-bootstrap-theme/</guid><pubDate>Wed, 25 Sep 2013 14:03:02 GMT</pubDate></item><item><title>Test for snpa with bootstrap</title><link>https://yen3.github.io/posts/2013/20130925_test-for-snpa-with-bootstrap/</link><dc:creator>Yen3</dc:creator><description>&lt;p&gt;後來果然成功了 XD 只是還是修正了一些小 bug  XD&lt;/p&gt;</description><category>all</category><category>snpa</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20130925_test-for-snpa-with-bootstrap/</guid><pubDate>Wed, 25 Sep 2013 13:41:06 GMT</pubDate></item><item><title>程式設計時的字型和顏色主題</title><link>https://yen3.github.io/posts/2013/20130924_about-font-and-color-theme-in-programming/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/9916270166/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-24 at 10.13.23 PM"&gt;&lt;img src="https://farm8.staticflickr.com/7410/9916270166_09850bc06a.jpg" width="500" height="283" alt="Screen Shot 2013-09-24 at 10.13.23 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;關於字型 Monaco 用了好多年了，還真的是沒什麼好挑剔的。但是最近嘗試改用 &lt;a href="https://github.com/adobe/source-code-pro"&gt;Source Code Pro&lt;/a&gt;，真的覺得這套字體還不錯看，所以我在我的 MacVim 及 Sublime Text 等其他的文字編輯器，能換的都換成這一套，有興趣的可以試試。&lt;/p&gt;
+&lt;p&gt;關於 color theme，我使用的是  Tomorrow Light Bright (&lt;a href="https://github.com/chriskempson/tomorrow-theme"&gt;Tomorrow Light&lt;/a&gt;) ，雖然很多人說  &lt;a href="http://ethanschoonover.com/solarized"&gt;Solarized&lt;/a&gt; 很不錯，不過我還是喜歡看黑底灰字(或白字)的顏色，另外一個小的好處是 Tomorrow Light 的 github 有針對大部分常見的編輯軟體的設定檔，可以直接套用，相當方便。&lt;/p&gt;
+&lt;p&gt;就是一個簡單的筆記哩。(工作天中間寫 blog 很累，但是還蠻開心的)，今天也順便把從 title 取檔名這件事改用 regex 來處理，出來的檔名會比較好看一點，不過至於中文標題的話 (這就是為什麼標題都是英文)，我可能要想想辦法讓它變成英文標題，不過現在還沒有什麼想法 XD。也讓 deploy command output 顯示在網頁上，這樣子比較方便看到結果，就不用切換到 terminal 上看了。&lt;/p&gt;
+&lt;p&gt;話說這 package 現在應該是沒有人在用 (因為連 README 都沒寫)，不過我用的很開心 XD。&lt;/p&gt;
+&lt;p&gt;打算寫 README 的時候應該是我已經把介面美化的差不多的時候了吧 XD。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>note</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20130924_about-font-and-color-theme-in-programming/</guid><pubDate>Tue, 24 Sep 2013 14:03:14 GMT</pubDate></item><item><title>SNPA: simple nikola post admin</title><link>https://yen3.github.io/posts/2013/20130922_about-simple-nikola-post-admin/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;簡單的來說，就是做一個網頁式可以發文改文的程式，畢竟有時候只是想要寫小文章還是要打一堆 commands 的困擾 (如果要發長文還是要用 command line 來做細微的設定也是可行的)。&lt;/p&gt;
+&lt;p&gt;Github: &lt;a href="https://github.com/yen3/simple-nikola-psot-admin"&gt;yen3/simple-nikola-psot-admin&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;重點: 如果有人願意幫我做介面美化我會很感謝的 !!&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主畫面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/9869187035/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-22 at 3.07.37 PM"&gt;&lt;img src="https://farm8.staticflickr.com/7403/9869187035_e7f02a6b2f.jpg" width="500" height="443" alt="Screen Shot 2013-09-22 at 3.07.37 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;編輯畫面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/9869186925/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-22 at 3.07.35 PM"&gt;&lt;img src="https://farm6.staticflickr.com/5326/9869186925_14b3ed3815.jpg" width="500" height="443" alt="Screen Shot 2013-09-22 at 3.07.35 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;儲存畫面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/9869195676/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-22 at 3.09.35 PM"&gt;&lt;img src="https://farm4.staticflickr.com/3689/9869195676_7ddc9bf271.jpg" width="500" height="443" alt="Screen Shot 2013-09-22 at 3.09.35 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;新文章&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://www.flickr.com/photos/24606632@N05/9869187285/" title="Flickr 上 yen3rc 的 Screen Shot 2013-09-22 at 3.12.19 PM"&gt;&lt;img src="https://farm6.staticflickr.com/5496/9869187285_92c0fe081f.jpg" width="500" height="459" alt="Screen Shot 2013-09-22 at 3.12.19 PM"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;這個程式尚在發展中，如果有什麼需求可以跟我說，我會考慮找時間加上去。&lt;/p&gt;
+&lt;p&gt;另外，這個程式會持續維護一陣子，因為我自己就是在努力使用中 XD。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>snpa</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20130922_about-simple-nikola-post-admin/</guid><pubDate>Sun, 22 Sep 2013 07:14:04 GMT</pubDate></item><item><title>tweet 002</title><link>https://yen3.github.io/posts/2013/20130922_tweet-002/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;!--
+.. link: 
+.. description: 
+.. tags: all,tweet
+.. date: 2013/09/22 12:15:20
+.. title: tweet 002
+.. slug: 20130922_tweet-002
+--&gt;
+
+&lt;p&gt;如果看的到這篇文章代表 snpap (simple nikola post-admin platform) 的 0.01 版已經寫的差不多了，可喜可賀可喜可賀。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>tweet</category><guid>https://yen3.github.io/posts/2013/20130922_tweet-002/</guid><pubDate>Sun, 22 Sep 2013 04:15:20 GMT</pubDate></item></channel></rss>

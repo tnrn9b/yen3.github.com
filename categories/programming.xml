@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Yen3's note (programming)</title><link>https://yen3.github.io/</link><description></description><atom:link href="https://yen3.github.io/categories/programming.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Thu, 12 Nov 2015 03:44:14 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Flask + jQuery 簡單筆記</title><link>https://yen3.github.io/posts/2013/20131013_flask-jquery-simple-practical-note/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;其實也沒什麼好說的，好好的看說明文件就寫的出來這樣子的東西。只是會這個東西就可以把 SNPA 的最後一塊拼圖拼出來 (但是要改很多東西，我好懶 XD)。先做個筆記，應該接下來的日子就會做出來了。&lt;/p&gt;
+&lt;script src="https://gist.github.com/yen3/6960462.js"&gt;&lt;/script&gt;&lt;/div&gt;</description><category>all</category><category>note</category><category>programming</category><guid>https://yen3.github.io/posts/2013/20131013_flask-jquery-simple-practical-note/</guid><pubDate>Sun, 13 Oct 2013 10:04:17 GMT</pubDate></item><item><title>Fix error about generating pandoc-style html in nikola</title><link>https://yen3.github.io/posts/2013/nikola%20pandoc_compile_error_20130914/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;pre class="code literal-block"&gt;&amp;gt; nikola build
+Scanning posts..done!
+.  render_posts:cache/posts/20130914_why_nikola.html
+&lt;span class="c"&gt;########################################&lt;/span&gt;
+TaskError - taskid:render_posts:cache/posts/20130914_why_nikola.html
+PythonAction Error
+Traceback &lt;span class="o"&gt;(&lt;/span&gt;most recent call last&lt;span class="o"&gt;)&lt;/span&gt;:
+  File &lt;span class="s2"&gt;"/usr/local/lib/python2.7/site-packages/doit/action.py"&lt;/span&gt;, line 324, in execute
+    &lt;span class="nv"&gt;returned_value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; self.py_callable&lt;span class="o"&gt;(&lt;/span&gt;*self.args, **kwargs&lt;span class="o"&gt;)&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/usr/local/lib/python2.7/site-packages/nikola/plugins/compile/pandoc.py"&lt;/span&gt;, line 59, in compile_html
+    subprocess.check_call&lt;span class="o"&gt;((&lt;/span&gt;pandoc_path, &lt;span class="s1"&gt;'-o'&lt;/span&gt;, dest, &lt;span class="nb"&gt;source&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/python2.7/subprocess.py"&lt;/span&gt;, line 537, in check_call
+    &lt;span class="nv"&gt;retcode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; call&lt;span class="o"&gt;(&lt;/span&gt;*popenargs, **kwargs&lt;span class="o"&gt;)&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/python2.7/subprocess.py"&lt;/span&gt;, line 524, in call
+    &lt;span class="k"&gt;return&lt;/span&gt; Popen&lt;span class="o"&gt;(&lt;/span&gt;*popenargs, **kwargs&lt;span class="o"&gt;)&lt;/span&gt;.wait&lt;span class="o"&gt;()&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/python2.7/subprocess.py"&lt;/span&gt;, line 711, in __init__
+    errread, errwrite&lt;span class="o"&gt;)&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/python2.7/subprocess.py"&lt;/span&gt;, line 1308, in _execute_child
+    raise child_exception
+OSError: &lt;span class="o"&gt;[&lt;/span&gt;Errno 2&lt;span class="o"&gt;]&lt;/span&gt; No such file or directory
+&lt;/pre&gt;
+
+
+&lt;p&gt;這其實是一個很白爛的問題，但是其實看到出錯訊息就知道為什麼了 … 我原本以為是找不到 pandoc 位在那，後來發現他是用 &lt;code&gt;which&lt;/code&gt; 去找，理論上應該是找的到才對，後來發現，事情不是我想的這麼簡單，我查了一下出錯的地方 &lt;code&gt;/usr/local/lib/python2.7/site-packages/nikola/plugins/compile/pandoc.py", line 59&lt;/code&gt;，那一行是這樣子寫的:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;check_call&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;pandoc_path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'-o'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;其實這一行的 source 和 dest 參數放反了，反過來就解決了，所以我就改成:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;check_call&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;pandoc_path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'-o'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;但是還是出錯 … Orz，後來我把每個變數印出來發現其中的 &lt;code&gt;pandoc_path&lt;/code&gt; 長成:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;'/Users/yen3/.cabal/bin/pandoc\n'
+&lt;/pre&gt;
+
+
+&lt;p&gt;兇手找到了 (但是其實我蠻想知道 &lt;code&gt;which&lt;/code&gt; 找到的東西為什麼會多一個 &lt;code&gt;\n&lt;/code&gt;)，所以最後那一行改成:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;subprocess&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;check_call&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;pandoc_path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="s"&gt;'-o'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;就能編譯成功了，如此一來就又有一個 blog system 可以寫 pandoc-style markdown 了。&lt;/p&gt;
+&lt;p&gt;我是還蠻想送 patch 給原作者啦，剛剛我有送一個 issue 
+上去，希望我不要被認為是白目啊 XDXD。 &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;後記: 送了一個 &lt;a href="https://github.com/getnikola/nikola/issues/709"&gt;issue&lt;/a&gt; 
+給原作者後，他不到十分鐘就修復了還抱歉 … 好 nice 的外國人喔~!&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>programming</category><guid>https://yen3.github.io/posts/2013/nikola%20pandoc_compile_error_20130914/</guid><pubDate>Sat, 14 Sep 2013 13:05:40 GMT</pubDate></item><item><title>Some examples for reading/ writing files in Haskell</title><link>https://yen3.github.io/posts/2013/read_write_haskell_pbpaste_20130914/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;先貼材料，之後補文。&lt;/p&gt;
+&lt;h3&gt;Read the clipboard's content in Mac OSX&lt;/h3&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;processPaste'&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;IO&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt;
+&lt;span class="nf"&gt;processPaste'&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt; &lt;span class="o"&gt;=&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;readProcess&lt;/span&gt; &lt;span class="s"&gt;"pbpaste"&lt;/span&gt; &lt;span class="kt"&gt;[]&lt;/span&gt; &lt;span class="kt"&gt;[]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;pre class="code literal-block"&gt;Prelude System.Process&amp;gt; &lt;span class="nv"&gt;putStrLn&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;lt;&amp;lt; readProcess "pbpaste" [] []&lt;/span&gt;
+&lt;span class="s"&gt;http://hackage.haskell.org/packages/archive/process/1.0.1.1/doc/html/System-Process.html&lt;/span&gt;
+&lt;span class="s"&gt;Prelude System.Process&amp;gt; import Data.Char&lt;/span&gt;
+&lt;span class="s"&gt;Prelude System.Process Data.Char&amp;gt; putStrLn . (map toUpper) =&amp;lt;&amp;lt; readProcess&lt;/span&gt; &lt;span class="s2"&gt;"pbpaste"&lt;/span&gt; &lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="o"&gt;[]&lt;/span&gt;
+HTTP://HACKAGE.HASKELL.ORG/PACKAGES/ARCHIVE/PROCESS/1.0.1.1/DOC/HTML/SYSTEM-PROCESS.HTML
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="c1"&gt;-- Read the contents of clipboard&lt;/span&gt;
+&lt;span class="c1"&gt;-- Ref: http://stackoverflow.com/questions/1712347/closest-equivalent-to-subprocess-communicate-in-haskell&lt;/span&gt;
+
+&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;System.Process&lt;/span&gt;
+
+&lt;span class="nf"&gt;processData&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;
+&lt;span class="nf"&gt;processData&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;processPaste&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;cmd&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"pbpaste"&lt;/span&gt;
+        &lt;span class="n"&gt;args&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;[]&lt;/span&gt;
+        &lt;span class="n"&gt;instr&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;[]&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;out&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;readProcessWithExitCode&lt;/span&gt; &lt;span class="n"&gt;cmd&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt; &lt;span class="n"&gt;instr&lt;/span&gt;
+    &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt; &lt;span class="n"&gt;out&lt;/span&gt;
+
+&lt;span class="nf"&gt;main&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;processPaste&lt;/span&gt; &lt;span class="n"&gt;processData&lt;/span&gt;
+
+&lt;span class="c1"&gt;-- Run in ghci&lt;/span&gt;
+&lt;span class="c1"&gt;-- Prelude&amp;gt; :l read_pbpaste.hs&lt;/span&gt;
+&lt;span class="c1"&gt;-- [1 of 1] Compiling Main             ( read_pbpaste.hs, interpreted )&lt;/span&gt;
+&lt;span class="c1"&gt;-- Ok, modules loaded: Main.&lt;/span&gt;
+&lt;span class="c1"&gt;-- *Main&amp;gt; import Data.Char&lt;/span&gt;
+&lt;span class="c1"&gt;-- *Main Data.Char&amp;gt; processPaste Data.Char.to&lt;/span&gt;
+&lt;span class="c1"&gt;-- Data.Char.toLower  Data.Char.toTitle  Data.Char.toUpper&lt;/span&gt;
+&lt;span class="c1"&gt;-- *Main Data.Char&amp;gt; processPaste $ map Data.Char.toUpper&lt;/span&gt;
+&lt;span class="c1"&gt;-- Loading package array-0.4.0.1 ... linking ... done.&lt;/span&gt;
+&lt;span class="c1"&gt;-- Loading package deepseq-1.3.0.1 ... linking ... done.&lt;/span&gt;
+&lt;span class="c1"&gt;-- Loading package filepath-1.3.0.1 ... linking ... done.&lt;/span&gt;
+&lt;span class="c1"&gt;-- Loading package old-locale-1.0.0.5 ... linking ... done.&lt;/span&gt;
+&lt;span class="c1"&gt;-- Loading package time-1.4.0.1 ... linking ... done.&lt;/span&gt;
+&lt;span class="c1"&gt;-- Loading package bytestring-0.10.0.2 ... linking ... done.&lt;/span&gt;
+&lt;span class="c1"&gt;-- Loading package unix-2.6.0.1 ... linking ... done.&lt;/span&gt;
+&lt;span class="c1"&gt;-- Loading package directory-1.2.0.1 ... linking ... done.&lt;/span&gt;
+&lt;span class="c1"&gt;-- Loading package process-1.1.0.2 ... linking ... done.&lt;/span&gt;
+&lt;span class="c1"&gt;-- ING PACKAGE ARRAY-0.4.0.1 ... LINKING ... DONE.&lt;/span&gt;
+&lt;span class="c1"&gt;-- LOADING PACKAGE DEEPSEQ-1.3.0.1 ... LINKING ... DONE.&lt;/span&gt;
+&lt;span class="c1"&gt;-- LOADING PACKAGE FILEPATH-1.3.0.1 ... LINKING ... DONE.&lt;/span&gt;
+&lt;span class="c1"&gt;-- LOADING PACKAGE OLD-LOCALE-1.0.0.5 ... LINKING ... DONE.&lt;/span&gt;
+&lt;span class="c1"&gt;-- LOADING PACKAGE TIME-1.4.0.1 ... LINKING ... DONE.&lt;/span&gt;
+&lt;span class="c1"&gt;-- LOADING PACKAGE BYTESTRING-0.10.0.2 ... LINKING ... DONE.&lt;/span&gt;
+&lt;span class="c1"&gt;-- LOADING PACKAGE UNIX-2.6.0.1 ... LINKING ... DONE.&lt;/span&gt;
+&lt;span class="c1"&gt;-- LOADING PACKAGE DIRECTORY-1.2.0.1 ... LINKING ... DONE.&lt;/span&gt;
+&lt;span class="c1"&gt;-- LOADING PACKAGE PROCESS-1.1.0.2 ... LINKING ... DONE.&lt;/span&gt;
+&lt;span class="c1"&gt;-- HTTPS://EN.WIKIPEDIA.ORG/WIKI/CONTINUATION-PASSING_STYLE&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Read/ Write files&lt;/h3&gt;
+&lt;p&gt;出處: Real World Haskell: Chapter 7&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;processData&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;
+&lt;span class="nf"&gt;processData&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;main&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;interact&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="n"&gt;processData&lt;/span&gt;
+
+&lt;span class="c1"&gt;--- Run in command line&lt;/span&gt;
+&lt;span class="c1"&gt;-- &amp;gt; runghc process_data.hs &amp;lt; input.txt&lt;/span&gt;
+&lt;span class="c1"&gt;-- hello, world!&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;processData&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;
+&lt;span class="nf"&gt;processData&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;main&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;inStr&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;readFile&lt;/span&gt; &lt;span class="s"&gt;"input.txt"&lt;/span&gt;
+    &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="n"&gt;processData&lt;/span&gt; &lt;span class="n"&gt;inStr&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;System.IO&lt;/span&gt;
+
+&lt;span class="nf"&gt;processData&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;
+&lt;span class="nf"&gt;processData&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; 
+
+
+&lt;span class="nf"&gt;main&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;inh&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;openFile&lt;/span&gt; &lt;span class="s"&gt;"input.txt"&lt;/span&gt; &lt;span class="kt"&gt;ReadMode&lt;/span&gt;
+    &lt;span class="n"&gt;outh&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;openFile&lt;/span&gt; &lt;span class="s"&gt;"output.txt"&lt;/span&gt; &lt;span class="kt"&gt;WriteMode&lt;/span&gt;
+    &lt;span class="n"&gt;inpStr&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;hGetContents&lt;/span&gt; &lt;span class="n"&gt;inh&lt;/span&gt;
+
+    &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;processData&lt;/span&gt; &lt;span class="n"&gt;inpStr&lt;/span&gt;
+
+    &lt;span class="n"&gt;hPutStr&lt;/span&gt; &lt;span class="n"&gt;outh&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;
+    &lt;span class="n"&gt;hClose&lt;/span&gt; &lt;span class="n"&gt;inh&lt;/span&gt;
+    &lt;span class="n"&gt;hClose&lt;/span&gt; &lt;span class="n"&gt;outh&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;p&gt;出處: &lt;a href="http://www.haskell.org/haskellwiki/Tutorials/Programming_Haskell/Argument_handling#Getting_in_arguments"&gt;Tutorials/Programming Haskell/Argument handling: 2.1 Getting in arguments&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;System.IO&lt;/span&gt;
+&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;System.Environment&lt;/span&gt;
+&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;System.Exit&lt;/span&gt;
+
+&lt;span class="nf"&gt;main&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getArgs&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class="n"&gt;parse&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class="n"&gt;putStr&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;processData&lt;/span&gt;
+
+&lt;span class="nf"&gt;processData&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;
+&lt;span class="nf"&gt;processData&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;parse&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;"-h"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;usage&lt;/span&gt;   &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;exit&lt;/span&gt;
+&lt;span class="nf"&gt;parse&lt;/span&gt; &lt;span class="kt"&gt;[]&lt;/span&gt;     &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getContents&lt;/span&gt;
+&lt;span class="nf"&gt;parse&lt;/span&gt; &lt;span class="n"&gt;fs&lt;/span&gt;     &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;concat&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;fmap&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;mapM&lt;/span&gt; &lt;span class="n"&gt;readFile&lt;/span&gt; &lt;span class="n"&gt;fs&lt;/span&gt;
+
+&lt;span class="nf"&gt;usage&lt;/span&gt;   &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;putStrLn&lt;/span&gt; &lt;span class="s"&gt;"Usage: readData [-h] [file ..]"&lt;/span&gt;
+&lt;span class="nf"&gt;exit&lt;/span&gt;    &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;exitWith&lt;/span&gt; &lt;span class="kt"&gt;ExitSuccess&lt;/span&gt;
+&lt;span class="nf"&gt;die&lt;/span&gt;     &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;exitWith&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;ExitFailure&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><category>all</category><category>haskell</category><category>programming</category><guid>https://yen3.github.io/posts/2013/read_write_haskell_pbpaste_20130914/</guid><pubDate>Sun, 08 Sep 2013 08:15:14 GMT</pubDate></item></channel></rss>
