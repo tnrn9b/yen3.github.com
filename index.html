@@ -15,7 +15,7 @@
 <!-- Load Modernizr --><script src="//mmistakes.github.io/hpstr-jekyll-theme/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://yen3.github.io/">
 <link rel="next" href="index-5.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/2015/20151031_note-kindle-paper-white-2015/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/2015/20151227_murmur-text-file-format/" type="text/html">
 </head>
 <body id="post-index" class="feature">
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -51,6 +51,21 @@
             
 
     <article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
+        <time datetime="2015-12-27T11:12:30+08:00" title="2015-12-27 11:12">2015-12-27 11:12</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2015/20151227_murmur-text-file-format/#disqus_thread" data-disqus-identifier="cache/posts/2015/20151227_murmur-text-file-format.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2015/20151227_murmur-text-file-format/" class="u-url">murmur (10) - 文字檔</a></h1>
+    </header><div class="e-content entry-content">
+    <p>其實這個 blog 壞掉很久了，因為 nikola </p>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
       <span class="entry-date date published updated">
         <time datetime="2015-10-31T07:22:35+08:00" title="2015-10-31 07:22">2015-10-31 07:22</time></span>  ·  
       <span class="byline author vcard">Yen3</span>
@@ -411,24 +426,6 @@ programming in Haskell. -->
 <pre class="code literal-block"><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Applicative</span><span class="o">&gt;</span> <span class="n">pure</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&lt;*&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span> <span class="o">&lt;*&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">49</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">63</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">63</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">81</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">100</span><span class="p">]</span>
 </pre>
-</div>
-    </div>
-    </article><article class="hentry"><header><div class="entry-meta">
-      <span class="entry-date date published updated">
-        <time datetime="2015-06-01T06:55:08+08:00" title="2015-06-01 06:55">2015-06-01 06:55</time></span>  ·  
-      <span class="byline author vcard">Yen3</span>
-            ·  <span class="commentline">
-        
-    <a href="posts/2015/20150601_haskell-practice-list-all-files-in-a-directory-recursively/#disqus_thread" data-disqus-identifier="cache/posts/2015/20150601_haskell-practice-list-all-files-in-a-directory-recursively.html">Comments</a>
-
-
-      </span>
-</div>
-        <h1 class="p-name entry-title"><a href="posts/2015/20150601_haskell-practice-list-all-files-in-a-directory-recursively/" class="u-url">[Haskell Practice] List all files in a directory recursively</a></h1>
-    </header><div class="e-content entry-content">
-    <div>
-<p>寫的蠻差的，不過總算是拼出來了，這幾天有空再來寫漂亮 ... 這一陣子為了練習 Haskell，有好多事都沒有做，是該趕快把其他事完成了 ... Orz。</p>
-<script src="https://gist.github.com/yen3/a60a975ec85f3e778173.js"></script>
 </div>
     </div>
     </article><nav class="postindexpager"><ul class="pager">
