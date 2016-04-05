@@ -53,6 +53,49 @@
 
     <article class="hentry"><header><div class="entry-meta">
       <span class="entry-date date published updated">
+        <time datetime="2015-06-02T22:18:16+08:00" title="2015-06-02 22:18">2015-06-02 22:18</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2015/20150602_haskell-practice-list-10-x-10-results/#disqus_thread" data-disqus-identifier="cache/posts/2015/20150602_haskell-practice-list-10-x-10-result.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2015/20150602_haskell-practice-list-10-x-10-results/" class="u-url">[Haskell Practice] List 10 x 10 results</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>無聊做的簡單練習，把目前想到的列在下面，以前 Su Horng 有列過，不過我也懶的找了。</p>
+<p>其實這幾個都是大同小異，只是用不同的方式寫出來而己。</p>
+<pre class="code literal-block"><span class="kr">import</span> <span class="nn">Control.Applicative</span>
+<span class="kr">import</span> <span class="nn">Control.Monad</span>
+
+<span class="nf">sol</span> <span class="ow">=</span> <span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">|</span> <span class="n">x</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">],</span> <span class="n">y</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]]</span>
+
+<span class="nf">sol1</span> <span class="ow">=</span> <span class="n">concat</span> <span class="o">$</span> <span class="n">map</span> <span class="p">(</span><span class="nf">\</span><span class="n">x</span> <span class="ow">-&gt;</span> <span class="n">map</span> <span class="n">x</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">])</span> <span class="o">$</span> <span class="n">map</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span> 
+
+<span class="nf">sol2</span> <span class="ow">=</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&lt;$&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span> <span class="o">&lt;*&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span>  
+<span class="c1">-- sol2' = pure (*) &lt;*&gt; [1..10] &lt;*&gt; [1..10]</span>
+<span class="c1">-- sol2'' = [(*)] &lt;*&gt; [1..10] &lt;*&gt; [1..10] </span>
+
+<span class="nf">sol3</span> <span class="ow">=</span> <span class="n">liftM2</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span>
+<span class="c1">-- sol3' = liftA2 (*) [1..10] [1..10]</span>
+
+<span class="nf">sol4</span> <span class="ow">=</span> <span class="kr">do</span> <span class="n">x</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span>
+          <span class="n">y</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span>
+          <span class="n">return</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+<span class="c1">-- sol4' = [1..10] &gt;&gt;= \x -&gt; [1..10] &gt;&gt;= \y -&gt; return (x*y)</span>
+</pre>
+
+
+<p>有想到再補上。這幾個的輸出結果都會是</p>
+<pre class="code literal-block"><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Applicative</span><span class="o">&gt;</span> <span class="n">pure</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&lt;*&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span> <span class="o">&lt;*&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">49</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">63</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">63</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">81</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">100</span><span class="p">]</span>
+</pre>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
         <time datetime="2015-06-01T06:55:08+08:00" title="2015-06-01 06:55">2015-06-01 06:55</time></span>  ·  
       <span class="byline author vcard">Yen3</span>
             ·  <span class="commentline">
@@ -251,11 +294,11 @@
             <li class="next">
                 <a href="index-4.html" rel="next">Older posts</a>
             </li>
-        </ul></nav><script>var disqus_shortname="yen3snote";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+        </ul></nav><script>var disqus_shortname="yen3snote";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
 </div>
     
     <div class="footer-wrapper">
-        <footer role="contentinfo"><p>Contents © 2015         <a href="mailto:yen3rc@gmail.com">Yen3</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        <footer role="contentinfo"><p>Contents © 2016         <a href="mailto:yen3rc@gmail.com">Yen3</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

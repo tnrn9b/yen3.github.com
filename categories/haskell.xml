@@ -1,5 +1,731 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Yen3's note (haskell)</title><link>https://yen3.github.io/</link><description></description><atom:link href="https://yen3.github.io/categories/haskell.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Thu, 12 Nov 2015 03:44:13 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>murmur (9) - Just for fun - Add from 0 to n in parallel</title><link>https://yen3.github.io/posts/2015/20151006_murmur-9-just-for-fun-add-from-0-to-n-in-parallel/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;I stuided the &lt;a href="https://hackage.haskell.org/package/repa"&gt;repa&lt;/a&gt; package today. I discover it supports parallel computation for both boxed type and unboxed type rather then only for unboxed type. It reminds me that I have to read the manual carefully.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yen3's note (haskell)</title><link>https://yen3.github.io/</link><description></description><atom:link type="application/rss+xml" rel="self" href="https://yen3.github.io/categories/haskell.xml"></atom:link><language>en</language><lastBuildDate>Tue, 05 Apr 2016 03:58:45 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>A primer's note for parallel programming in Haskell</title><link>https://yen3.github.io/posts/2016/20160405_a-primer-s-note-for-parallel-programming-in-haskell/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;ul&gt;
+&lt;li&gt;Functional Thursday #33&lt;/li&gt;
+&lt;li&gt;2015.12.03&lt;/li&gt;
+&lt;li&gt;Yen3 (yen3rc@gmail.com)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;About the slide&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;這份投影片是 &lt;a href="http://chimera.labs.oreilly.com/books/1230000000929"&gt;Parallel and Concurrent Programming in Haskell&lt;/a&gt; -
+  Chatper 1 ~ 5 的筆記&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;主題包含 &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Eval monad &lt;/li&gt;
+&lt;li&gt;Par monad&lt;/li&gt;
+&lt;li&gt;Repa&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;今天的內容皆與 data-level parallelism 相關 &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;在 Haskell 中，一個較容易平行化 function 是 &lt;code&gt;map&lt;/code&gt;，這份投影片會很常
+  討論到它。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;Definition of Parallel&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;A &lt;strong&gt;parallel&lt;/strong&gt; program is one that uses a multiplicity of computational
+  hardware (e.g., several processor cores) to perform a computation more
+  quickly.&lt;/li&gt;
+&lt;li&gt;Parallel programming in Haskell is deterministic: The parallel program always
+  produces the same answer, regardless of how many processors are used to run
+  it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-------&gt;
+
+&lt;!--## Self-study --&gt;
+
+&lt;!--- 在進入正題之前，先談幾個小筆記--&gt;
+
+&lt;!--- Normal form, weak-head normal form and `force` function--&gt;
+
+&lt;!--- unboxed type &amp; boxed type--&gt;
+
+&lt;!--- Bang patterns--&gt;
+
+&lt;!--- Data.Vector package--&gt;
+
+&lt;hr&gt;
+&lt;h4&gt;The status of value in ghc (1/)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;There are three conditions of a value.&lt;ul&gt;
+&lt;li&gt;Unevaluated &lt;/li&gt;
+&lt;li&gt;Weak-Head Normal Form (WHNF) - evaluated with first constructor&lt;/li&gt;
+&lt;li&gt;Normal Form (NF) - fully evaluated&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;The status of value in ghc (2/)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sprint&lt;/code&gt; - prints a value without forcing its evaluation&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seq&lt;/code&gt;: only far as the first constructor and doesn't evaluate any more of
+  the structure. It evaluates first argument to WHNF.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;seq&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;The status of value in ghc (3/)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Example &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;sprint&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+&lt;span class="nf"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;sprint&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+&lt;span class="nf"&gt;y&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;seq&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt;
+&lt;span class="nb"&gt;()&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;sprint&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+&lt;span class="nf"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;sprint&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+&lt;span class="nf"&gt;y&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;The status of value in ghc (4/)&lt;/h4&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;xs&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;sprint&lt;/span&gt; &lt;span class="n"&gt;xs&lt;/span&gt;
+&lt;span class="nf"&gt;xs&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;seq&lt;/span&gt; &lt;span class="n"&gt;xs&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt;
+&lt;span class="nb"&gt;()&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;sprint&lt;/span&gt; &lt;span class="n"&gt;xs&lt;/span&gt;
+&lt;span class="nf"&gt;xs&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;length&lt;/span&gt; &lt;span class="n"&gt;xs&lt;/span&gt;
+&lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;sprint&lt;/span&gt; &lt;span class="n"&gt;xs&lt;/span&gt;
+&lt;span class="nf"&gt;xs&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kr"&gt;_&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="n"&gt;xs&lt;/span&gt;
+&lt;span class="mi"&gt;65&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;sprint&lt;/span&gt; &lt;span class="n"&gt;xs&lt;/span&gt;
+&lt;span class="nf"&gt;xs&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;&lt;code&gt;force&lt;/code&gt; function&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;force&lt;/code&gt; - fully evaluated it's argument and returns it. (WHNF into NF)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Control.DeepSeq&lt;/span&gt;
+
+&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="kt"&gt;NFData&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="kr"&gt;where&lt;/span&gt;
+    &lt;span class="n"&gt;rnf&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt;      &lt;span class="c1"&gt;-- reduce to normal-form&lt;/span&gt;
+    &lt;span class="n"&gt;rnf&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;seq&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt;
+
+&lt;span class="nf"&gt;deepseq&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;NFData&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+&lt;span class="nf"&gt;deepseq&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rnf&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;seq&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; 
+
+&lt;span class="nf"&gt;force&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;NFData&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;   
+&lt;span class="nf"&gt;force&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;deepseq&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;seq&lt;/code&gt;: only far as the first constructor and doesn't evaluate any more of
+  the structure. It evaluates first argument to WHNF.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- deepseq: fully evaluates its argument and then returns () --&gt;
+
+&lt;hr&gt;
+&lt;h4&gt;Eval monad&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Decoupling of the algorithm from the parallelism&lt;/li&gt;
+&lt;li&gt;The type declaration for eval monad &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;data&lt;/span&gt; &lt;span class="kt"&gt;Eval&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;span class="kr"&gt;instance&lt;/span&gt; &lt;span class="kt"&gt;Monad&lt;/span&gt; &lt;span class="kt"&gt;Eval&lt;/span&gt;
+
+&lt;span class="nf"&gt;runEval&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Eval&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;span class="nf"&gt;rpar&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Eval&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;   &lt;span class="c1"&gt;-- rpar :: Strategy a &lt;/span&gt;
+&lt;span class="nf"&gt;rseq&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Eval&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;   &lt;span class="c1"&gt;-- rseq :: Strategy a&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;rpar&lt;/code&gt; - evaluate its argument in parallel.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rseq&lt;/code&gt; - Evaluate the argument and wait for the result.&lt;ul&gt;
+&lt;li&gt;evaluates its argument to WHNF.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!--
+- The argument of `rpar` is also named **spark**.
+--&gt;
+
+&lt;hr&gt;
+&lt;h4&gt;Eval monad - simple example&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Example&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;runEval&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;rpar&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;rseq&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;rseq&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+    &lt;span class="n"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;&lt;a data-flickr-embed="true" href="https://www.flickr.com/photos/24606632@N05/26219016196/in/dateposted-public/" title="eval_monad_simple_example"&gt;&lt;img src="https://farm2.staticflickr.com/1717/26219016196_6d47d9e102.jpg" width="800" height="328" alt="eval_monad_simple_example"&gt;&lt;/a&gt;&lt;script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"&gt;&lt;/script&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;Eval monad - Strategy&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Strategy - modularize parllel code by separating the algorithm from the
+  parallelism &lt;ul&gt;
+&lt;li&gt;use &lt;code&gt;using&lt;/code&gt; function to add parallelism with the existing codes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;withStrategy&lt;/code&gt;- a another version of &lt;code&gt;using&lt;/code&gt; with the arguments flipped&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Eval&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+
+&lt;span class="nf"&gt;using&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;span class="nf"&gt;x&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;runEval&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;withStrategy&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;span class="nf"&gt;withStrategy&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;runEval&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Eval monad - Strategy&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;rpar&lt;/code&gt;, &lt;code&gt;rseq&lt;/code&gt; are also Strategies.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;rpar&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;span class="nf"&gt;rseq&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;You could write the algorithm first and add the parallelism code later
+  ideally.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;Eval monad - example for pair&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Example&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Control.Parallel.Strategies&lt;/span&gt;
+&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Control.DeepSeq&lt;/span&gt;
+
+&lt;span class="nf"&gt;evalPair&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nf"&gt;evalPair&lt;/span&gt; &lt;span class="n"&gt;sa&lt;/span&gt; &lt;span class="n"&gt;sb&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;a'&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;sa&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+    &lt;span class="n"&gt;b'&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;sb&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+    &lt;span class="n"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Eval monad - example for pair&lt;/h4&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;rparWith&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;span class="nf"&gt;rparWith&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt;
+    &lt;span class="kr"&gt;do&lt;/span&gt;
+        &lt;span class="n"&gt;ra&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;rpar&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+        &lt;span class="n"&gt;sa&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ra&lt;/span&gt;
+        &lt;span class="n"&gt;return&lt;/span&gt; &lt;span class="n"&gt;sa&lt;/span&gt; 
+
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;             &lt;span class="c1"&gt;-- (1-1)  &lt;/span&gt;
+&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;-- (1-2)&lt;/span&gt;
+
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;rpar&lt;/span&gt;   &lt;span class="c1"&gt;-- (2-1)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;lt;!--&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;evalPair&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rparWith&lt;/span&gt; &lt;span class="n"&gt;rseq&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rparWith&lt;/span&gt; &lt;span class="n"&gt;rseq&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;-- (2-2)--&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;evalPair&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rparWith&lt;/span&gt; &lt;span class="n"&gt;rseq&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rparWith&lt;/span&gt; &lt;span class="n"&gt;rseq&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;-- (2-2)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;(1-1), (1-2) - sequential version&lt;/li&gt;
+&lt;li&gt;(2-1), (2-2) - parallel version and reduce the value to WHNF&lt;/li&gt;
+&lt;/ul&gt;
+wzxhzdk:10
+
+
+- (3-1), (3-2) - parallel version and reduce the value to NF 
+- `parTuple2` and `evalPair` functions are the same
+--&amp;gt;
+
+&lt;hr&gt;
+&lt;h4&gt;Eval monad - some help functions (1/)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;About some helper function&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;rdeepseq&lt;/code&gt; - evaluates the argument to NF &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;rdeepseq&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;NFData&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;span class="nf"&gt;rdeepseq&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rseq&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;force&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;pre class="code literal-block"&gt;- `rparWith` - wraps the Strategy s in an `rpar`
+&lt;/pre&gt;
+
+
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;rparWith&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; 
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Eval monad - some help functions (2/)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The code reduced to NF in previous slide could also be written as &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="c1"&gt;-- NF &lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;rparWith&lt;/span&gt; &lt;span class="n"&gt;rdeepseq&lt;/span&gt; 
+&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt;
+    &lt;span class="n"&gt;evalPair&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rparWith&lt;/span&gt; &lt;span class="n"&gt;rdeepseq&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rparWith&lt;/span&gt; &lt;span class="n"&gt;rdeepseq&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Eval monad - parallelize &lt;code&gt;map&lt;/code&gt;&lt;/h4&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;parMap&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="nf"&gt;parMap&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;xs&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;parList&lt;/span&gt; &lt;span class="n"&gt;rseq&lt;/span&gt; 
+
+&lt;span class="nf"&gt;evalList&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="nf"&gt;evalList&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="kt"&gt;[]&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;return&lt;/span&gt; &lt;span class="kt"&gt;[]&lt;/span&gt;
+&lt;span class="nf"&gt;evalList&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;xs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;x'&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+    &lt;span class="n"&gt;xs'&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;evalList&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="n"&gt;xs&lt;/span&gt;
+    &lt;span class="n"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x'&lt;/span&gt;&lt;span class="kt"&gt;:&lt;/span&gt; &lt;span class="n"&gt;xs'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;parList&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Strategy&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="nf"&gt;parList&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;evalList&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rparWith&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;parMap&lt;/code&gt; will calculate its list to WHNF&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;parList&lt;/code&gt; - evaluate the list element in parallel &lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;Eval monad&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Example&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Control.Parallel.Strategies&lt;/span&gt;
+&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Control.DeepSeq&lt;/span&gt;
+
+&lt;span class="nf"&gt;map&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  &lt;span class="c1"&gt;-- (1) &lt;/span&gt;
+&lt;span class="nf"&gt;map&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;parList&lt;/span&gt; &lt;span class="n"&gt;rseq&lt;/span&gt; &lt;span class="c1"&gt;-- (2)&lt;/span&gt;
+&lt;span class="nf"&gt;map&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;parList&lt;/span&gt; &lt;span class="n"&gt;rdeepseq&lt;/span&gt;  &lt;span class="c1"&gt;-- (3)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;(1) sequential version&lt;/li&gt;
+&lt;li&gt;(2) parallelize version reduce value to WHNF&lt;/li&gt;
+&lt;li&gt;(3) parallelize version reduce value to NF &lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;Example - Mandelbrot set&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You could get more details
+  from &lt;a href="https://yen3.github.io/posts/2015/20150625_haskell-practice-mandelbrot-binary/"&gt;my blog post&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;some type define&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;Point&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Double&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Double&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;Range&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Double&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Double&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;Plane&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Range&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Range&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;sequential version&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;planePoints&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Plane&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;V&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Vector&lt;/span&gt; &lt;span class="kt"&gt;Point&lt;/span&gt;
+
+&lt;span class="nf"&gt;mandelSet&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Plane&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;V&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Vector&lt;/span&gt; &lt;span class="kt"&gt;Point&lt;/span&gt;
+&lt;span class="nf"&gt;mandelSet&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;planeToMandelPoints&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Example - Mandelbrot set&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;basic parallel version with &lt;code&gt;parList&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;splitPlane&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Plane&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Plane&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="nf"&gt;mandelSetStart&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Plane&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;V&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Vector&lt;/span&gt; &lt;span class="kt"&gt;Point&lt;/span&gt;
+&lt;span class="nf"&gt;mandelSetStart&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;V&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;concat&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="n"&gt;planeToMandelPoints&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;splitPlane&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+     &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;parList&lt;/span&gt; &lt;span class="n"&gt;rseq&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;In  2010 late MBP15 (Intel Core i5 2.4 Ghz, 8Gb)&lt;ul&gt;
+&lt;li&gt;sequential - about 45 secs&lt;/li&gt;
+&lt;li&gt;run in 2 cores - about 25 secs (&lt;code&gt;./Mandelbrot par 100 +RTS -N2 -s&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;Par Monad&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Goal&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;be more explicit about granularity and data dependences &lt;/li&gt;
+&lt;li&gt;Avoid the reliance on lazy evaluation, but without sacrificing the
+  determinism that we value for parallel programming.&lt;/li&gt;
+&lt;li&gt;The parallel computations are pure (and deterministic)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;The library is implemented entirely as a Haskell library&lt;ul&gt;
+&lt;li&gt;You can accommodate alternative scheduling strategies.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;Par Monad&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Par monad - a monad for parallel computation &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;newtype&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+
+&lt;span class="kr"&gt;instance&lt;/span&gt; &lt;span class="kt"&gt;Applicative&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt;
+&lt;span class="kr"&gt;instance&lt;/span&gt; &lt;span class="kt"&gt;Monad&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt;
+
+&lt;span class="nf"&gt;runPar&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;    &lt;span class="c1"&gt;-- produce a pure result.&lt;/span&gt;
+&lt;span class="nf"&gt;fork&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt; &lt;span class="c1"&gt;-- the way to create parallel tasks&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;IVar - results are communicated through IVars&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;data&lt;/span&gt; &lt;span class="kt"&gt;IVar&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; 
+
+&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;IVar&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nf"&gt;put&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;NFData&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;IVar&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt;
+&lt;span class="nf"&gt;get&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;IVar&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Par Monad&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;IVar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;data&lt;/span&gt; &lt;span class="kt"&gt;IVar&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; 
+
+&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;IVar&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nf"&gt;put&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;NFData&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;IVar&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="nb"&gt;()&lt;/span&gt;
+&lt;span class="nf"&gt;get&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;IVar&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;IVar&lt;/code&gt; -- as a box that stars empty&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;put&lt;/code&gt; -- store a value in the box &lt;ul&gt;
+&lt;li&gt;All values communicated through IVars are fully evaluated. There is a head-strict version &lt;code&gt;put_&lt;/code&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;get&lt;/code&gt; -- read the value. If the box is empty, it waits until the box is filled
+  by put. The &lt;code&gt;get&lt;/code&gt; operation does not remove the value from the box. Once the
+  box is full. It stays the state constantly.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;Par Monad&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Example &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;runPar&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;
+    &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;
+    &lt;span class="n"&gt;fork&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;put&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fib&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;fork&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;put&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fib&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;
+    &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;
+    &lt;span class="n"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;&lt;a data-flickr-embed="true" href="https://www.flickr.com/photos/24606632@N05/25642271873/in/dateposted-public/" title="par_monad"&gt;&lt;img src="https://farm2.staticflickr.com/1609/25642271873_74a6b5c51e_c.jpg" width="800" height="230" alt="par_monad"&gt;&lt;/a&gt;&lt;script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"&gt;&lt;/script&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;Par Monad&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;spawn&lt;/code&gt; - Like fork, but returns a IVar that can be used to query the result
+    of the forked computation. Therefore spawn provides &lt;strong&gt;futures&lt;/strong&gt; or
+    &lt;strong&gt;promises&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;parMap&lt;/code&gt; - parallel version map implemented with par monad&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- Yen3: need to review how to use `spawn` individually.  --&gt;
+
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;spawn&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;NFData&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;IVar&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nf"&gt;spawn&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;
+    &lt;span class="n"&gt;fork&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kr"&gt;do&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;put&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;return&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;
+
+&lt;span class="nf"&gt;parMap&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;NFData&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="nf"&gt;parMap&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;as&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;ibs&lt;/span&gt; &lt;span class="ow"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;mapM&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;spawn&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;return&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;as&lt;/span&gt;
+    &lt;span class="n"&gt;mapM&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;ibs&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;!--
+f :: a -&gt; b
+return . f :: a -&gt; m b
+spawn . return . f :: a -&gt; Par (IVar a)
+--&gt;
+
+&lt;hr&gt;
+&lt;h4&gt;Example - prime number&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Example&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;primeIntVector&lt;/code&gt; - Eval monad &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;primeIntVector'&lt;/code&gt; - Par monad &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;primeIntVector&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Vector&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+&lt;span class="nf"&gt;primeIntVector&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt;
+    &lt;span class="kr"&gt;let&lt;/span&gt;
+        &lt;span class="n"&gt;ls&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;genNumberRange&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
+    &lt;span class="kr"&gt;in&lt;/span&gt;
+        &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;concat&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;uncurry&lt;/span&gt; &lt;span class="n"&gt;primes&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;ls&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;using&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;parList&lt;/span&gt; &lt;span class="n"&gt;rseq&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="nf"&gt;primeIntVector'&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Vector&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+&lt;span class="nf"&gt;primeIntVector'&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt;
+    &lt;span class="kr"&gt;let&lt;/span&gt;
+        &lt;span class="n"&gt;ls&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;genNumberRange&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
+    &lt;span class="kr"&gt;in&lt;/span&gt;
+        &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;concat&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;runPar&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="kt"&gt;Par&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parMap&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;uncurry&lt;/span&gt; &lt;span class="n"&gt;primes&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;ls&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Difference between &lt;code&gt;Par&lt;/code&gt; and &lt;code&gt;Eval&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Par Monad &lt;ol&gt;
+&lt;li&gt;Always evaluate its value to normal form. It avoids the problem
+   about the weak-normal form&lt;/li&gt;
+&lt;li&gt;The cost of calling &lt;code&gt;runPar&lt;/code&gt; function is bigger then &lt;code&gt;runEval&lt;/code&gt; &lt;/li&gt;
+&lt;li&gt;Easy to redefine the scheduling strategy&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;Difference between &lt;code&gt;Par&lt;/code&gt; and &lt;code&gt;Eval&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Eval Monad&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Need use &lt;code&gt;force&lt;/code&gt; function to evaluate its value from weak-head normal
+   form to normal form. It’s suitable for lazy data structure&lt;/li&gt;
+&lt;li&gt;The cost of calling &lt;code&gt;runEval&lt;/code&gt; function is free&lt;/li&gt;
+&lt;li&gt;Provide the speculative parallelism &lt;/li&gt;
+&lt;li&gt;Eval Monad has more diagnostics in ThreadScope compared Par Monad.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://stackoverflow.com/questions/23326920/difference-between-par-monad-and-eval-monad-with-deepseq"&gt;Reference&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!--- What’s the pitfall of Eval Monad ? --&gt;
+
+&lt;!--- What’s the pitfall of Par Monad ?--&gt;
+
+&lt;hr&gt;
+&lt;h4&gt;Repa&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Repa - REgular PArallel arrays&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Goal&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;efficient numerical array computations in Haskell and run them in
+  parallel &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;It could provides efficient unboxed data computation, but not Par monad and
+  Strategy monad   &lt;ul&gt;
+&lt;li&gt;Repa also support boxed data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4&gt;Repa - type&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The array type&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;data&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;r&lt;/code&gt; -  representation type &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;e&lt;/code&gt; - element type &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sh&lt;/code&gt; - the shape of array (the dimension(s) of array)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;data&lt;/span&gt; &lt;span class="kt"&gt;Z&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;Z&lt;/span&gt;    &lt;span class="c1"&gt;-- scalar data&lt;/span&gt;
+&lt;span class="kr"&gt;data&lt;/span&gt; &lt;span class="n"&gt;tail&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="n"&gt;head&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tail&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="n"&gt;head&lt;/span&gt;
+
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;DIM0&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;Z&lt;/span&gt;
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;DIM1&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;DIM0&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;DIM2&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;DIM1&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Repa - array&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;how to create an array with &lt;code&gt;Array&lt;/code&gt; type ?&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;fromListUnboxed&lt;/code&gt; - from list of unboxed type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fromUnboxed&lt;/code&gt; - from the vector with &lt;code&gt;Data.Vector.Unboxed&lt;/code&gt; type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fromFunction&lt;/code&gt; - from the shape information to generate the array&lt;/li&gt;
+&lt;li&gt;... etc&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;fromListUnboxed&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Shape&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Unbox&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;U&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;span class="nf"&gt;fromFunction&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;D&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;span class="nf"&gt;fromUnboxed&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Shape&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Vector&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Unboxed&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;U&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;!-- 
+the major difference between `fromListUnboxed` and `fromUnboxed`
+   - `fromListUnboxed` - O(n). Convert a list to an unboxed vector array.
+   - `fromUnboxed` - O(1). Wrap an unboxed vector as an array. 
+--&gt;
+
+&lt;hr&gt;
+&lt;h4&gt;Repa - create array example&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Example - create an array&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kt"&gt;Prelude&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Data.Array.Repa&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;R&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fromListUnboxed&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Z&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;U&lt;/span&gt; &lt;span class="kt"&gt;DIM1&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; 
+&lt;span class="nf"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;U&lt;/span&gt; &lt;span class="kt"&gt;DIM1&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+
+&lt;span class="kt"&gt;Prelude&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt;  &lt;span class="kt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fromFunction&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Z&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;\&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Z&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+&lt;span class="nf"&gt;b&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;D&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Z&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+
+&lt;span class="kt"&gt;Prelude&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="k"&gt;qualified&lt;/span&gt; &lt;span class="nn"&gt;Data.Vector.Unboxed&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;VU&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt; &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;enumFromN&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Vector&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt; &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fromUnboxed&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Z&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;length&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;
+&lt;span class="kt"&gt;Prelude&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt; &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;:&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;
+&lt;span class="nf"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;U&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Z&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Repa - array computation&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;All array will transfer to a delayed array type (ex: &lt;code&gt;Array D sh e&lt;/code&gt;)
+  after array computations (ex: &lt;code&gt;Repa.map&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kt"&gt;Repa&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Shape&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Source&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt;
+     &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;D&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+^&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Num&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Shape&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Source&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Source&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt;
+     &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;D&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Repa - compute&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;computeS&lt;/code&gt; - calculate the array operations in sequentially.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;computeP&lt;/code&gt; - the same as &lt;code&gt;computeS&lt;/code&gt; but in parallel.&lt;ul&gt;
+&lt;li&gt;the purpose of the monad is only to ensure that &lt;code&gt;computeP&lt;/code&gt; operations are
+  performed in sequence and not nested.&lt;ul&gt;
+&lt;li&gt;the simplest way to reduce the monad effect -- &lt;code&gt;runIdentity&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;See page p.94 to get more information&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;computeS&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Load&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Target&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;
+&lt;span class="nf"&gt;computeP&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Monad&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Source&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Target&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Load&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;=&amp;gt;&lt;/span&gt;
+    &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Repa - array computation example&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;calculate $e^x = \sum^{\infty}_{n=0}\frac{x^n}{n!} \forall x$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Data.Array.Repa&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;R&lt;/span&gt;
+&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Control.Monad.Identity&lt;/span&gt;
+
+&lt;span class="nf"&gt;fact&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;foldr&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="nf"&gt;enumN&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;D&lt;/span&gt; &lt;span class="kt"&gt;DIM1&lt;/span&gt; &lt;span class="kt"&gt;Double&lt;/span&gt;
+&lt;span class="nf"&gt;enumN&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fromFunction&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Z&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;\&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Z&lt;/span&gt; &lt;span class="kt"&gt;:.&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;fromIntegral&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  
+
+&lt;span class="nf"&gt;exp'&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Double&lt;/span&gt;
+&lt;span class="nf"&gt;exp'&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt;
+             &lt;span class="n"&gt;ns&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;enumN&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
+             &lt;span class="n"&gt;ys&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;\&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(((&lt;/span&gt;&lt;span class="n"&gt;fromIntegral&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fact&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+                  &lt;span class="n"&gt;ns&lt;/span&gt; 
+         &lt;span class="kr"&gt;in&lt;/span&gt;
+             &lt;span class="n"&gt;runIdentity&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="kt"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sumAllP&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="n"&gt;ys&lt;/span&gt;
+&lt;/pre&gt;
+
+
+wzxhzdk:32
+
+--&amp;gt;
+
+&lt;hr&gt;
+&lt;h4&gt;Repa - example&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Example - prime numbers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nf"&gt;primeArray&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Vector&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+&lt;span class="nf"&gt;primeArray&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt;
+                   &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;genArray&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;
+                   &lt;span class="n"&gt;ps&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;runIdentity&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="kt"&gt;Repa&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;computeUnboxedP&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;primeArrayCheck&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt;
+                        &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt; &lt;span class="kt"&gt;U&lt;/span&gt; &lt;span class="kt"&gt;DIM1&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;
+               &lt;span class="kr"&gt;in&lt;/span&gt;
+                   &lt;span class="kt"&gt;VU&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Repa&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;toUnboxed&lt;/span&gt; &lt;span class="n"&gt;ps&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;hr&gt;
+&lt;h4&gt;Conclusion&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The simplest parallel method - parallel map&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;use &lt;code&gt;parMap&lt;/code&gt; or &lt;code&gt;parList&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Repa is useful especially for numeric calculation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The remaining part of &lt;a href="http://chimera.labs.oreilly.com/books/1230000000929"&gt;the book&lt;/a&gt;
+  is about.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Parallel programming with GPU (&lt;a href="https://hackage.haskell.org/package/accelerate"&gt;&lt;code&gt;Data.Accelerate&lt;/code&gt;&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Concurrent programming&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bool unbxoed type ?&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><category>all</category><category>haskell</category><category>note</category><guid>https://yen3.github.io/posts/2016/20160405_a-primer-s-note-for-parallel-programming-in-haskell/</guid><pubDate>Tue, 05 Apr 2016 03:57:05 GMT</pubDate></item><item><title>murmur (9) - Just for fun - Add from 0 to n in parallel</title><link>https://yen3.github.io/posts/2015/20151006_murmur-9-just-for-fun-add-from-0-to-n-in-parallel/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;I stuided the &lt;a href="https://hackage.haskell.org/package/repa"&gt;repa&lt;/a&gt; package today. I discover it supports parallel computation for both boxed type and unboxed type rather then only for unboxed type. It reminds me that I have to read the manual carefully.&lt;/p&gt;
 &lt;p&gt;Repa supports doing sum computation in parallel (see &lt;code&gt;sumP&lt;/code&gt; in &lt;a href="https://hackage.haskell.org/package/repa-3.4.0.1/docs/Data-Array-Repa.html"&gt;repa doc&lt;/a&gt;). I just write a parallel sum function for fun.&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Data.Array.Repa&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;Repa&lt;/span&gt;
 &lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="k"&gt;qualified&lt;/span&gt; &lt;span class="nn"&gt;Data.Vector.Unboxed&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;VU&lt;/span&gt;
@@ -196,49 +922,4 @@
 &lt;script src="https://gist.github.com/yen3/7278566.js"&gt;&lt;/script&gt;
 
 &lt;p&gt;那麼很蠢的事是什麼 ? 就是我要先裝 haskell XD 剛裝好的 Mac OSX 會有 Python，但是沒有 Haskell 啊 (苦笑)。&lt;/p&gt;
-&lt;p&gt;不過寫了都寫了，就持續這樣子用吧。從中也學到了一些寫 haskell 有趣的事 :)。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>haskell</category><category>software</category><guid>https://yen3.github.io/posts/2013/20131102_install-script-for-programming-environment-in-mac-osx/</guid><pubDate>Sat, 02 Nov 2013 14:11:38 GMT</pubDate></item><item><title>Problem 5 - Project Eular</title><link>https://yen3.github.io/posts/2013/20131030_problem-5-project-eular/</link><dc:creator>Yen3</dc:creator><description>&lt;div&gt;&lt;p&gt;這是在前幾天寫的，算是沒有想這麼多，只是單純想要用 haskell 解決一個小問題而己。寫程式的感覺出乎意外的好，或許不用考慮太多邊寫邊練習才有辦法寫出 haskell program 吧我想 XD。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="k"&gt;qualified&lt;/span&gt; &lt;span class="nn"&gt;Data.Map&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;Map&lt;/span&gt;
-
-&lt;span class="c1"&gt;-- The answer for Problem 5&lt;/span&gt;
-&lt;span class="nf"&gt;smallestMultiple&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt;
-&lt;span class="nf"&gt;smallestMultiple&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;foldWithKey&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;\&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="n"&gt;sm&lt;/span&gt;&lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;sm&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;power&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numFactorMapList&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="nf"&gt;numFactorMapList&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Map&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt;
-&lt;span class="nf"&gt;numFactorMapList&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;foldr&lt;/span&gt; &lt;span class="n"&gt;mergeMap&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fromList&lt;/span&gt; &lt;span class="kt"&gt;[]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="n"&gt;numFactorMap&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
-
-&lt;span class="nf"&gt;mergeMap&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Map&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Map&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Map&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt;
-&lt;span class="nf"&gt;mergeMap&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unionWithKey&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;\&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="n"&gt;v1&lt;/span&gt; &lt;span class="n"&gt;v2&lt;/span&gt;&lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="n"&gt;v1&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;v2&lt;/span&gt; &lt;span class="kr"&gt;then&lt;/span&gt; &lt;span class="n"&gt;v1&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="n"&gt;v2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="nf"&gt;numFactorMap&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Map&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt;
-&lt;span class="nf"&gt;numFactorMap&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;flip&lt;/span&gt; &lt;span class="n"&gt;get_num_factor_map&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fromList&lt;/span&gt; &lt;span class="kt"&gt;[]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-
-&lt;span class="nf"&gt;get_num_factor_map&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Map&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Map&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt;
-&lt;span class="nf"&gt;get_num_factor_map&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;
-&lt;span class="nf"&gt;get_num_factor_map&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;
-&lt;span class="nf"&gt;get_num_factor_map&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt;
-    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt; &lt;span class="n"&gt;factor&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="kr"&gt;then&lt;/span&gt;
-        &lt;span class="n"&gt;get_num_factor_map&lt;/span&gt; &lt;span class="n"&gt;next_n&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;updateValue&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="kr"&gt;else&lt;/span&gt;
-        &lt;span class="n"&gt;get_num_factor_map&lt;/span&gt; &lt;span class="n"&gt;next_n&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;insertValue&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="kr"&gt;where&lt;/span&gt; &lt;span class="n"&gt;next_n&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;quot&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;factor&lt;/span&gt;
-          &lt;span class="n"&gt;factor&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getFirstFactor&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;
-          &lt;span class="n"&gt;insertValue&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;insert&lt;/span&gt; &lt;span class="n"&gt;factor&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;
-          &lt;span class="n"&gt;updateValue&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;snd&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;updateLookupWithKey&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;\&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;factor&lt;/span&gt; &lt;span class="kr"&gt;then&lt;/span&gt; &lt;span class="kt"&gt;Just&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kt"&gt;Nothing&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;factor&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;
-
-&lt;span class="nf"&gt;getFirstFactor&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt;
-&lt;span class="nf"&gt;getFirstFactor&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;flip&lt;/span&gt; &lt;span class="n"&gt;get_first_factor&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
-
-&lt;span class="nf"&gt;get_first_factor&lt;/span&gt; &lt;span class="ow"&gt;::&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt; &lt;span class="ow"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Integer&lt;/span&gt;
-&lt;span class="nf"&gt;get_first_factor&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="nf"&gt;get_first_factor&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
-&lt;span class="nf"&gt;get_first_factor&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
-&lt;span class="nf"&gt;get_first_factor&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;mod&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="kr"&gt;then&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="n"&gt;get_first_factor&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="nf"&gt;power&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
-&lt;span class="nf"&gt;power&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="kr"&gt;_&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="nf"&gt;power&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;  &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;let&lt;/span&gt; &lt;span class="n"&gt;sqr&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;
-                 &lt;span class="n"&gt;half_n&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="p"&gt;`&lt;/span&gt;&lt;span class="n"&gt;div&lt;/span&gt;&lt;span class="p"&gt;`&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
-                 &lt;span class="n"&gt;sqrHalfPower&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sqr&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;power&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;half_n&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
-             &lt;span class="kr"&gt;in&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="n"&gt;even&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="kr"&gt;then&lt;/span&gt; &lt;span class="n"&gt;sqrHalfPower&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sqrHalfPower&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><category>all</category><category>haskell</category><guid>https://yen3.github.io/posts/2013/20131030_problem-5-project-eular/</guid><pubDate>Wed, 30 Oct 2013 12:17:17 GMT</pubDate></item></channel></rss>
+&lt;p&gt;不過寫了都寫了，就持續這樣子用吧。從中也學到了一些寫 haskell 有趣的事 :)。&lt;/p&gt;&lt;/div&gt;</description><category>all</category><category>haskell</category><category>software</category><guid>https://yen3.github.io/posts/2013/20131102_install-script-for-programming-environment-in-mac-osx/</guid><pubDate>Sat, 02 Nov 2013 14:11:38 GMT</pubDate></item></channel></rss>
