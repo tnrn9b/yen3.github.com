@@ -27,7 +27,7 @@
  </url>
  <url>
   <loc>https://yen3.github.io/archive.html</loc>
-  <lastmod>2016-04-05T03:58:00Z</lastmod>
+  <lastmod>2016-06-20T23:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/categories/</loc>
@@ -99,7 +99,7 @@
  </url>
  <url>
   <loc>https://yen3.github.io/index-5.html</loc>
-  <lastmod>2016-04-05T03:58:00Z</lastmod>
+  <lastmod>2016-06-20T23:47:00Z</lastmod>
  </url>
  <url>
   <loc>https://yen3.github.io/posts/2013/20130914_generate-a-default-new-post-file-in-nikola/</loc>
@@ -328,5 +328,9 @@
  <url>
   <loc>https://yen3.github.io/posts/2016/20160405_a-primer-s-note-for-parallel-programming-in-haskell/</loc>
   <lastmod>2016-04-05T03:58:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://yen3.github.io/posts/2016/20160621_instasll-agda-in-mac-osx/</loc>
+  <lastmod>2016-06-20T23:47:00Z</lastmod>
  </url>
 </urlset>

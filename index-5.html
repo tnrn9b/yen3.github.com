@@ -53,6 +53,60 @@
 
     <article class="hentry"><header><div class="entry-meta">
       <span class="entry-date date published updated">
+        <time datetime="2015-06-03T08:01:28+08:00" title="2015-06-03 08:01">2015-06-03 08:01</time></span>  ·  
+      <span class="byline author vcard">Yen3</span>
+            ·  <span class="commentline">
+        
+    <a href="posts/2015/20150603_haskell-practice-get-the-probability-of-positive-side-coins-with-n-times/#disqus_thread" data-disqus-identifier="cache/posts/2015/20150603_haskell-practice-get-the-probability-of-positive-side-coins-with-n-times.html">Comments</a>
+
+
+      </span>
+</div>
+        <h1 class="p-name entry-title"><a href="posts/2015/20150603_haskell-practice-get-the-probability-of-positive-side-coins-with-n-times/" class="u-url">[Haskell Practice] Get the postive-edge probability for throwing a coin with n times</a></h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>很久很久以前 Josh 有寫過 one-linear code，不過我現在只能用 <code>(&gt;&gt;=)</code> 硬拼成一行 ... 估計我這樣子是做弊的方式，哈。</p>
+<pre class="code literal-block"><span class="kr">module</span> <span class="nn">R1000</span> <span class="kr">where</span>
+
+<span class="kr">import</span> <span class="nn">System.Random</span>
+
+<span class="nf">divI</span> <span class="ow">::</span> <span class="kt">Fractional</span> <span class="n">a</span> <span class="ow">=&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="n">a</span> 
+<span class="nf">a</span> <span class="p">`</span><span class="n">divI</span><span class="p">`</span> <span class="n">b</span> <span class="ow">=</span> <span class="n">fromIntegral</span> <span class="n">a</span> <span class="o">/</span> <span class="n">fromIntegral</span> <span class="n">b</span>
+
+<span class="nf">prob</span> <span class="ow">::</span> <span class="kt">Fractional</span> <span class="n">a</span> <span class="ow">=&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="n">a</span> 
+<span class="nf">x</span> <span class="p">`</span><span class="n">prob</span><span class="p">`</span> <span class="n">y</span> <span class="ow">=</span> <span class="n">x</span> <span class="p">`</span><span class="n">divI</span><span class="p">`</span> <span class="n">y</span> <span class="o">*</span> <span class="mf">100.0</span>
+
+<span class="nf">trues</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">IO</span> <span class="kt">Int</span>
+<span class="nf">trues</span> <span class="n">n</span> <span class="ow">=</span> <span class="n">newStdGen</span> <span class="o">&gt;&gt;=</span> <span class="nf">\</span><span class="n">gen</span> <span class="ow">-&gt;</span> <span class="n">return</span> <span class="o">$</span> <span class="n">length</span> <span class="o">.</span> <span class="n">filter</span> <span class="p">(</span><span class="o">==</span><span class="kt">True</span><span class="p">)</span> <span class="o">$</span> <span class="p">(</span><span class="n">take</span> <span class="n">n</span> <span class="o">$</span> <span class="n">randoms</span> <span class="n">gen</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Bool</span><span class="p">])</span>
+
+<span class="nf">positive</span> <span class="ow">::</span> <span class="kt">Fractional</span> <span class="n">r</span> <span class="ow">=&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">IO</span> <span class="n">r</span>
+<span class="nf">positive</span> <span class="n">n</span> <span class="ow">=</span> <span class="n">trues</span> <span class="n">n</span> <span class="o">&gt;&gt;=</span> <span class="nf">\</span><span class="n">x</span> <span class="ow">-&gt;</span> <span class="n">return</span> <span class="o">$</span> <span class="n">x</span> <span class="p">`</span><span class="n">prob</span><span class="p">`</span> <span class="n">n</span>
+
+<span class="nf">positive'</span> <span class="ow">::</span> <span class="kt">Fractional</span> <span class="n">r</span> <span class="ow">=&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">IO</span> <span class="n">r</span>
+<span class="nf">positive'</span> <span class="n">n</span> <span class="ow">=</span> <span class="n">newStdGen</span> <span class="o">&gt;&gt;=</span> <span class="nf">\</span><span class="n">gen</span> <span class="ow">-&gt;</span> <span class="n">return</span> <span class="p">(</span><span class="n">length</span> <span class="o">.</span> <span class="n">filter</span> <span class="p">(</span><span class="o">==</span><span class="kt">True</span><span class="p">)</span> <span class="o">$</span> <span class="p">(</span><span class="n">take</span> <span class="n">n</span> <span class="o">$</span> <span class="n">randoms</span> <span class="n">gen</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Bool</span><span class="p">]))</span> <span class="o">&gt;&gt;=</span> <span class="nf">\</span><span class="n">x</span> <span class="ow">-&gt;</span> <span class="n">return</span> <span class="o">$</span> <span class="n">x</span> <span class="p">`</span><span class="n">prob</span><span class="p">`</span> <span class="n">n</span>
+
+<span class="nf">positive''</span> <span class="ow">::</span> <span class="kt">Fractional</span> <span class="n">r</span> <span class="ow">=&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">IO</span> <span class="n">r</span>
+<span class="nf">positive''</span> <span class="n">n</span> <span class="ow">=</span> <span class="kr">do</span> <span class="n">gen</span> <span class="ow">&lt;-</span> <span class="n">newStdGen</span>
+                  <span class="kr">let</span> <span class="n">pos_sides</span> <span class="ow">=</span> <span class="n">length</span> <span class="o">.</span> <span class="n">filter</span> <span class="p">(</span><span class="o">==</span><span class="kt">True</span><span class="p">)</span> <span class="o">$</span> <span class="p">(</span><span class="n">take</span> <span class="n">n</span> <span class="o">$</span> <span class="n">randoms</span> <span class="n">gen</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Bool</span><span class="p">])</span>
+                  <span class="n">return</span> <span class="o">$</span> <span class="n">pos_sides</span> <span class="p">`</span><span class="n">prob</span><span class="p">`</span> <span class="n">n</span>
+</pre>
+
+
+<p>在 ghci 輸出範例結果如下</p>
+<pre class="code literal-block"><span class="o">*</span><span class="kt">R1000</span><span class="o">&gt;</span> <span class="n">positive</span> <span class="mi">1000</span>
+<span class="mf">50.7</span>
+<span class="o">*</span><span class="kt">R1000</span><span class="o">&gt;</span> <span class="n">positive</span> <span class="mi">10000</span>
+<span class="mf">50.09</span>
+<span class="o">*</span><span class="kt">R1000</span><span class="o">&gt;</span> <span class="n">positive</span> <span class="mi">100000</span>
+<span class="mf">50.248000000000005</span>
+<span class="o">*</span><span class="kt">R1000</span><span class="o">&gt;</span> <span class="n">positive</span> <span class="mi">1000</span>
+<span class="mf">49.2</span>
+<span class="o">*</span><span class="kt">R1000</span><span class="o">&gt;</span>
+</pre>
+</div>
+    </div>
+    </article><article class="hentry"><header><div class="entry-meta">
+      <span class="entry-date date published updated">
         <time datetime="2015-06-02T22:18:16+08:00" title="2015-06-02 22:18">2015-06-02 22:18</time></span>  ·  
       <span class="byline author vcard">Yen3</span>
             ·  <span class="commentline">
